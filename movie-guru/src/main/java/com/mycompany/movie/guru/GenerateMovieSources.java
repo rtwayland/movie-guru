@@ -63,6 +63,8 @@ public class GenerateMovieSources extends HttpServlet {
 
         Map<String, Object> sourceMap = sourceMapper.readValue(sourcesUrl, Map.class);
 
+        String longPlot = sourceMap.get("overview").toString();
+        movie.setLongPlot(longPlot);
         //Grab the Trailers from the search
         Map<String, Object> trailers = (Map) sourceMap.get("trailers");
 
@@ -75,19 +77,19 @@ public class GenerateMovieSources extends HttpServlet {
             movie.setTrailerLink(innerMap.get("link").toString());
             movie.setTrailerEmbed(innerMap.get("embed").toString());
         }
-        
+
         //Grab the list of Sources the movie is available at
         List freeWebList = (List) sourceMap.get("free_web_sources");
         List subscriptionWebList = (List) sourceMap.get("subscription_web_sources");
         List purchaseWebList = (List) sourceMap.get("purchase_web_sources");
-        
+
         //Insert the lists into the movies
         movie.setFreeWebList(freeWebList);
         movie.setSubscriptionWebList(subscriptionWebList);
         movie.setPurchaseWebList(purchaseWebList);
-        
+
         movie.displaySource();
-        
+
         request.getSession().setAttribute("movie", movie);
         request.getRequestDispatcher("/ViewMovieSources.jsp").forward(request, response);
     }
