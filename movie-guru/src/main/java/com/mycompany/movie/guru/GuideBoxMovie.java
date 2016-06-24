@@ -19,10 +19,14 @@ public class GuideBoxMovie {
     private String title;
     private String year;
     private String rating;
+    private String runTime;
     private String rottentomatoes;
     private String poster;
     private String shortPlot;
     private String longPlot;
+    private String director;
+    private String actors;
+    private String imdbID;
 
     private String trailerLink;
     private String trailerEmbed;
@@ -91,6 +95,54 @@ public class GuideBoxMovie {
         this.rottentomatoes = rottentomatoes;
     }
 
+    public String getRunTime() {
+        return runTime;
+    }
+
+    public void setRunTime(String runTime) {
+        this.runTime = runTime;
+    }
+
+    public String getShortPlot() {
+        return shortPlot;
+    }
+
+    public void setShortPlot(String shortPlot) {
+        this.shortPlot = shortPlot;
+    }
+
+    public String getLongPlot() {
+        return longPlot;
+    }
+
+    public void setLongPlot(String longPlot) {
+        this.longPlot = longPlot;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getActors() {
+        return actors;
+    }
+
+    public void setActors(String actors) {
+        this.actors = actors;
+    }
+
+    public String getImdbID() {
+        return imdbID;
+    }
+
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
+    }
+
     public String getPoster() {
         return poster;
     }
@@ -150,15 +202,15 @@ public class GuideBoxMovie {
                 String price = formatMap.get("price").toString();
                 String format = formatMap.get("format").toString();
                 String type = formatMap.get("type").toString();
-                
+
                 Format newFormat = new Format(price, format, type);
-                
+
                 source.addFormat(newFormat);
             }
             this.purchaseWebList.add(source);
         }
     }
-    
+
     public void displaySource() {
         for (Source source : purchaseWebList) {
             System.out.println(source.getName());
