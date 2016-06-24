@@ -9,10 +9,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Home</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <a href="SearchMovieTitle.jsp">Search for a movie</a>
+        <h1>Get Movie Suggestions!</h1>
+        <form method="post" action="GenerateSuggestions">            
+            <input type="text" name="suggestion-search" />
+            <button type="submit">Search Suggestions</button>
+        </form>
+        <br/>
+        <a href="SearchMovieTitle.jsp">Search for a specific movie</a>
     </body>
 </html>
