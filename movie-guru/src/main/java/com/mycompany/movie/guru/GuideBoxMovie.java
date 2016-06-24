@@ -158,5 +158,11 @@ public class GuideBoxMovie {
             this.purchaseWebList.add(source);
         }
     }
+    
+    public void displaySource() {
+        for (Source source : purchaseWebList) {
+            System.out.println(source.getName());
+        }
+    }
 
 }
