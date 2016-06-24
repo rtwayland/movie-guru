@@ -15,8 +15,8 @@
         <h1>${movie.title} - ${movie.year}</h1>
         <img src="${movie.poster}" />
 
-<!--    <c:forEach var="source" items="${movie.purchaseWebList}">
+    <c:forEach var="source" items="${movie.purchaseWebList}">
         <li>${source.name}</li>
-    </c:forEach>-->
+    </c:forEach>
 </body>
 </html>
