@@ -86,6 +86,8 @@ public class GenerateMovieSources extends HttpServlet {
         movie.setSubscriptionWebList(subscriptionWebList);
         movie.setPurchaseWebList(purchaseWebList);
         
+        movie.displaySource();
+        
         request.getSession().setAttribute("movie", movie);
         request.getRequestDispatcher("/ViewMovieSources.jsp").forward(request, response);
     }
