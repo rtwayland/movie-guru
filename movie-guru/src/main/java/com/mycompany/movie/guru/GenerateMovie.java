@@ -77,7 +77,7 @@ public class GenerateMovie extends HttpServlet {
             movies.add(movie);
         }
 
-        URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/moid0CdrVjte1T92T5KcUuZ6ROAcU1/search/movie/id/imdb/" + movie.getImdbID());
+        URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + movie.getImdbID());
         ObjectMapper guideBoxMapper = new ObjectMapper();
 
         Map<String, Object> guideBoxMap = guideBoxMapper.readValue(searchUrl, Map.class);
