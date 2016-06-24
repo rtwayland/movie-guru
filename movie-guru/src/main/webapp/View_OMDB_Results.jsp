@@ -19,12 +19,12 @@
 
         <h1>${result.title} - ${result.year}</h1>
         <img src="${result.poster}" />
-        <p>${result.plot}</p>
+        <p>${result.shortPlot}</p>
         <h2>${result.imdbID}</h2>
-        
+
         <form method="post" action="GenerateMovieSources">
             <input type="hidden" name="imdbID" value="${result.imdbID}" />
             <button type="submit">See Availability</button>
         </form>
-</body>
+    </body>
 </html>
