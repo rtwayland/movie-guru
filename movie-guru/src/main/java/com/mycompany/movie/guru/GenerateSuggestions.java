@@ -5,8 +5,14 @@
  */
 package com.mycompany.movie.guru;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,19 +37,39 @@ public class GenerateSuggestions extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GenerateSuggestions</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GenerateSuggestions at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String search = request.getParameter("suggestion-search");
+
+        URL url = new URL("https://www.tastekid.com/api/similar?k=228946-moviegur-14IA4LWB&q=" + URLEncoder.encode(search, "UTF-8") + "&type=movies");
+        ObjectMapper mapper = new ObjectMapper();
+
+        Map<String, Object> map = mapper.readValue(url, Map.class);
+        Map<String, Object> innerMap = (Map<String, Object>) map.get("Similar");
+
+        List list = (List) innerMap.get("Results");
+        List<Suggestion> suggestions = new ArrayList<>();
+
+        for (Object item : list) {
+            Map<String, Object> resultMap = (Map<String, Object>) item;
+            Suggestion suggestion = new Suggestion();
+            for (String key : resultMap.keySet()) {
+                switch (key) {
+                    case "Name":
+                        suggestion.setName(resultMap.get(key).toString());
+                        break;
+                    case "Type":
+                        suggestion.setType(resultMap.get(key).toString());
+                        break;
+                }
+            }
+            suggestions.add(suggestion);
         }
+        
+        for (Suggestion s : suggestions) {
+            System.out.println("Name: " + s.getName());
+        }
+
+        request.getSession().setAttribute("suggestions", suggestions);
+        request.getRequestDispatcher("/ViewSuggestions.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
