@@ -14,6 +14,7 @@
     <body>
         <h1>${movie.title} - ${movie.year}</h1>
         <img src="${movie.poster}" />
+        <p>${movie.longPlot}</p>
 
     <c:forEach var="source" items="${movie.purchaseWebList}">
         <li>${source.name}</li>
