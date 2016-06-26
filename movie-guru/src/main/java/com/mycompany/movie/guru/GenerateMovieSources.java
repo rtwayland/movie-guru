@@ -40,7 +40,7 @@ public class GenerateMovieSources extends HttpServlet {
         String id = request.getParameter("imdbID");
 
         //Search GuideBox with the imdbID
-        URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/moid0CdrVjte1T92T5KcUuZ6ROAcU1/search/movie/id/imdb/" + id);
+        URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + id);
         ObjectMapper mapper = new ObjectMapper();
 
         Map<String, Object> map = mapper.readValue(searchUrl, Map.class);
@@ -57,12 +57,14 @@ public class GenerateMovieSources extends HttpServlet {
         GuideBoxMovie movie = new GuideBoxMovie(guideBoxID, title, year, rating, rottentomatoes, poster);
 
         //Do a new search with the newly obtained GuideBox ID
-        URL sourcesUrl = new URL("https://api-public.guidebox.com/v1.43/US/moid0CdrVjte1T92T5KcUuZ6ROAcU1/movie/" + guideBoxID);
+        URL sourcesUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/movie/" + guideBoxID);
 
         ObjectMapper sourceMapper = new ObjectMapper();
 
         Map<String, Object> sourceMap = sourceMapper.readValue(sourcesUrl, Map.class);
 
+        String longPlot = sourceMap.get("overview").toString();
+        movie.setLongPlot(longPlot);
         //Grab the Trailers from the search
         Map<String, Object> trailers = (Map) sourceMap.get("trailers");
 
@@ -75,19 +77,19 @@ public class GenerateMovieSources extends HttpServlet {
             movie.setTrailerLink(innerMap.get("link").toString());
             movie.setTrailerEmbed(innerMap.get("embed").toString());
         }
-        
+
         //Grab the list of Sources the movie is available at
         List freeWebList = (List) sourceMap.get("free_web_sources");
         List subscriptionWebList = (List) sourceMap.get("subscription_web_sources");
         List purchaseWebList = (List) sourceMap.get("purchase_web_sources");
-        
+
         //Insert the lists into the movies
         movie.setFreeWebList(freeWebList);
         movie.setSubscriptionWebList(subscriptionWebList);
         movie.setPurchaseWebList(purchaseWebList);
-        
+
         movie.displaySource();
-        
+
         request.getSession().setAttribute("movie", movie);
         request.getRequestDispatcher("/ViewMovieSources.jsp").forward(request, response);
     }

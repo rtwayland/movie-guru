@@ -44,8 +44,8 @@ public class GenerateMovie extends HttpServlet {
 
         Map<String, Object> map = mapper.readValue(url, Map.class);
 
-        List<Movie> movies = new ArrayList<>();
-        Movie movie = new Movie();
+        List<GuideBoxMovie> movies = new ArrayList<>();
+        GuideBoxMovie movie = new GuideBoxMovie();
         for (String key : map.keySet()) {
 
             switch (key) {
@@ -68,10 +68,7 @@ public class GenerateMovie extends HttpServlet {
                     movie.setActors(map.get(key).toString());
                     break;
                 case "Plot":
-                    movie.setPlot(map.get(key).toString());
-                    break;
-                case "Poster":
-                    movie.setPoster(map.get(key).toString());
+                    movie.setShortPlot(map.get(key).toString());
                     break;
                 case "imdbID":
                     movie.setImdbID(map.get(key).toString());
@@ -79,6 +76,17 @@ public class GenerateMovie extends HttpServlet {
             }
             movies.add(movie);
         }
+
+        URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + movie.getImdbID());
+        ObjectMapper guideBoxMapper = new ObjectMapper();
+
+        Map<String, Object> guideBoxMap = guideBoxMapper.readValue(searchUrl, Map.class);
+
+        String rottentomatoes = guideBoxMap.get("rottentomatoes").toString();
+        String poster = guideBoxMap.get("poster_400x570").toString();
+
+        movie.setRottentomatoes(rottentomatoes);
+        movie.setPoster(poster);
 
         request.getSession().setAttribute("result", movie);
         request.getRequestDispatcher("/View_OMDB_Results.jsp").forward(request, response);

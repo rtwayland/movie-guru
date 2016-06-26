@@ -3,7 +3,7 @@
     Created on : Jun 23, 2016, 4:25:30 PM
     Author     : user
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,6 +14,7 @@
     <body>
         <h1>${movie.title} - ${movie.year}</h1>
         <img src="${movie.poster}" />
+        <p>${movie.longPlot}</p>
 
     <c:forEach var="source" items="${movie.purchaseWebList}">
         <li>${source.name}</li>
