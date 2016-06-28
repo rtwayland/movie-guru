@@ -17,14 +17,8 @@
     <body>
         <h1>Results</h1>
 
-        <h1>${result.title} - ${result.year}</h1>
-        <img src="${result.poster}" />
-        <p>${result.shortPlot}</p>
-        <h2>${result.imdbID}</h2>
-
-        <form method="post" action="GenerateMovieSources">
-            <input type="hidden" name="imdbID" value="${result.imdbID}" />
-            <button type="submit">See Availability</button>
-        </form>
+        <c:forEach var="movie" items="${movies}">
+            <a href="http://localhost:8080/movie-guru/GenerateMovieSources?id=${movie.imdbID}"><img src="${movie.poster}" alt="Movie Poster" style="width: 200px;" /></a>
+            </c:forEach>
     </body>
 </html>

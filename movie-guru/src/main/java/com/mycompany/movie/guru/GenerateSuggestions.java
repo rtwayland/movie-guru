@@ -63,13 +63,9 @@ public class GenerateSuggestions extends HttpServlet {
             }
             suggestions.add(suggestion);
         }
-        
-        for (Suggestion s : suggestions) {
-            System.out.println("Name: " + s.getName());
-        }
 
         request.getSession().setAttribute("suggestions", suggestions);
-        request.getRequestDispatcher("/ViewSuggestions.jsp").forward(request, response);
+        request.getRequestDispatcher("/GenerateMovie").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
