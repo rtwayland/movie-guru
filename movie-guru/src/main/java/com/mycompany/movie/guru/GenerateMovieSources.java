@@ -37,7 +37,7 @@ public class GenerateMovieSources extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Get the imdbID from the previous search
-        String id = request.getParameter("imdbID");
+        String id = request.getParameter("id");
 
         //Search GuideBox with the imdbID
         URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + id);
