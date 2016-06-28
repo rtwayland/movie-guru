@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,58 +38,74 @@ public class GenerateMovie extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String search = request.getParameter("search");
+        //String search = request.getParameter("search");
 
-        URL url = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(search, "UTF-8"));
-        ObjectMapper mapper = new ObjectMapper();
-
-        Map<String, Object> map = mapper.readValue(url, Map.class);
-
+        HttpSession session = request.getSession(true);
+        List<Suggestion> suggestions = (List) session.getAttribute("suggestions");
         List<GuideBoxMovie> movies = new ArrayList<>();
-        GuideBoxMovie movie = new GuideBoxMovie();
-        for (String key : map.keySet()) {
+        for (Suggestion s : suggestions) {
+            String search = s.getName();
+            //System.out.println("Suggestions: " + s.getName());
 
-            switch (key) {
-                case "Title":
-                    movie.setTitle(map.get(key).toString());
-                    break;
-                case "Year":
-                    movie.setYear(map.get(key).toString());
-                    break;
-                case "Rated":
-                    movie.setRating(map.get(key).toString());
-                    break;
-                case "Runtime":
-                    movie.setRunTime(map.get(key).toString());
-                    break;
-                case "Director":
-                    movie.setDirector(map.get(key).toString());
-                    break;
-                case "Actors":
-                    movie.setActors(map.get(key).toString());
-                    break;
-                case "Plot":
-                    movie.setShortPlot(map.get(key).toString());
-                    break;
-                case "imdbID":
-                    movie.setImdbID(map.get(key).toString());
-                    break;
+            URL url = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(search, "UTF-8"));
+            ObjectMapper mapper = new ObjectMapper();
+
+            Map<String, Object> map = mapper.readValue(url, Map.class);
+
+            GuideBoxMovie movie = new GuideBoxMovie();
+            for (String key : map.keySet()) {
+
+                switch (key) {
+                    case "Title":
+                        movie.setTitle(map.get(key).toString());
+                        break;
+                    case "Year":
+                        movie.setYear(map.get(key).toString());
+                        break;
+                    case "Rated":
+                        movie.setRating(map.get(key).toString());
+                        break;
+                    case "Runtime":
+                        movie.setRunTime(map.get(key).toString());
+                        break;
+                    case "Director":
+                        movie.setDirector(map.get(key).toString());
+                        break;
+                    case "Actors":
+                        movie.setActors(map.get(key).toString());
+                        break;
+                    case "Plot":
+                        movie.setShortPlot(map.get(key).toString());
+                        break;
+                    case "imdbID":
+                        movie.setImdbID(map.get(key).toString());
+                        break;
+                }
+
             }
-            movies.add(movie);
+
+            URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + movie.getImdbID());
+            ObjectMapper guideBoxMapper = new ObjectMapper();
+
+            Map<String, Object> guideBoxMap = guideBoxMapper.readValue(searchUrl, Map.class);
+
+            if (!guideBoxMap.isEmpty()) {
+                String rottentomatoes = guideBoxMap.get("rottentomatoes").toString();
+                String poster = guideBoxMap.get("poster_400x570").toString();
+
+                movie.setRottentomatoes(rottentomatoes);
+                movie.setPoster(poster);
+            }
+            if (!movie.getPoster().equals("")) {
+                movies.add(movie);
+            }
         }
 
-        URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + movie.getImdbID());
-        ObjectMapper guideBoxMapper = new ObjectMapper();
+        for (int i = movies.size() - 1; i > 17; --i) {
+            movies.remove(i);
+        }
 
-        Map<String, Object> guideBoxMap = guideBoxMapper.readValue(searchUrl, Map.class);
-
-        String rottentomatoes = guideBoxMap.get("rottentomatoes").toString();
-        String poster = guideBoxMap.get("poster_400x570").toString();
-
-        movie.setRottentomatoes(rottentomatoes);
-        movie.setPoster(poster);
-
-        request.getSession().setAttribute("result", movie);
+        request.getSession().setAttribute("movies", movies);
         request.getRequestDispatcher("/View_OMDB_Results.jsp").forward(request, response);
     }
 
