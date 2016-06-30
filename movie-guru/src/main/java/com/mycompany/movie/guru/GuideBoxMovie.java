@@ -32,7 +32,7 @@ public class GuideBoxMovie {
     private String trailerEmbed;
 
     List<Source> freeWebList;
-    List<Source> subscriptionWebList;
+    List<Source> subscriptionWebList = new ArrayList<>();
     List<Source> purchaseWebList = new ArrayList<>();
 
     public GuideBoxMovie() {
