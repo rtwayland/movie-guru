@@ -70,7 +70,7 @@ public class GenerateMovie extends HttpServlet {
 
             if (!guideBoxMap.isEmpty()) {
                 String rottentomatoes = guideBoxMap.get("rottentomatoes").toString();
-                String poster = guideBoxMap.get("poster_400x570").toString();
+                String poster = guideBoxMap.get("poster_240x342").toString();
 
                 movie.setRottentomatoes(rottentomatoes);
                 movie.setPoster(poster);
