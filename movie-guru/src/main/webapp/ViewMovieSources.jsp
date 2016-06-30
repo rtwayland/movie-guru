@@ -13,11 +13,35 @@
     </head>
     <body>
         <h1>${movie.title} - ${movie.year}</h1>
-        <img src="${movie.poster}" />
+        <img src="${movie.poster}" style="display: inline-block;" />
+
+        <iframe width="640" height="360" src="${movie.trailerEmbed}" frameborder="0" allowfullscreen style="display: inline-block;"></iframe>
         <p>${movie.longPlot}</p>
 
-    <c:forEach var="source" items="${movie.purchaseWebList}">
-        <li>${source.name}</li>
-    </c:forEach>
-</body>
+        <h3>Subscription Sources</h3>
+        <ul>
+            <c:forEach var="source" items="${movie.subscriptionWebList}">
+                <a href="${source.link}" target="_blank">${source.name}</a>
+            </c:forEach>
+        </ul>
+
+        <h3>Purchase Sources</h3>
+        <ul>
+            <c:forEach var="source" items="${movie.purchaseWebList}">
+                <a href="${source.link}" target="_blank">${source.name}</a>
+                <ul>
+                    <h4 style="padding: 0; margin: 0">Rent</h4>
+                    <c:forEach var="rentFormat" items="${source.rentFormats}">
+                        <li>${rentFormat.format} - $${rentFormat.price}</li>
+                        </c:forEach>
+
+                    <h4 style="padding: 0; margin: 0">Purchase</h4>
+                    <c:forEach var="buyFormat" items="${source.buyFormats}">
+                        <li>${buyFormat.format} -  $${buyFormat.price}</li>
+                        </c:forEach>
+                </ul>
+            </c:forEach>
+        </ul>
+
+    </body>
 </html>
