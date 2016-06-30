@@ -179,8 +179,18 @@ public class GuideBoxMovie {
         return subscriptionWebList;
     }
 
-    public void setSubscriptionWebList(List subscriptionWebList) {
-        this.subscriptionWebList = subscriptionWebList;
+    public void setSubscriptionWebList(List newSubscriptionWebList) {
+        //this.subscriptionWebList = subscriptionWebList;
+
+        for (Object item : newSubscriptionWebList) {
+            Map<String, Object> innerMap = (Map<String, Object>) item;
+            String sourceName = innerMap.get("display_name").toString();
+            String sourceLink = innerMap.get("link").toString();
+
+            Source source = new Source(sourceName, sourceLink);
+
+            this.subscriptionWebList.add(source);
+        }
     }
 
     public List<Source> getPurchaseWebList() {
@@ -205,7 +215,12 @@ public class GuideBoxMovie {
 
                 Format newFormat = new Format(price, format, type);
 
-                source.addFormat(newFormat);
+                if (newFormat.getType().equals("rent")) {
+                    source.addRentFormats(newFormat);
+                } else {
+                    source.addBuyFormats(newFormat);
+                }
+
             }
             this.purchaseWebList.add(source);
         }
