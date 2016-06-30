@@ -53,36 +53,15 @@ public class GenerateMovie extends HttpServlet {
             Map<String, Object> map = mapper.readValue(url, Map.class);
 
             GuideBoxMovie movie = new GuideBoxMovie();
-            for (String key : map.keySet()) {
 
-                switch (key) {
-                    case "Title":
-                        movie.setTitle(map.get(key).toString());
-                        break;
-                    case "Year":
-                        movie.setYear(map.get(key).toString());
-                        break;
-                    case "Rated":
-                        movie.setRating(map.get(key).toString());
-                        break;
-                    case "Runtime":
-                        movie.setRunTime(map.get(key).toString());
-                        break;
-                    case "Director":
-                        movie.setDirector(map.get(key).toString());
-                        break;
-                    case "Actors":
-                        movie.setActors(map.get(key).toString());
-                        break;
-                    case "Plot":
-                        movie.setShortPlot(map.get(key).toString());
-                        break;
-                    case "imdbID":
-                        movie.setImdbID(map.get(key).toString());
-                        break;
-                }
-
-            }
+            movie.setTitle(map.get("Title").toString());
+            movie.setYear(map.get("Year").toString());
+            movie.setRating(map.get("Rated").toString());
+            movie.setRunTime(map.get("Runtime").toString());
+            movie.setDirector(map.get("Director").toString());
+            movie.setActors(map.get("Actors").toString());
+            movie.setShortPlot(map.get("Plot").toString());
+            movie.setImdbID(map.get("imdbID").toString());
 
             URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + movie.getImdbID());
             ObjectMapper guideBoxMapper = new ObjectMapper();
