@@ -39,6 +39,18 @@ public class GenerateMovieSources extends HttpServlet {
         //Get the imdbID from the previous search
         String id = request.getParameter("id");
 
+        URL OMDBurl = new URL("http://www.omdbapi.com/?i=" + id);
+        ObjectMapper OMDBmapper = new ObjectMapper();
+
+        Map<String, Object> OMDBmap = OMDBmapper.readValue(OMDBurl, Map.class);
+
+        GuideBoxMovie movie = new GuideBoxMovie();
+
+        movie.setRunTime(OMDBmap.get("Runtime").toString());
+        movie.setDirector(OMDBmap.get("Director").toString());
+        movie.setWriter(OMDBmap.get("Writer").toString());
+        movie.setActors(OMDBmap.get("Actors").toString());
+
         //Search GuideBox with the imdbID
         URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + id);
         ObjectMapper mapper = new ObjectMapper();
@@ -46,18 +58,15 @@ public class GenerateMovieSources extends HttpServlet {
         Map<String, Object> map = mapper.readValue(searchUrl, Map.class);
 
         //Grab the values from the basic movie search
-        String guideBoxID = map.get("id").toString();
-        String title = map.get("title").toString();
-        String year = map.get("release_year").toString();
-        String rating = map.get("rating").toString();
-        String rottentomatoes = map.get("rottentomatoes").toString();
-        String poster = map.get("poster_400x570").toString();
-
-        //Create a movie object and insert the basic information
-        GuideBoxMovie movie = new GuideBoxMovie(guideBoxID, title, year, rating, rottentomatoes, poster);
+        movie.setId(map.get("id").toString());
+        movie.setTitle(map.get("title").toString());
+        movie.setYear(map.get("release_year").toString());
+        movie.setRating(map.get("rating").toString());
+        movie.setRottentomatoes(map.get("rottentomatoes").toString());
+        movie.setPoster(map.get("poster_400x570").toString());
 
         //Do a new search with the newly obtained GuideBox ID
-        URL sourcesUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/movie/" + guideBoxID);
+        URL sourcesUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/movie/" + movie.getId());
 
         ObjectMapper sourceMapper = new ObjectMapper();
 
@@ -89,7 +98,6 @@ public class GenerateMovieSources extends HttpServlet {
         movie.setPurchaseWebList(purchaseWebList);
 
         //movie.displaySource();
-
         request.getSession().setAttribute("movie", movie);
         request.getRequestDispatcher("/ViewMovieSources.jsp").forward(request, response);
     }
