@@ -47,7 +47,8 @@ public class GenerateSuggestions extends HttpServlet {
 
         List list = (List) innerMap.get("Results");
         List<Suggestion> suggestions = new ArrayList<>();
-
+        Suggestion originalMovie = new Suggestion(search, "movie");
+        suggestions.add(originalMovie);
         for (Object item : list) {
             Map<String, Object> resultMap = (Map<String, Object>) item;
             Suggestion suggestion = new Suggestion();
