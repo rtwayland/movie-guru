@@ -80,12 +80,12 @@ public class GenerateMovie extends HttpServlet {
             }
         }
 
-        for (int i = movies.size() - 1; i > 17; --i) {
+        for (int i = movies.size() - 1; i > 18; --i) {
             movies.remove(i);
         }
 
         request.getSession().setAttribute("movies", movies);
-        request.getRequestDispatcher("/View_OMDB_Results.jsp").forward(request, response);
+        request.getRequestDispatcher("/ViewSuggestions.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
