@@ -25,13 +25,14 @@ public class GuideBoxMovie {
     private String shortPlot;
     private String longPlot;
     private String director;
+    private String writer;
     private String actors;
     private String imdbID;
 
     private String trailerLink;
     private String trailerEmbed;
 
-    List<Source> freeWebList;
+    List<Source> freeWebList = new ArrayList<>();
     List<Source> subscriptionWebList = new ArrayList<>();
     List<Source> purchaseWebList = new ArrayList<>();
 
@@ -127,6 +128,14 @@ public class GuideBoxMovie {
         this.director = director;
     }
 
+    public String getWriter() {
+        return writer;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
     public String getActors() {
         return actors;
     }
@@ -171,8 +180,16 @@ public class GuideBoxMovie {
         return freeWebList;
     }
 
-    public void setFreeWebList(List freeWebList) {
-        this.freeWebList = freeWebList;
+    public void setFreeWebList(List newFreeWebList) {
+        for (Object item : newFreeWebList) {
+            Map<String, Object> innerMap = (Map<String, Object>) item;
+            String sourceName = innerMap.get("display_name").toString();
+            String sourceLink = innerMap.get("link").toString();
+
+            Source source = new Source(sourceName, sourceLink);
+
+            this.freeWebList.add(source);
+        }
     }
 
     public List<Source> getSubscriptionWebList() {
@@ -180,8 +197,6 @@ public class GuideBoxMovie {
     }
 
     public void setSubscriptionWebList(List newSubscriptionWebList) {
-        //this.subscriptionWebList = subscriptionWebList;
-
         for (Object item : newSubscriptionWebList) {
             Map<String, Object> innerMap = (Map<String, Object>) item;
             String sourceName = innerMap.get("display_name").toString();
