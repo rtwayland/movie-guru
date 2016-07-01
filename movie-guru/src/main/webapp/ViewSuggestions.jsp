@@ -1,5 +1,5 @@
 <%-- 
-    Document   : View_OMDB_Results
+    Document   : ViewSuggestions
     Created on : Jun 23, 2016, 12:04:13 PM
     Author     : user
 --%>
@@ -15,9 +15,11 @@
         <title>Search Results</title>
     </head>
     <body>
-        <h1>Results</h1>
-
-        <c:forEach var="movie" items="${movies}">
+        <h3>suggestions for movies like ${movies[0].title}</h3>
+        <div>
+            <a href="http://localhost:8080/movie-guru/GenerateMovieSources?id=${movies[0].imdbID}"><img src="${movies[0].poster}" alt="Movie Poster" style="width: 300px;" /></a>
+        </div>
+        <c:forEach begin="1" var="movie" items="${movies}">
             <a href="http://localhost:8080/movie-guru/GenerateMovieSources?id=${movie.imdbID}"><img src="${movie.poster}" alt="Movie Poster" style="width: 200px;" /></a>
             </c:forEach>
     </body>
