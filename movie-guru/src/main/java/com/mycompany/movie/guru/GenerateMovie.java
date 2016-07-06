@@ -41,53 +41,61 @@ public class GenerateMovie extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //String search = request.getParameter("search");
-
+        DatabaseHandler handler = new DatabaseHandler();
         HttpSession session = request.getSession(true);
         List<Suggestion> suggestions = (List) session.getAttribute("suggestions");
         List<GuideBoxMovie> movies = new ArrayList<>();
         for (Suggestion s : suggestions) {
             String search = s.getName();
-            //System.out.println("Suggestions: " + s.getName());
+//            System.out.println("Suggestions: " + search);
 
             URL url = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(search, "UTF-8"));
             ObjectMapper mapper = new ObjectMapper();
-
+            
             Map<String, Object> map = mapper.readValue(url, Map.class);
 
-            GuideBoxMovie movie = new GuideBoxMovie();
+            if (!map.isEmpty() && !map.containsKey("Error")) {
 
-            movie.setTitle(map.get("Title").toString());
-            movie.setYear(map.get("Year").toString());
-            movie.setRating(map.get("Rated").toString());
-            movie.setRunTime(map.get("Runtime").toString());
-            movie.setDirector(map.get("Director").toString());
-            movie.setActors(map.get("Actors").toString());
-            movie.setShortPlot(map.get("Plot").toString());
-            movie.setImdbID(map.get("imdbID").toString());
+                GuideBoxMovie movie = new GuideBoxMovie();
 
-            URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + movie.getImdbID());
-            ObjectMapper guideBoxMapper = new ObjectMapper();
+                movie.setTitle(map.get("Title").toString());
+                movie.setYear(map.get("Year").toString());
+                movie.setRating(map.get("Rated").toString());
+                movie.setRunTime(map.get("Runtime").toString());
+                movie.setDirector(map.get("Director").toString());
+                movie.setActors(map.get("Actors").toString());
+                movie.setShortPlot(map.get("Plot").toString());
+                movie.setImdbID(map.get("imdbID").toString());
 
-            Map<String, Object> guideBoxMap = guideBoxMapper.readValue(searchUrl, Map.class);
+                URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + movie.getImdbID());
+                ObjectMapper guideBoxMapper = new ObjectMapper();
 
-            if (!guideBoxMap.isEmpty()) {
-                String rottentomatoes = guideBoxMap.get("rottentomatoes").toString();
-                String poster = guideBoxMap.get("poster_240x342").toString();
+                Map<String, Object> guideBoxMap = guideBoxMapper.readValue(searchUrl, Map.class);
 
-                movie.setRottentomatoes(rottentomatoes);
-                movie.setPoster(poster);
-            }
-            if (!movie.getPoster().equals("")) {
-                movies.add(movie);
+                if (!guideBoxMap.isEmpty()) {
+                    String rottentomatoes = guideBoxMap.get("rottentomatoes").toString();
+                    String poster = guideBoxMap.get("poster_240x342").toString();
+
+                    movie.setRottentomatoes(rottentomatoes);
+                    movie.setPoster(poster);
+                }
+                if (!movie.getPoster().equals("")) {
+                    handler.addMovie(movie);
+                    movies.add(movie);
+                }
             }
         }
 
-        for (int i = movies.size() - 1; i > 18; --i) {
-            movies.remove(i);
-        }
-
-        request.getSession().setAttribute("movies", movies);
-        request.getRequestDispatcher("/ViewSuggestions.jsp").forward(request, response);
+//        for (int i = movies.size() - 1; i > 18; --i) {
+//            movies.remove(i);
+//        }
+        
+        String json = new Gson().toJson(movies);
+        PrintWriter out = response.getWriter();
+        
+        out.print(json);
+//        request.getSession().setAttribute("movies", movies);
+//        request.getRequestDispatcher("/ViewSuggestions.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
