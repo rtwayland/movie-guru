@@ -2,30 +2,30 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-        <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-        <!-- Latest compiled JavaScript -->
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <title>Movie Guru Home</title>
         <script src="js/movieLoader.js"></script>
     </head>
     <body>
-        <h1>Movie Guru</h1>
-        <h2>find your next favorite movie</h2>
-        <form>            
-            <input type="text" id="suggestion-search" name="suggestion-search" placeholder="Movie Title" />
-            <button type="button" onclick="collect()">Search Suggestions</button>
-        </form>
-        <p>Enter a movie title and we will give you recommendations of other movies you might like as well as where you can find them</p>
+        <div id="home-container">
+            <h1>Movie Guru</h1>
+            <h2>find your next favorite movie</h2>
+            <form onsubmit="collect();
+                    return false">            
+                <input type="text" id="suggestion-search" name="suggestion-search" placeholder="Movie Title" />
+                <button type="submit">Search Suggestions</button>
+            </form>
+            <p>Enter a movie title and we will give you recommendations of other movies you might like as well as where you can find them</p>
+        </div>
         <div id="messageModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
-                    <h2>Please wait while the guru is thinking...</h2>
-                    
+                    <h2>Please wait</h2>
+                    <p>The guru is thinking...</p>
                 </div>
             </div>
         </div>
