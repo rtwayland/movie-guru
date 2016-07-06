@@ -10,9 +10,20 @@ function displayMovies() {
 
     var movieObject = JSON.parse(movies);
 
-    for (var i = 0; i < movieObject.length; i++) {
-        //var title = movieObject[i]['title'];
+    var div = document.createElement('div');
 
+    var firstMovie = document.createElement('a');
+    var firstMovieImage = document.createElement('img');
+    firstMovieImage.src = movieObject[0]['poster'];
+    firstMovieImage.width = 200;
+    //var linkImage = document.createTextNode("my title text");
+    firstMovie.appendChild(firstMovieImage);
+    //a.title = "my title text";
+    firstMovie.href = "GenerateMovieSources?id=" + movieObject[0]['imdbID'];
+    document.body.appendChild(a);
+    
+    for (var i = 1; i < movieObject.length; i++) {
+        
         var a = document.createElement('a');
         var image = document.createElement('img');
         image.src = movieObject[i]['poster'];
