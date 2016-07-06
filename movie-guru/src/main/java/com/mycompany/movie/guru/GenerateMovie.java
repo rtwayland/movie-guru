@@ -7,7 +7,6 @@ package com.mycompany.movie.guru;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import database.DatabaseHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -41,7 +40,7 @@ public class GenerateMovie extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //String search = request.getParameter("search");
-        DatabaseHandler handler = new DatabaseHandler();
+        //DatabaseHandler handler = new DatabaseHandler();
         HttpSession session = request.getSession(true);
         List<Suggestion> suggestions = (List) session.getAttribute("suggestions");
         List<GuideBoxMovie> movies = new ArrayList<>();
@@ -80,7 +79,7 @@ public class GenerateMovie extends HttpServlet {
                     movie.setPoster(poster);
                 }
                 if (!movie.getPoster().equals("")) {
-                    handler.addMovie(movie);
+                    //handler.addMovie(movie);
                     movies.add(movie);
                 }
             }
