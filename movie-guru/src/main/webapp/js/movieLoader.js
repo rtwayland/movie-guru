@@ -4,6 +4,47 @@
  * and open the template in the editor.
  */
 
+function displayMovies() {
+    $('#messageModal').modal('hide');
+    document.getElementById('home-container').innerHTML = '';
+
+    generateFilterBox();
+
+    //Grab the movie list from STORAGE and put into OBJECT
+    var movies = localStorage['movies'];
+    var movieObject = JSON.parse(movies);
+    console.log(movieObject);
+
+    //Create div to hold the movie the user searched
+    var searchedMovieDiv = document.createElement('div');
+
+    var firstMovieLink = document.createElement('a');
+    var firstMovieImage = document.createElement('img');
+    firstMovieImage.src = movieObject[0]['poster'];
+    firstMovieImage.width = 300;
+    firstMovieLink.appendChild(firstMovieImage);
+    firstMovieLink.href = "GenerateMovieSources?id=" + movieObject[0]['imdbID'];
+    searchedMovieDiv.appendChild(firstMovieLink);
+    document.body.appendChild(searchedMovieDiv);
+
+    //Loop through movie list and output movies
+
+    for (var i = 1; i < movieObject.length; i++) {
+
+        var a = document.createElement('a');
+        var image = document.createElement('img');
+        image.src = movieObject[i]['poster'];
+        image.width = 200;
+        //var linkImage = document.createTextNode("my title text");
+        a.appendChild(image);
+        //a.title = "my title text";
+        a.href = "GenerateMovieSources?id=" + movieObject[i]['imdbID'];
+        document.body.appendChild(a);
+    }
+
+
+}
+
 function generateFilterBox() {
     var filterDiv = document.createElement('div');
 
@@ -50,52 +91,13 @@ function generateFilterBox() {
     //Add the div
     document.body.appendChild(filterDiv);
 }
-function displayMovies() {
-    $('#messageModal').modal('hide');
-    document.getElementById('home-container').innerHTML = '';
-
-    generateFilterBox();
-
-    //Grab the movie list from STORAGE and put into OBJECT
-    var movies = localStorage['movies'];
-    var movieObject = JSON.parse(movies);
-    console.log(movieObject);
-
-    //Create div to hold the movie the user searched
-    var searchedMovieDiv = document.createElement('div');
-
-    var firstMovieLink = document.createElement('a');
-    var firstMovieImage = document.createElement('img');
-    firstMovieImage.src = movieObject[0]['poster'];
-    firstMovieImage.width = 300;
-    firstMovieLink.appendChild(firstMovieImage);
-    firstMovieLink.href = "GenerateMovieSources?id=" + movieObject[0]['imdbID'];
-    searchedMovieDiv.appendChild(firstMovieLink);
-    document.body.appendChild(searchedMovieDiv);
-
-    //Loop through movie list and output movies
-
-    for (var i = 1; i < movieObject.length; i++) {
-
-        var a = document.createElement('a');
-        var image = document.createElement('img');
-        image.src = movieObject[i]['poster'];
-        image.width = 200;
-        //var linkImage = document.createTextNode("my title text");
-        a.appendChild(image);
-        //a.title = "my title text";
-        a.href = "GenerateMovieSources?id=" + movieObject[i]['imdbID'];
-        document.body.appendChild(a);
-    }
-
-
-}
 
 function writeMovieList(movieList) {
     localStorage['movies'] = movieList;
 
     displayMovies();
 }
+
 function collect() {
 //    console.log("In collect");
     //document.getElementById('message-box').style.visibility = "visible";
@@ -110,8 +112,8 @@ function collect() {
 }
 
 function httpGET(url, callback) {
-    console.log('url: ', url)
-    console.log('callback', callback)
+//    console.log('url: ', url)
+//    console.log('callback', callback)
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function () {
