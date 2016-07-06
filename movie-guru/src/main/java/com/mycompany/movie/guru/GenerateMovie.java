@@ -6,6 +6,8 @@
 package com.mycompany.movie.guru;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import database.DatabaseHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
