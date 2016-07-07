@@ -58,30 +58,34 @@ public class GenerateMovie extends HttpServlet {
                 GuideBoxMovie movie = new GuideBoxMovie();
 
                 movie.setTitle(map.get("Title").toString());
-                movie.setYear(map.get("Year").toString());
-                movie.setRating(map.get("Rated").toString());
-                movie.setRunTime(map.get("Runtime").toString());
-                movie.setDirector(map.get("Director").toString());
-                movie.setActors(map.get("Actors").toString());
-                movie.setShortPlot(map.get("Plot").toString());
+//                movie.setYear(map.get("Year").toString());
+                
+//                movie.setPoster(map.get("Poster").toString());
+//                movie.setRunTime(map.get("Runtime").toString());
+//                movie.setDirector(map.get("Director").toString());
+//                movie.setActors(map.get("Actors").toString());
+//                movie.setShortPlot(map.get("Plot").toString());
                 movie.setImdbID(map.get("imdbID").toString());
 
                 URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + movie.getImdbID());
+                System.out.println("GUIDEBOX Query");
                 ObjectMapper guideBoxMapper = new ObjectMapper();
 
                 Map<String, Object> guideBoxMap = guideBoxMapper.readValue(searchUrl, Map.class);
 
                 if (!guideBoxMap.isEmpty()) {
-                    String rottentomatoes = guideBoxMap.get("rottentomatoes").toString();
-                    String poster = guideBoxMap.get("poster_240x342").toString();
+//                    String rottentomatoes = guideBoxMap.get("rottentomatoes").toString();
+                    String poster = guideBoxMap.get("poster_400x570").toString();
 
-                    movie.setRottentomatoes(rottentomatoes);
+//                    movie.setRottentomatoes(rottentomatoes);
                     movie.setPoster(poster);
+                    movie.setRating(guideBoxMap.get("rating").toString());
                 }
                 if (!movie.getPoster().equals("")) {
                     //handler.addMovie(movie);
                     movies.add(movie);
                 }
+                System.out.println("Movie: " + movie.getTitle());
             }
         }
 
