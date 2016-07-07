@@ -49,6 +49,7 @@ public class GenerateMovie extends HttpServlet {
 //            System.out.println("Suggestions: " + search);
 
             URL url = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(search, "UTF-8"));
+            System.out.println("OMDB Query");
             ObjectMapper mapper = new ObjectMapper();
             
             Map<String, Object> map = mapper.readValue(url, Map.class);
