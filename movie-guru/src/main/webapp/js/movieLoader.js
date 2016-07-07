@@ -4,20 +4,56 @@
  * and open the template in the editor.
  */
 
+/***************************
+ * GET SOURCES
+ **************************/
+function getSources(id) {
+    var url = "GenerateMovieSources?id=" + id;
+
+    httpGET(url, loadModal);
+}
+
+/***************************
+ * LOAD MODAL
+ **************************/
+function loadModal(sources) {
+    localStorage['sources'] = sources;
+
+    var movieInfo = localStorage['sources'];
+    var movieInfoObject = JSON.parse(movieInfo);
+
+    var heading = movieInfoObject['title'] + " " + movieInfoObject['rating'] + " " + movieInfoObject['year'] + " " + movieInfoObject['runTime'];
+    document.getElementById('modalMovieTitle').innerHTML = heading;
+    //document.getElementById('modalMovieInfo').innerHTML = ;
+    document.getElementById('modalMoviePlot').innerHTML = movieInfoObject['longPlot'];
+
+    $('#infoModal').modal();
+}
+
+/***************************
+ * FILTER
+ **************************/
 function filter() {
+    var nrRating = document.getElementById('nr');
     var rRating = document.getElementById('r');
     var pg13Rating = document.getElementById('pg13');
     var pgRating = document.getElementById('pg');
-
+    var gRating = document.getElementById('g');
 
     var allMovies = localStorage['movies'];
     var allMovieObjects = JSON.parse(allMovies);
-
+    
     var filteredList = [];
 
     for (var i = 1; i < allMovieObjects.length; i++) {
 
         switch (allMovieObjects[i]['rating']) {
+            case "NR":
+            case "UNRATED":
+                if (nrRating.checked) {
+                    filteredList.push(allMovieObjects[i]);
+                }
+                break;
             case "R":
                 if (rRating.checked) {
                     filteredList.push(allMovieObjects[i]);
@@ -33,27 +69,36 @@ function filter() {
                     filteredList.push(allMovieObjects[i]);
                 }
                 break;
+            case "G":
+                if (gRating.checked) {
+                    filteredList.push(allMovieObjects[i]);
+                }
+                break;
             default:
                 filteredList.push(allMovieObjects[i]);
                 break;
         }
     }
-    
+
     var jsonString = JSON.stringify(filteredList);
     localStorage['filteredList'] = jsonString;
     document.getElementById('movieList').remove();
     displayMovies("filteredList");
-    
+
 }
 
+/***************************
+ * DISPLAY MOVIES
+ **************************/
 function displayMovies(movieList) {
     //Grab the movie list from STORAGE and put into OBJECT
+    var allMovies = localStorage['movies'];
+    var allMovieObjects = JSON.parse(allMovies);
+    
     var movies = localStorage[movieList];
     var movieObject = JSON.parse(movies);
     console.log(movieObject);
     
-    var allMovies = localStorage['movies'];
-    var allMovieObjects = JSON.parse(allMovies);
 
     var movieListDiv = document.createElement('div');
     movieListDiv.id = "movieList";
@@ -61,33 +106,88 @@ function displayMovies(movieList) {
     //Create div to hold the movie the user searched
     var searchedMovieDiv = document.createElement('div');
 
-    var firstMovieLink = document.createElement('a');
+    //var firstMovieLink = document.createElement('a');
+    var firstImageID = allMovieObjects[0]['imdbID'];
     var firstMovieImage = document.createElement('img');
     firstMovieImage.src = allMovieObjects[0]['poster'];
     firstMovieImage.width = 300;
-    firstMovieLink.appendChild(firstMovieImage);
-    firstMovieLink.href = "GenerateMovieSources?id=" + allMovieObjects[0]['imdbID'];
-    searchedMovieDiv.appendChild(firstMovieLink);
+    firstMovieImage.addEventListener('click', function () {
+        getSources(firstImageID);
+    });
+
+    searchedMovieDiv.appendChild(firstMovieImage);
     movieListDiv.appendChild(searchedMovieDiv);
 
     //Loop through movie list and output movies    
     for (var i = 0; i < movieObject.length; i++) {
-
-        var a = document.createElement('a');
+        if (movieObject[0]['title'] === allMovieObjects[0]['title']) {
+            ++i;
+        }
+        //var a = document.createElement('a');
+        var imageID = movieObject[i]['imdbID'];
+        //var onClickFunction = "getSources(" + imageID + ")";
         var image = document.createElement('img');
         image.src = movieObject[i]['poster'];
         image.width = 200;
-        //var linkImage = document.createTextNode("my title text");
-        a.appendChild(image);
+
+        image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
+
+        //a.appendChild(image);
         //a.title = "my title text";
-        a.href = "GenerateMovieSources?id=" + movieObject[i]['imdbID'];
-        movieListDiv.appendChild(a);
+        //a.href = "GenerateMovieSources?id=" + movieObject[i]['imdbID'];
+        movieListDiv.appendChild(image);
     }
-    
+
     document.body.appendChild(movieListDiv);
 
 }
 
+/***************************
+ * DISPLAY INITIAL MOVIES
+ **************************/
+function displayInitialMovies() {
+    //Grab the movie list from STORAGE and put into OBJECT
+    var allMovies = localStorage['movies'];
+    var allMovieObjects = JSON.parse(allMovies);    
+
+    var movieListDiv = document.createElement('div');
+    movieListDiv.id = "movieList";
+
+    //Create div to hold the movie the user searched
+    var searchedMovieDiv = document.createElement('div');
+
+    //var firstMovieLink = document.createElement('a');
+    var firstImageID = allMovieObjects[0]['imdbID'];
+    var firstMovieImage = document.createElement('img');
+    firstMovieImage.src = allMovieObjects[0]['poster'];
+    firstMovieImage.width = 300;
+    firstMovieImage.addEventListener('click', function () {
+        getSources(firstImageID);
+    });
+
+    searchedMovieDiv.appendChild(firstMovieImage);
+    movieListDiv.appendChild(searchedMovieDiv);
+
+    //Loop through movie list and output movies    
+    for (var i = 1; i < allMovieObjects.length; i++) {
+        
+        var imageID = allMovieObjects[i]['imdbID'];
+        var image = document.createElement('img');
+        image.src = allMovieObjects[i]['poster'];
+        image.width = 200;
+
+        image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
+
+        movieListDiv.appendChild(image);
+    }
+
+    document.body.appendChild(movieListDiv);
+
+}
+
+/***************************
+ * WRITE MOVIE LIST
+ **************************/
 function writeMovieList(movieList) {
     localStorage['movies'] = movieList;
 
@@ -96,13 +196,13 @@ function writeMovieList(movieList) {
 
     generateFilterBox();
 
-    displayMovies("movies");
+    displayInitialMovies();
 }
 
+/***************************
+ * COLLECT
+ **************************/
 function collect() {
-//    console.log("In collect");
-    //document.getElementById('message-box').style.visibility = "visible";
-
     var search = document.getElementById('suggestion-search').value;
     search = encodeURIComponent(search);
     var url = "GenerateSuggestions?suggestion-search=" + search;
@@ -112,9 +212,10 @@ function collect() {
     httpGET(url, writeMovieList);
 }
 
+/***************************
+ * AJAX
+ **************************/
 function httpGET(url, callback) {
-//    console.log('url: ', url)
-//    console.log('callback', callback)
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function () {
@@ -128,8 +229,23 @@ function httpGET(url, callback) {
     xmlhttp.send();
 }
 
+/***************************
+ * GENERATE FILTER BOX
+ **************************/
 function generateFilterBox() {
     var filterDiv = document.createElement('div');
+
+    //NR rating checkbox
+    var nrCheckbox = document.createElement('input');
+    nrCheckbox.type = "checkbox";
+    nrCheckbox.name = "nr";
+    nrCheckbox.id = "nr";
+    nrCheckbox.checked = "checked";
+    nrCheckbox.setAttribute('onchange', 'filter()');
+
+    var nrLabel = document.createElement('label');
+    nrLabel.htmlFor = "nr";
+    nrLabel.appendChild(document.createTextNode('NR/Unrated'));
 
     //R rating checkbox
     var rCheckbox = document.createElement('input');
@@ -167,7 +283,22 @@ function generateFilterBox() {
     pgLabel.htmlFor = "pg";
     pgLabel.appendChild(document.createTextNode('PG'));
 
+    //G rating checkbox
+    var gCheckbox = document.createElement('input');
+    gCheckbox.type = "checkbox";
+    gCheckbox.name = "g";
+    gCheckbox.id = "g";
+    gCheckbox.checked = "checked";
+    gCheckbox.setAttribute('onchange', 'filter()');
+
+    var gLabel = document.createElement('label');
+    gLabel.htmlFor = "g";
+    gLabel.appendChild(document.createTextNode('G'));
+
     //Add checks and labels to div
+    filterDiv.appendChild(nrLabel);
+    filterDiv.appendChild(nrCheckbox);
+
     filterDiv.appendChild(rLabel);
     filterDiv.appendChild(rCheckbox);
 
@@ -176,6 +307,9 @@ function generateFilterBox() {
 
     filterDiv.appendChild(pgLabel);
     filterDiv.appendChild(pgCheckbox);
+
+    filterDiv.appendChild(gLabel);
+    filterDiv.appendChild(gCheckbox);
 
     //Add the div
     document.body.appendChild(filterDiv);
