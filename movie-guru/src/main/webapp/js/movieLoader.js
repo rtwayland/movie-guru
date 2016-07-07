@@ -95,50 +95,52 @@ function displayMovies(movieList) {
     var allMovies = localStorage['movies'];
     var allMovieObjects = JSON.parse(allMovies);
     
-    var movies = localStorage[movieList];
-    var movieObject = JSON.parse(movies);
-    console.log(movieObject);
-    
+    if (typeof allMovieObjects !== 'undefined' && allMovieObjects.length > 0) {
+        var movies = localStorage[movieList];
+        var movieObject = JSON.parse(movies);
+        console.log(movieObject);
 
-    var movieListDiv = document.createElement('div');
-    movieListDiv.id = "movieList";
 
-    //Create div to hold the movie the user searched
-    var searchedMovieDiv = document.createElement('div');
+        var movieListDiv = document.createElement('div');
+        movieListDiv.id = "movieList";
 
-    //var firstMovieLink = document.createElement('a');
-    var firstImageID = allMovieObjects[0]['imdbID'];
-    var firstMovieImage = document.createElement('img');
-    firstMovieImage.src = allMovieObjects[0]['poster'];
-    firstMovieImage.width = 300;
-    firstMovieImage.addEventListener('click', function () {
-        getSources(firstImageID);
-    });
+        //Create div to hold the movie the user searched
+        var searchedMovieDiv = document.createElement('div');
 
-    searchedMovieDiv.appendChild(firstMovieImage);
-    movieListDiv.appendChild(searchedMovieDiv);
+        //var firstMovieLink = document.createElement('a');
+        var firstImageID = allMovieObjects[0]['imdbID'];
+        var firstMovieImage = document.createElement('img');
+        firstMovieImage.src = allMovieObjects[0]['poster'];
+        firstMovieImage.width = 300;
+        firstMovieImage.addEventListener('click', function () {
+            getSources(firstImageID);
+        });
 
-    //Loop through movie list and output movies    
-    for (var i = 0; i < movieObject.length; i++) {
-        if (movieObject[0]['title'] === allMovieObjects[0]['title']) {
-            ++i;
+        searchedMovieDiv.appendChild(firstMovieImage);
+        movieListDiv.appendChild(searchedMovieDiv);
+
+        //Loop through movie list and output movies    
+        for (var i = 0; i < movieObject.length; i++) {
+            if (movieObject[0]['title'] === allMovieObjects[0]['title']) {
+                ++i;
+            }
+            //var a = document.createElement('a');
+            var imageID = movieObject[i]['imdbID'];
+            //var onClickFunction = "getSources(" + imageID + ")";
+            var image = document.createElement('img');
+            image.src = movieObject[i]['poster'];
+            image.width = 200;
+
+            image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
+
+            //a.appendChild(image);
+            //a.title = "my title text";
+            //a.href = "GenerateMovieSources?id=" + movieObject[i]['imdbID'];
+            movieListDiv.appendChild(image);
         }
-        //var a = document.createElement('a');
-        var imageID = movieObject[i]['imdbID'];
-        //var onClickFunction = "getSources(" + imageID + ")";
-        var image = document.createElement('img');
-        image.src = movieObject[i]['poster'];
-        image.width = 200;
 
-        image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
-
-        //a.appendChild(image);
-        //a.title = "my title text";
-        //a.href = "GenerateMovieSources?id=" + movieObject[i]['imdbID'];
-        movieListDiv.appendChild(image);
+        document.body.appendChild(movieListDiv);
     }
-
-    document.body.appendChild(movieListDiv);
 
 }
 
@@ -148,40 +150,45 @@ function displayMovies(movieList) {
 function displayInitialMovies() {
     //Grab the movie list from STORAGE and put into OBJECT
     var allMovies = localStorage['movies'];
-    var allMovieObjects = JSON.parse(allMovies);    
+    var allMovieObjects = JSON.parse(allMovies);
 
-    var movieListDiv = document.createElement('div');
-    movieListDiv.id = "movieList";
+    if (typeof allMovieObjects !== 'undefined' && allMovieObjects.length > 0) {
+        var movieListDiv = document.createElement('div');
+        movieListDiv.id = "movieList";
 
-    //Create div to hold the movie the user searched
-    var searchedMovieDiv = document.createElement('div');
+        //Create div to hold the movie the user searched
+        var searchedMovieDiv = document.createElement('div');
 
-    //var firstMovieLink = document.createElement('a');
-    var firstImageID = allMovieObjects[0]['imdbID'];
-    var firstMovieImage = document.createElement('img');
-    firstMovieImage.src = allMovieObjects[0]['poster'];
-    firstMovieImage.width = 300;
-    firstMovieImage.addEventListener('click', function () {
-        getSources(firstImageID);
-    });
+        //var firstMovieLink = document.createElement('a');
+        var firstImageID = allMovieObjects[0]['imdbID'];
+        var firstMovieImage = document.createElement('img');
+        firstMovieImage.src = allMovieObjects[0]['poster'];
+        firstMovieImage.width = 300;
+        firstMovieImage.addEventListener('click', function () {
+            getSources(firstImageID);
+        });
 
-    searchedMovieDiv.appendChild(firstMovieImage);
-    movieListDiv.appendChild(searchedMovieDiv);
+        searchedMovieDiv.appendChild(firstMovieImage);
+        movieListDiv.appendChild(searchedMovieDiv);
 
-    //Loop through movie list and output movies    
-    for (var i = 1; i < allMovieObjects.length; i++) {
-        
-        var imageID = allMovieObjects[i]['imdbID'];
-        var image = document.createElement('img');
-        image.src = allMovieObjects[i]['poster'];
-        image.width = 200;
+        //Loop through movie list and output movies    
+        for (var i = 1; i < allMovieObjects.length; i++) {
+            if (allMovieObjects[i] != null) {
+                var imageID = allMovieObjects[i]['imdbID'];
+                var image = document.createElement('img');
+                image.src = allMovieObjects[i]['poster'];
+                image.width = 200;
 
-        image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
+                image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
 
-        movieListDiv.appendChild(image);
+                movieListDiv.appendChild(image);
+            }
+        }
+
+        document.body.appendChild(movieListDiv);
+    } else {
+        document.write("Bad Input");
     }
-
-    document.body.appendChild(movieListDiv);
 
 }
 
