@@ -96,10 +96,15 @@ public class GenerateMovieSources extends HttpServlet {
         movie.setFreeWebList(freeWebList);
         movie.setSubscriptionWebList(subscriptionWebList);
         movie.setPurchaseWebList(purchaseWebList);
+        
+        String json = new Gson().toJson(movie);
+        PrintWriter out = response.getWriter();
+        
+        out.print(json);
 
         //movie.displaySource();
-        request.getSession().setAttribute("movie", movie);
-        request.getRequestDispatcher("/ViewMovieSources.jsp").forward(request, response);
+//        request.getSession().setAttribute("movie", movie);
+//        request.getRequestDispatcher("/ViewMovieSources.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
