@@ -42,7 +42,7 @@ function filter() {
 
     var allMovies = localStorage['movies'];
     var allMovieObjects = JSON.parse(allMovies);
-    
+
     var filteredList = [];
 
     for (var i = 1; i < allMovieObjects.length; i++) {
