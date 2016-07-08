@@ -177,7 +177,7 @@ function displayMovies(movieList) {
                     ++i;
                 }
                 //var a = document.createElement('a');
-                console.log("Loop number: " + i);
+                //console.log("Loop number: " + i);
                 var imageID = movieObject[i]['imdbID'];
                 //var onClickFunction = "getSources(" + imageID + ")";
                 var image = document.createElement('img');
@@ -242,7 +242,7 @@ function displayInitialMovies() {
                 if (allMovieObjects[0]['imdbID'] === allMovieObjects[i]['imdbID']) {
                     ++i;
                 }
-                console.log("Initial Display: " + i);
+                //console.log("Initial Display: " + i);
                 var imageID = allMovieObjects[i]['imdbID'];
                 var image = document.createElement('img');
                 image.src = allMovieObjects[i]['smallPoster'];
