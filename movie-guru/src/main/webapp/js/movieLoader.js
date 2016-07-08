@@ -128,7 +128,12 @@ function filter() {
 
     var jsonString = JSON.stringify(filteredList);
     localStorage['filteredList'] = jsonString;
-    document.getElementById('movieList').remove();
+    var movieContainer = document.getElementById('movieList');
+
+    if (movieContainer != null) {
+        document.getElementById('movieList').remove();
+    }
+    
     displayMovies("filteredList");
 
 }
@@ -167,25 +172,31 @@ function displayMovies(movieList) {
 
         //Loop through movie list and output movies    
         for (var i = 0; i < movieObject.length; i++) {
-            if (movieObject[0]['title'] === allMovieObjects[0]['title']) {
-                ++i;
+            if (movieObject[i] !== null && typeof movieObject[i] !== 'undefined') {
+                if (movieObject[i]['imdbID'] === allMovieObjects[0]['imdbID']) {
+                    ++i;
+                }
+                //var a = document.createElement('a');
+                console.log("Loop number: " + i);
+                var imageID = movieObject[i]['imdbID'];
+                //var onClickFunction = "getSources(" + imageID + ")";
+                var image = document.createElement('img');
+                image.src = movieObject[i]['smallPoster'];
+                image.width = 200;
+
+                image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
+
+                //a.appendChild(image);
+                //a.title = "my title text";
+                //a.href = "GenerateMovieSources?id=" + movieObject[i]['imdbID'];
+                movieListDiv.appendChild(image);
             }
-            //var a = document.createElement('a');
-            var imageID = movieObject[i]['imdbID'];
-            //var onClickFunction = "getSources(" + imageID + ")";
-            var image = document.createElement('img');
-            image.src = movieObject[i]['smallPoster'];
-            image.width = 200;
-
-            image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
-
-            //a.appendChild(image);
-            //a.title = "my title text";
-            //a.href = "GenerateMovieSources?id=" + movieObject[i]['imdbID'];
-            movieListDiv.appendChild(image);
         }
 
         document.body.appendChild(movieListDiv);
+    } else {
+        //document.getElementById('filterBox').style.visibility = "hidden";
+        $('#errorModal').modal();
     }
 
 }
@@ -200,6 +211,13 @@ function displayInitialMovies() {
     console.log(allMovieObjects);
 
     if (typeof allMovieObjects !== 'undefined' && allMovieObjects.length > 0) {
+
+        var movieContainer = document.getElementById('movieList');
+
+        if (movieContainer != null) {
+            document.getElementById('movieList').remove();
+        }
+
         var movieListDiv = document.createElement('div');
         movieListDiv.id = "movieList";
 
@@ -221,6 +239,10 @@ function displayInitialMovies() {
         //Loop through movie list and output movies    
         for (var i = 1; i < allMovieObjects.length; i++) {
             if (allMovieObjects[i] != null) {
+                if (allMovieObjects[0]['imdbID'] === allMovieObjects[i]['imdbID']) {
+                    ++i;
+                }
+                console.log("Initial Display: " + i);
                 var imageID = allMovieObjects[i]['imdbID'];
                 var image = document.createElement('img');
                 image.src = allMovieObjects[i]['smallPoster'];
@@ -234,7 +256,7 @@ function displayInitialMovies() {
 
         document.body.appendChild(movieListDiv);
     } else {
-        document.getElementById('filterBox').style.visibility = "hidden";
+        //document.getElementById('filterBox').style.visibility = "hidden";
         $('#errorModal').modal();
     }
 
