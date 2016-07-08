@@ -46,57 +46,98 @@ public class GenerateMovie extends HttpServlet {
         List<GuideBoxMovie> movies = new ArrayList<>();
         for (Suggestion s : suggestions) {
             String search = s.getName();
-//            System.out.println("Suggestions: " + search);
+            System.out.println("Suggestion name: " + search);
 
-            URL url = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(search, "UTF-8"));
-            System.out.println("OMDB Query");
+//            URL url = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(search, "UTF-8"));
+            URL url = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/title/" + URLEncoder.encode(search, "UTF-8"));
+            System.out.println("OMDB Query: " + url);
             ObjectMapper mapper = new ObjectMapper();
-            
+
             Map<String, Object> map = mapper.readValue(url, Map.class);
 
             if (!map.isEmpty() && !map.containsKey("Error")) {
-
+                List list = (List) map.get("results");
                 GuideBoxMovie movie = new GuideBoxMovie();
 
-                movie.setTitle(map.get("Title").toString());
-//                movie.setYear(map.get("Year").toString());
-                
-//                movie.setPoster(map.get("Poster").toString());
+                if (!list.isEmpty()) {
+                    Map<String, Object> guideBoxMap = (Map<String, Object>) list.get(0);
+
+//                System.out.println("IMDB: " + movie.getImdbID());
+//                movie.setTitle(map.get("Title").toString());
 //                movie.setRunTime(map.get("Runtime").toString());
 //                movie.setDirector(map.get("Director").toString());
+//                movie.setWriter(map.get("Writer").toString());
 //                movie.setActors(map.get("Actors").toString());
-//                movie.setShortPlot(map.get("Plot").toString());
-                movie.setImdbID(map.get("imdbID").toString());
+//                movie.setImdbID(map.get("imdbID").toString());
+//                System.out.println("OMDB info: " + movie.getImdbID());
+//                URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + movie.getImdbID());
+//                System.out.println("GUIDEBOX Query: " + searchUrl);
+//                ObjectMapper guideBoxMapper = new ObjectMapper();
+//                
+//                Map<String, Object> guideBoxMap = guideBoxMapper.readValue(searchUrl, Map.class);
+                    if (!guideBoxMap.isEmpty()) {
+                        movie.setId(guideBoxMap.get("id").toString());
+                        movie.setImdbID(guideBoxMap.get("imdb").toString());
+                        System.out.println("The GB ID: " + movie.getId());
 
-                URL searchUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/id/imdb/" + movie.getImdbID());
-                System.out.println("GUIDEBOX Query");
-                ObjectMapper guideBoxMapper = new ObjectMapper();
+                        movie.setTitle(guideBoxMap.get("title").toString());
+                        movie.setYear(guideBoxMap.get("release_year").toString());
+                        movie.setRating(guideBoxMap.get("rating").toString());
+                        movie.setRottentomatoes(guideBoxMap.get("rottentomatoes").toString());
+                        movie.setSmallPoster(guideBoxMap.get("poster_240x342").toString());
+                        movie.setLargePoster(guideBoxMap.get("poster_400x570").toString());
 
-                Map<String, Object> guideBoxMap = guideBoxMapper.readValue(searchUrl, Map.class);
+                        //Do a new search with the newly obtained GuideBox ID
+                        URL sourcesUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/movie/" + movie.getId());
+                        System.out.println("GUIDEBOX sources: " + sourcesUrl + "\n");
+                        ObjectMapper sourceMapper = new ObjectMapper();
 
-                if (!guideBoxMap.isEmpty()) {
-//                    String rottentomatoes = guideBoxMap.get("rottentomatoes").toString();
-                    String poster = guideBoxMap.get("poster_400x570").toString();
+                        Map<String, Object> sourceMap = sourceMapper.readValue(sourcesUrl, Map.class);
 
-//                    movie.setRottentomatoes(rottentomatoes);
-                    movie.setPoster(poster);
-                    movie.setRating(guideBoxMap.get("rating").toString());
+                        String longPlot = sourceMap.get("overview").toString();
+                        movie.setLongPlot(longPlot);
+                        //Grab the Trailers from the search
+                        Map<String, Object> trailers = (Map) sourceMap.get("trailers");
+
+                        List trailerList = (List) trailers.get("web");
+
+                        for (Object item : trailerList) {
+                            Map<String, Object> innerMap = (Map<String, Object>) item;
+
+                            //Insert the trailer links into the Movie object
+                            movie.setTrailerLink(innerMap.get("link").toString());
+                            movie.setTrailerEmbed(innerMap.get("embed").toString());
+                        }
+
+                        //Grab the list of Sources the movie is available at
+                        List freeWebList = (List) sourceMap.get("free_web_sources");
+                        List subscriptionWebList = (List) sourceMap.get("subscription_web_sources");
+                        List purchaseWebList = (List) sourceMap.get("purchase_web_sources");
+
+                        //Insert the lists into the movies
+                        movie.setFreeWebList(freeWebList);
+                        movie.setSubscriptionWebList(subscriptionWebList);
+                        movie.setPurchaseWebList(purchaseWebList);
+
+                        if (!movie.getLargePoster().equals("")) {
+                            movies.add(movie);
+                        }
+
+                        //System.out.println("Movie: " + movie.getTitle());
+                    } else {
+                        System.out.println("EMPTY!\n");
+                    }
                 }
-                if (!movie.getPoster().equals("")) {
-                    //handler.addMovie(movie);
-                    movies.add(movie);
-                }
-                System.out.println("Movie: " + movie.getTitle());
+
             }
         }
 
 //        for (int i = movies.size() - 1; i > 18; --i) {
 //            movies.remove(i);
 //        }
-        
         String json = new Gson().toJson(movies);
         PrintWriter out = response.getWriter();
-        
+
         out.print(json);
 //        request.getSession().setAttribute("movies", movies);
 //        request.getRequestDispatcher("/ViewSuggestions.jsp").forward(request, response);
