@@ -44,10 +44,10 @@ public class GenerateMovie extends HttpServlet {
         List<GuideBoxMovie> movies = new ArrayList<>();
         for (Suggestion s : suggestions) {
             String search = s.getName();
-//            System.out.println("Suggestion name: " + search);
+            System.out.println("Suggestion name: " + search);
 
             URL url = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/title/" + URLEncoder.encode(search, "UTF-8"));
-//            System.out.println("OMDB Query: " + url);
+            System.out.println("1st GB Query: " + url);
             ObjectMapper mapper = new ObjectMapper();
 
             Map<String, Object> map = mapper.readValue(url, Map.class);
@@ -62,7 +62,7 @@ public class GenerateMovie extends HttpServlet {
                     if (!guideBoxMap.isEmpty()) {
                         movie.setId(guideBoxMap.get("id").toString());
                         movie.setImdbID(guideBoxMap.get("imdb").toString());
-//                        System.out.println("The GB ID: " + movie.getId());
+                        System.out.println("The GB ID: " + movie.getId());
 
                         movie.setTitle(guideBoxMap.get("title").toString());
                         movie.setYear(guideBoxMap.get("release_year").toString());
@@ -73,7 +73,8 @@ public class GenerateMovie extends HttpServlet {
 
                         //Do a new search with the newly obtained GuideBox ID
                         URL sourcesUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/movie/" + movie.getId());
-//                        System.out.println("GUIDEBOX sources: " + sourcesUrl + "\n");
+                        System.out.println("GUIDEBOX sources: " + sourcesUrl);
+                        System.out.println("");
                         ObjectMapper sourceMapper = new ObjectMapper();
 
                         Map<String, Object> sourceMap = sourceMapper.readValue(sourcesUrl, Map.class);
