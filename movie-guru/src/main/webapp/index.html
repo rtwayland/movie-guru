@@ -29,6 +29,23 @@
                 </div>
             </div>
         </div>
+        
+        <div class="checkboxes" id="filterBox" style="visibility: hidden;">
+            <label for="r">R</label>
+            <input type="checkbox" name="r" id="r" onchange="filter()" checked />
+            
+            <label for="pg13">PG-13</label>
+            <input type="checkbox" name="pg13" id="pg13" onchange="filter()" checked />
+            
+            <label for="pg">PG</label>
+            <input type="checkbox" name="pg" id="pg" onchange="filter()" checked />
+            
+            <label for="g">G</label>
+            <input type="checkbox" name="g" id="g" onchange="filter()" checked />
+            
+            <label for="nr">NR</label>
+            <input type="checkbox" name="nr" id="nr" onchange="filter()" checked />
+        </div>
 
         <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

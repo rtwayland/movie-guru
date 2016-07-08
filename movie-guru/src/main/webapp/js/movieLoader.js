@@ -248,7 +248,8 @@ function writeMovieList(movieList) {
     $('#messageModal').modal('hide');
     document.getElementById('home-container').innerHTML = '';
 
-    generateFilterBox();
+    //generateFilterBox();
+    document.getElementById('filterBox').style.visibility = "visible";
 
     displayInitialMovies();
 }
@@ -286,85 +287,85 @@ function httpGET(url, callback) {
 /***************************
  * GENERATE FILTER BOX
  **************************/
-function generateFilterBox() {
-    var filterDiv = document.createElement('div');
-
-    //NR rating checkbox
-    var nrCheckbox = document.createElement('input');
-    nrCheckbox.type = "checkbox";
-    nrCheckbox.name = "nr";
-    nrCheckbox.id = "nr";
-    nrCheckbox.checked = "checked";
-    nrCheckbox.setAttribute('onchange', 'filter()');
-
-    var nrLabel = document.createElement('label');
-    nrLabel.htmlFor = "nr";
-    nrLabel.appendChild(document.createTextNode('NR/Unrated'));
-
-    //R rating checkbox
-    var rCheckbox = document.createElement('input');
-    rCheckbox.type = "checkbox";
-    rCheckbox.name = "r";
-    rCheckbox.id = "r";
-    rCheckbox.checked = "checked";
-    rCheckbox.setAttribute('onchange', 'filter()');
-
-    var rLabel = document.createElement('label');
-    rLabel.htmlFor = "r";
-    rLabel.appendChild(document.createTextNode('R'));
-
-    //PG13 rating checkbox
-    var pg13Checkbox = document.createElement('input');
-    pg13Checkbox.type = "checkbox";
-    pg13Checkbox.name = "pg13";
-    pg13Checkbox.id = "pg13";
-    pg13Checkbox.checked = "checked";
-    pg13Checkbox.setAttribute('onchange', 'filter()');
-
-    var pg13Label = document.createElement('label');
-    pg13Label.htmlFor = "pg13";
-    pg13Label.appendChild(document.createTextNode('PG-13'));
-
-    //PG rating checkbox
-    var pgCheckbox = document.createElement('input');
-    pgCheckbox.type = "checkbox";
-    pgCheckbox.name = "pg";
-    pgCheckbox.id = "pg";
-    pgCheckbox.checked = "checked";
-    pgCheckbox.setAttribute('onchange', 'filter()');
-
-    var pgLabel = document.createElement('label');
-    pgLabel.htmlFor = "pg";
-    pgLabel.appendChild(document.createTextNode('PG'));
-
-    //G rating checkbox
-    var gCheckbox = document.createElement('input');
-    gCheckbox.type = "checkbox";
-    gCheckbox.name = "g";
-    gCheckbox.id = "g";
-    gCheckbox.checked = "checked";
-    gCheckbox.setAttribute('onchange', 'filter()');
-
-    var gLabel = document.createElement('label');
-    gLabel.htmlFor = "g";
-    gLabel.appendChild(document.createTextNode('G'));
-
-    //Add checks and labels to div
-    filterDiv.appendChild(nrLabel);
-    filterDiv.appendChild(nrCheckbox);
-
-    filterDiv.appendChild(rLabel);
-    filterDiv.appendChild(rCheckbox);
-
-    filterDiv.appendChild(pg13Label);
-    filterDiv.appendChild(pg13Checkbox);
-
-    filterDiv.appendChild(pgLabel);
-    filterDiv.appendChild(pgCheckbox);
-
-    filterDiv.appendChild(gLabel);
-    filterDiv.appendChild(gCheckbox);
-
-    //Add the div
-    document.body.appendChild(filterDiv);
-}
+//function generateFilterBox() {
+//    var filterDiv = document.createElement('div');
+//
+//    //NR rating checkbox
+//    var nrCheckbox = document.createElement('input');
+//    nrCheckbox.type = "checkbox";
+//    nrCheckbox.name = "nr";
+//    nrCheckbox.id = "nr";
+//    nrCheckbox.checked = "checked";
+//    nrCheckbox.setAttribute('onchange', 'filter()');
+//
+//    var nrLabel = document.createElement('label');
+//    nrLabel.htmlFor = "nr";
+//    nrLabel.appendChild(document.createTextNode('NR/Unrated'));
+//
+//    //R rating checkbox
+//    var rCheckbox = document.createElement('input');
+//    rCheckbox.type = "checkbox";
+//    rCheckbox.name = "r";
+//    rCheckbox.id = "r";
+//    rCheckbox.checked = "checked";
+//    rCheckbox.setAttribute('onchange', 'filter()');
+//
+//    var rLabel = document.createElement('label');
+//    rLabel.htmlFor = "r";
+//    rLabel.appendChild(document.createTextNode('R'));
+//
+//    //PG13 rating checkbox
+//    var pg13Checkbox = document.createElement('input');
+//    pg13Checkbox.type = "checkbox";
+//    pg13Checkbox.name = "pg13";
+//    pg13Checkbox.id = "pg13";
+//    pg13Checkbox.checked = "checked";
+//    pg13Checkbox.setAttribute('onchange', 'filter()');
+//
+//    var pg13Label = document.createElement('label');
+//    pg13Label.htmlFor = "pg13";
+//    pg13Label.appendChild(document.createTextNode('PG-13'));
+//
+//    //PG rating checkbox
+//    var pgCheckbox = document.createElement('input');
+//    pgCheckbox.type = "checkbox";
+//    pgCheckbox.name = "pg";
+//    pgCheckbox.id = "pg";
+//    pgCheckbox.checked = "checked";
+//    pgCheckbox.setAttribute('onchange', 'filter()');
+//
+//    var pgLabel = document.createElement('label');
+//    pgLabel.htmlFor = "pg";
+//    pgLabel.appendChild(document.createTextNode('PG'));
+//
+//    //G rating checkbox
+//    var gCheckbox = document.createElement('input');
+//    gCheckbox.type = "checkbox";
+//    gCheckbox.name = "g";
+//    gCheckbox.id = "g";
+//    gCheckbox.checked = "checked";
+//    gCheckbox.setAttribute('onchange', 'filter()');
+//
+//    var gLabel = document.createElement('label');
+//    gLabel.htmlFor = "g";
+//    gLabel.appendChild(document.createTextNode('G'));
+//
+//    //Add checks and labels to div
+//    filterDiv.appendChild(nrLabel);
+//    filterDiv.appendChild(nrCheckbox);
+//
+//    filterDiv.appendChild(rLabel);
+//    filterDiv.appendChild(rCheckbox);
+//
+//    filterDiv.appendChild(pg13Label);
+//    filterDiv.appendChild(pg13Checkbox);
+//
+//    filterDiv.appendChild(pgLabel);
+//    filterDiv.appendChild(pgCheckbox);
+//
+//    filterDiv.appendChild(gLabel);
+//    filterDiv.appendChild(gCheckbox);
+//
+//    //Add the div
+//    document.body.appendChild(filterDiv);
+//}
