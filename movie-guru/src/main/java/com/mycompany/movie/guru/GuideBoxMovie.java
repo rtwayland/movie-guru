@@ -21,7 +21,8 @@ public class GuideBoxMovie {
     private String rating;
     private String runTime;
     private String rottentomatoes;
-    private String poster;
+    private String smallPoster;
+    private String largePoster;
     private String shortPlot;
     private String longPlot;
     private String director;
@@ -42,18 +43,20 @@ public class GuideBoxMovie {
         this.year = "";
         this.rating = "";
         this.rottentomatoes = "";
-        this.poster = "";
+        this.smallPoster = "";
+        this.largePoster = "";
         this.trailerLink = "";
         this.trailerEmbed = "";
     }
 
-    public GuideBoxMovie(String id, String title, String year, String rating, String rottentomatoes, String poster) {
+    public GuideBoxMovie(String id, String title, String year, String rating, String rottentomatoes, String largePoster, String smallPoster) {
         this.id = id;
         this.title = title;
         this.year = year;
         this.rating = rating;
         this.rottentomatoes = rottentomatoes;
-        this.poster = poster;
+        this.smallPoster = smallPoster;
+        this.largePoster = largePoster;
     }
 
     public String getId() {
@@ -152,12 +155,20 @@ public class GuideBoxMovie {
         this.imdbID = imdbID;
     }
 
-    public String getPoster() {
-        return poster;
+    public String getSmallPoster() {
+        return smallPoster;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+    public void setSmallPoster(String smallPoster) {
+        this.smallPoster = smallPoster;
+    }
+
+    public String getLargePoster() {
+        return largePoster;
+    }
+
+    public void setLargePoster(String largePoster) {
+        this.largePoster = largePoster;
     }
 
     public String getTrailerLink() {

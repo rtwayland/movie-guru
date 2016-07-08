@@ -97,10 +97,10 @@ public class GenerateMovieSources extends HttpServlet {
         movie.setFreeWebList(freeWebList);
         movie.setSubscriptionWebList(subscriptionWebList);
         movie.setPurchaseWebList(purchaseWebList);
-        
+
         String json = new Gson().toJson(movie);
         PrintWriter out = response.getWriter();
-        
+
         out.print(json);
 
         //movie.displaySource();
