@@ -269,10 +269,17 @@ function writeMovieList(movieList) {
     localStorage['movies'] = movieList;
 
     $('#messageModal').modal('hide');
-    document.getElementById('home-container').innerHTML = '';
+    $('#errorModal').modal('hide');
+    document.getElementById('heading-container').innerHTML = '';
+    document.getElementById('paragraph-container').innerHTML = '';
 
     //generateFilterBox();
     document.getElementById('filterBox').style.visibility = "visible";
+    document.getElementById('nr').checked = "true";
+    document.getElementById('r').checked = "true";
+    document.getElementById('pg13').checked = "true";
+    document.getElementById('pg').checked = "true";
+    document.getElementById('g').checked = "true";
 
     displayInitialMovies();
 }
@@ -312,18 +319,6 @@ function httpGET(url, callback) {
  **************************/
 //function generateFilterBox() {
 //    var filterDiv = document.createElement('div');
-//
-//    //NR rating checkbox
-//    var nrCheckbox = document.createElement('input');
-//    nrCheckbox.type = "checkbox";
-//    nrCheckbox.name = "nr";
-//    nrCheckbox.id = "nr";
-//    nrCheckbox.checked = "checked";
-//    nrCheckbox.setAttribute('onchange', 'filter()');
-//
-//    var nrLabel = document.createElement('label');
-//    nrLabel.htmlFor = "nr";
-//    nrLabel.appendChild(document.createTextNode('NR/Unrated'));
 //
 //    //R rating checkbox
 //    var rCheckbox = document.createElement('input');
@@ -373,9 +368,19 @@ function httpGET(url, callback) {
 //    gLabel.htmlFor = "g";
 //    gLabel.appendChild(document.createTextNode('G'));
 //
+//    //NR rating checkbox
+//    var nrCheckbox = document.createElement('input');
+//    nrCheckbox.type = "checkbox";
+//    nrCheckbox.name = "nr";
+//    nrCheckbox.id = "nr";
+//    nrCheckbox.checked = "checked";
+//    nrCheckbox.setAttribute('onchange', 'filter()');
+//
+//    var nrLabel = document.createElement('label');
+//    nrLabel.htmlFor = "nr";
+//    nrLabel.appendChild(document.createTextNode('NR/Unrated'));
+//
 //    //Add checks and labels to div
-//    filterDiv.appendChild(nrLabel);
-//    filterDiv.appendChild(nrCheckbox);
 //
 //    filterDiv.appendChild(rLabel);
 //    filterDiv.appendChild(rCheckbox);
@@ -388,6 +393,9 @@ function httpGET(url, callback) {
 //
 //    filterDiv.appendChild(gLabel);
 //    filterDiv.appendChild(gCheckbox);
+//
+//    filterDiv.appendChild(nrLabel);
+//    filterDiv.appendChild(nrCheckbox);
 //
 //    //Add the div
 //    document.body.appendChild(filterDiv);
