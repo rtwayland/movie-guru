@@ -11,14 +11,16 @@
         <script src="js/movieLoader.js"></script>
     </head>
     <body>
-        <div id="home-container">
+        <div id="heading-container">
             <h1>Movie Guru</h1>
             <h2>find your next favorite movie</h2>
-            <form onsubmit="collect();
-                    return false">            
-                <input type="text" id="suggestion-search" name="suggestion-search" placeholder="Movie Title" />
-                <button type="submit">Search Suggestions</button>
-            </form>
+        </div>
+        <form onsubmit="collect();
+                return false">            
+            <input type="text" id="suggestion-search" name="suggestion-search" placeholder="Movie Title" />
+            <button type="submit">Search Suggestions</button>
+        </form>
+        <div id="paragraph-container">
             <p>Enter a movie title and we will give you recommendations of other movies you might like as well as where you can find them</p>
         </div>
         <div id="messageModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -29,20 +31,20 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="checkboxes" id="filterBox" style="visibility: hidden;">
             <label for="r">R</label>
             <input type="checkbox" name="r" id="r" onchange="filter()" checked />
-            
+
             <label for="pg13">PG-13</label>
             <input type="checkbox" name="pg13" id="pg13" onchange="filter()" checked />
-            
+
             <label for="pg">PG</label>
             <input type="checkbox" name="pg" id="pg" onchange="filter()" checked />
-            
+
             <label for="g">G</label>
             <input type="checkbox" name="g" id="g" onchange="filter()" checked />
-            
+
             <label for="nr">NR</label>
             <input type="checkbox" name="nr" id="nr" onchange="filter()" checked />
         </div>
@@ -68,7 +70,7 @@
             </div>
         </div>
 
-        
+
         <div id="errorModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -77,6 +79,6 @@
                 </div>
             </div>
         </div>
-        
+
     </body>
 </html>
