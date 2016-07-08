@@ -234,7 +234,8 @@ function displayInitialMovies() {
 
         document.body.appendChild(movieListDiv);
     } else {
-        document.write("Bad Input");
+        document.getElementById('filterBox').style.visibility = "hidden";
+        $('#errorModal').modal();
     }
 
 }
