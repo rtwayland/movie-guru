@@ -94,7 +94,7 @@ function displayMovies(movieList) {
     //Grab the movie list from STORAGE and put into OBJECT
     var allMovies = localStorage['movies'];
     var allMovieObjects = JSON.parse(allMovies);
-    
+
     if (typeof allMovieObjects !== 'undefined' && allMovieObjects.length > 0) {
         var movies = localStorage[movieList];
         var movieObject = JSON.parse(movies);
@@ -110,7 +110,7 @@ function displayMovies(movieList) {
         //var firstMovieLink = document.createElement('a');
         var firstImageID = allMovieObjects[0]['imdbID'];
         var firstMovieImage = document.createElement('img');
-        firstMovieImage.src = allMovieObjects[0]['poster'];
+        firstMovieImage.src = allMovieObjects[0]['largePoster'];
         firstMovieImage.width = 300;
         firstMovieImage.addEventListener('click', function () {
             getSources(firstImageID);
@@ -128,7 +128,7 @@ function displayMovies(movieList) {
             var imageID = movieObject[i]['imdbID'];
             //var onClickFunction = "getSources(" + imageID + ")";
             var image = document.createElement('img');
-            image.src = movieObject[i]['poster'];
+            image.src = movieObject[i]['smallPoster'];
             image.width = 200;
 
             image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
@@ -151,6 +151,7 @@ function displayInitialMovies() {
     //Grab the movie list from STORAGE and put into OBJECT
     var allMovies = localStorage['movies'];
     var allMovieObjects = JSON.parse(allMovies);
+    console.log(allMovieObjects);
 
     if (typeof allMovieObjects !== 'undefined' && allMovieObjects.length > 0) {
         var movieListDiv = document.createElement('div');
@@ -162,7 +163,7 @@ function displayInitialMovies() {
         //var firstMovieLink = document.createElement('a');
         var firstImageID = allMovieObjects[0]['imdbID'];
         var firstMovieImage = document.createElement('img');
-        firstMovieImage.src = allMovieObjects[0]['poster'];
+        firstMovieImage.src = allMovieObjects[0]['largePoster'];
         firstMovieImage.width = 300;
         firstMovieImage.addEventListener('click', function () {
             getSources(firstImageID);
@@ -176,7 +177,7 @@ function displayInitialMovies() {
             if (allMovieObjects[i] != null) {
                 var imageID = allMovieObjects[i]['imdbID'];
                 var image = document.createElement('img');
-                image.src = allMovieObjects[i]['poster'];
+                image.src = allMovieObjects[i]['smallPoster'];
                 image.width = 200;
 
                 image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
