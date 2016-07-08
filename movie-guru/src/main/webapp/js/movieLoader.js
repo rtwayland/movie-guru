@@ -8,24 +8,70 @@
  * GET SOURCES
  **************************/
 function getSources(id) {
-    var url = "GenerateMovieSources?id=" + id;
+    //var url = "GenerateMovieSources?id=" + id;
 
-    httpGET(url, loadModal);
+    var allMovies = localStorage['movies'];
+    var allMovieObjects = JSON.parse(allMovies);
+
+    var movie;
+
+    for (var i = 0; i < allMovieObjects.length; i++) {
+        if (allMovieObjects[i]['imdbID'] == id) {
+            movie = allMovieObjects[i];
+            break;
+        }
+    }
+
+    loadModal(movie);
+    //httpGET(url, loadModal);
 }
 
 /***************************
  * LOAD MODAL
  **************************/
-function loadModal(sources) {
-    localStorage['sources'] = sources;
+function loadModal(movie) {
+//    localStorage['sources'] = sources;
+//
+//    var movieInfo = localStorage['sources'];
+//    var movieInfoObject = JSON.parse(movieInfo);
 
-    var movieInfo = localStorage['sources'];
-    var movieInfoObject = JSON.parse(movieInfo);
-
-    var heading = movieInfoObject['title'] + " " + movieInfoObject['rating'] + " " + movieInfoObject['year'] + " " + movieInfoObject['runTime'];
+    var heading = movie['title'] + " — Rated: " + movie['rating'] + " — " + movie['year']; /*+ " " + movie['runTime']*/
     document.getElementById('modalMovieTitle').innerHTML = heading;
-    //document.getElementById('modalMovieInfo').innerHTML = ;
-    document.getElementById('modalMoviePlot').innerHTML = movieInfoObject['longPlot'];
+    var photoDiv = document.getElementById('moviePoster');
+
+    if (photoDiv !== null) {
+        photoDiv.innerHTML = '';
+
+        var image = document.createElement('img');
+        image.src = movie['smallPoster'];
+        image.width = 200;
+
+        photoDiv.appendChild(image);
+    }
+    document.getElementById('modalMoviePlot').innerHTML = movie['longPlot'];
+
+//    var sourcesDiv = document.createElement('div');
+//    var buyList = movie['purchaseWebList'];
+//    if (sourcesDiv !== null) {
+//        sourcesDiv.innerHTML = '';
+//        for (var i = 0; i < buyList.length; i++) {
+//            console.log(buyList[i]);
+//            var linkDiv = document.createElement('div');
+//            var sourceLink = document.createElement('a');
+//            sourceLink.href = buyList[i]['link'];
+//            var linkName = document.createTextNode(buyList[i]['name']);
+//            sourceLink.appendChild(linkName);
+//
+//            console.log(sourceLink);
+//            document.getElementById('movieSources').appendChild("<a href=\'" + buyList[i]['link'] + "\'>" + buyList[i]['name'] + "</a>");
+//            linkDiv.appendChild(sourceLink);
+//            sourcesDiv.appendChild(linkDiv);
+//
+//        }
+//
+//    }
+//    document.getElementById('movieSources').appendChild(sourcesDiv);
+    //document.body.appendChild(sourcesDiv);
 
     $('#infoModal').modal();
 }
