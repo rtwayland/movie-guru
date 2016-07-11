@@ -30,12 +30,7 @@ function getSources(id) {
  * LOAD MODAL
  **************************/
 function loadModal(movie) {
-//    localStorage['sources'] = sources;
-//
-//    var movieInfo = localStorage['sources'];
-//    var movieInfoObject = JSON.parse(movieInfo);
-
-    var heading = movie['title'] + " — Rated: " + movie['rating'] + " — " + movie['year']; /*+ " " + movie['runTime']*/
+    var heading = movie['title'] + " — Rated: " + movie['rating'] + " — " + movie['year'] + " — " + movie['runTime'];
     document.getElementById('modalMovieTitle').innerHTML = heading;
     var photoDiv = document.getElementById('moviePoster');
 
@@ -85,7 +80,7 @@ function filter() {
     var pg13Rating = document.getElementById('pg13');
     var pgRating = document.getElementById('pg');
     var gRating = document.getElementById('g');
-
+    var ncRating = document.getElementById('nc');
     var allMovies = localStorage['movies'];
     var allMovieObjects = JSON.parse(allMovies);
 
@@ -120,6 +115,11 @@ function filter() {
                     filteredList.push(allMovieObjects[i]);
                 }
                 break;
+            case "NC-17":
+                if (ncRating.checked) {
+                    filteredList.push(allMovieObjects[i]);
+                }
+                break;
             default:
                 filteredList.push(allMovieObjects[i]);
                 break;
@@ -133,7 +133,7 @@ function filter() {
     if (movieContainer != null) {
         document.getElementById('movieList').remove();
     }
-    
+
     displayMovies("filteredList");
 
 }
@@ -276,6 +276,7 @@ function writeMovieList(movieList) {
     //generateFilterBox();
     document.getElementById('filterBox').style.visibility = "visible";
     document.getElementById('nr').checked = "true";
+    document.getElementById('nc').checked = "true";
     document.getElementById('r').checked = "true";
     document.getElementById('pg13').checked = "true";
     document.getElementById('pg').checked = "true";

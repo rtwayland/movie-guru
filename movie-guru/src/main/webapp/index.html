@@ -47,10 +47,13 @@
 
             <label for="nr">NR</label>
             <input type="checkbox" name="nr" id="nr" onchange="filter()" checked />
+
+            <label for="nr">NC-17</label>
+            <input type="checkbox" name="nc" id="nc" onchange="filter()" checked />
         </div>
 
         <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -60,11 +63,16 @@
                         <h5 class="modal-title" id="modalMovieInfo"></h5>
                     </div>
                     <div class="modal-body">
-                        <div id="moviePoster"></div>
+                        <div id="moviePoster" style="display: inline-block"></div>
+                        <p id="modalDirector"></p>
+                        <p id="modalWriter"></p>
+                        <p id="modalActors"></p>
+                        <div id="movieTrailer" style="display: inline-block"></div>
+                        <!--<iframe id="modalTrailer" width="640" height="360" src="" frameborder="0" allowfullscreen></iframe>-->
                         <p id="modalMoviePlot"></p>
                     </div>
-                    <div class="modal-footer">
-                        <div id="movieSources"></div>
+                    <div class="modal-footer" id="movieSources">
+
                     </div>
                 </div>
             </div>
