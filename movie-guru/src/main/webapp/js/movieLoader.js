@@ -38,34 +38,118 @@ function loadModal(movie) {
         photoDiv.innerHTML = '';
 
         var image = document.createElement('img');
-        image.src = movie['smallPoster'];
+        image.src = movie['largePoster'];
         image.width = 200;
 
         photoDiv.appendChild(image);
     }
+    document.getElementById('modalDirector').innerHTML = '';
+    document.getElementById('modalWriter').innerHTML = '';
+    document.getElementById('modalActors').innerHTML = '';
+    
+    var directorP = document.createTextNode("Director(s): " + movie['director']);
+    document.getElementById('modalDirector').appendChild(directorP);
+    
+    var writerP = document.createTextNode("Writer(s): " + movie['writer']);
+    document.getElementById('modalWriter').appendChild(writerP);
+    
+    var actorP = document.createTextNode("Stars: " + movie['actors']);
+    document.getElementById('modalActors').appendChild(actorP);
+    
+    var trailerDiv = document.getElementById('movieTrailer');
+
+    if (trailerDiv !== null) {
+        trailerDiv.innerHTML = '';
+        if (movie['trailerEmbed'] !== "") {
+            var ifrm = document.createElement("iframe");
+            ifrm.src = movie['trailerEmbed'];
+            ifrm.style.width = "645px";
+            ifrm.style.height = "365px";
+
+            trailerDiv.appendChild(ifrm);
+        }
+    }
+
     document.getElementById('modalMoviePlot').innerHTML = movie['longPlot'];
 
-//    var sourcesDiv = document.createElement('div');
-//    var buyList = movie['purchaseWebList'];
-//    if (sourcesDiv !== null) {
-//        sourcesDiv.innerHTML = '';
-//        for (var i = 0; i < buyList.length; i++) {
-//            console.log(buyList[i]);
-//            var linkDiv = document.createElement('div');
-//            var sourceLink = document.createElement('a');
-//            sourceLink.href = buyList[i]['link'];
-//            var linkName = document.createTextNode(buyList[i]['name']);
-//            sourceLink.appendChild(linkName);
-//
-//            console.log(sourceLink);
-//            document.getElementById('movieSources').appendChild("<a href=\'" + buyList[i]['link'] + "\'>" + buyList[i]['name'] + "</a>");
-//            linkDiv.appendChild(sourceLink);
-//            sourcesDiv.appendChild(linkDiv);
-//
-//        }
-//
-//    }
-//    document.getElementById('movieSources').appendChild(sourcesDiv);
+
+    var freeList = movie['freeWebList'];
+    var buyList = movie['purchaseWebList'];
+    var subscriptionList = movie['subscriptionWebList'];
+
+    var movieSourcesDiv = document.getElementById('movieSources');
+    movieSourcesDiv.innerHTML = '';
+
+    var freeSourcesDiv = document.createElement('div');
+    freeSourcesDiv.id = "freeSources";
+    var freeSourcesHeading = document.createElement('h5');
+    freeSourcesHeading.appendChild(document.createTextNode('Free Sources'));
+    freeSourcesDiv.appendChild(freeSourcesHeading);
+
+    var paidSourcesDiv = document.createElement('div');
+    paidSourcesDiv.id = "paidSources";
+    var paidSourcesHeading = document.createElement('h5');
+    paidSourcesHeading.appendChild(document.createTextNode('Paid Sources'));
+    paidSourcesDiv.appendChild(paidSourcesHeading);
+
+
+    var subscriptionSourcesDiv = document.createElement('div');
+    subscriptionSourcesDiv.id = "subscriptionSources";
+    var subscriptionSourcesHeading = document.createElement('h5');
+    subscriptionSourcesHeading.appendChild(document.createTextNode('Subscription Sources'));
+    subscriptionSourcesDiv.appendChild(subscriptionSourcesHeading);
+
+    for (var i = 0; i < freeList.length; i++) {
+        var linkDiv = document.createElement('div');
+
+        var sourceLink = document.createElement('a');
+        sourceLink.href = freeList[i]['link'];
+        sourceLink.target = "_blank";
+
+        var linkName = document.createTextNode(freeList[i]['name']);
+        sourceLink.appendChild(linkName);
+
+        //console.log(sourceLink);
+        linkDiv.appendChild(sourceLink);
+        freeSourcesDiv.appendChild(linkDiv);
+    }
+
+    for (var i = 0; i < buyList.length; i++) {
+        //console.log(buyList[i]);
+        var linkDiv = document.createElement('div');
+
+        var sourceLink = document.createElement('a');
+        sourceLink.href = buyList[i]['link'];
+        sourceLink.target = "_blank";
+
+        var linkName = document.createTextNode(buyList[i]['name']);
+        sourceLink.appendChild(linkName);
+
+        //console.log(sourceLink);
+        linkDiv.appendChild(sourceLink);
+        paidSourcesDiv.appendChild(linkDiv);
+    }
+
+    for (var i = 0; i < subscriptionList.length; i++) {
+        var linkDiv = document.createElement('div');
+
+        var sourceLink = document.createElement('a');
+        sourceLink.href = subscriptionList[i]['link'];
+        sourceLink.target = "_blank";
+
+        var linkName = document.createTextNode(subscriptionList[i]['name']);
+        sourceLink.appendChild(linkName);
+
+        //console.log(sourceLink);
+        linkDiv.appendChild(sourceLink);
+        subscriptionSourcesDiv.appendChild(linkDiv);
+    }
+
+
+    //} 
+    movieSourcesDiv.appendChild(freeSourcesDiv);
+    movieSourcesDiv.appendChild(subscriptionSourcesDiv);
+    movieSourcesDiv.appendChild(paidSourcesDiv);
     //document.body.appendChild(sourcesDiv);
 
     $('#infoModal').modal();
