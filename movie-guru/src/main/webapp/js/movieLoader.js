@@ -26,10 +26,7 @@ function getSources(id) {
     //httpGET(url, loadModal);
 }
 
-/***************************
- * LOAD MODAL
- **************************/
-function loadModal(movie) {
+function fillModalHeader(movie) {
     var heading = movie['title'] + " — Rated: " + movie['rating'] + " — " + movie['year'] + " — " + movie['runTime'];
     document.getElementById('modalMovieTitle').innerHTML = heading;
     var photoDiv = document.getElementById('moviePoster');
@@ -43,19 +40,22 @@ function loadModal(movie) {
 
         photoDiv.appendChild(image);
     }
+
     document.getElementById('modalDirector').innerHTML = '';
     document.getElementById('modalWriter').innerHTML = '';
     document.getElementById('modalActors').innerHTML = '';
-    
+
     var directorP = document.createTextNode("Director(s): " + movie['director']);
     document.getElementById('modalDirector').appendChild(directorP);
-    
+
     var writerP = document.createTextNode("Writer(s): " + movie['writer']);
     document.getElementById('modalWriter').appendChild(writerP);
-    
+
     var actorP = document.createTextNode("Stars: " + movie['actors']);
     document.getElementById('modalActors').appendChild(actorP);
-    
+}
+
+function fillModalBody(movie) {
     var trailerDiv = document.getElementById('movieTrailer');
 
     if (trailerDiv !== null) {
@@ -71,8 +71,9 @@ function loadModal(movie) {
     }
 
     document.getElementById('modalMoviePlot').innerHTML = movie['longPlot'];
+}
 
-
+function fillModalSources(movie) {
     var freeList = movie['freeWebList'];
     var buyList = movie['purchaseWebList'];
     var subscriptionList = movie['subscriptionWebList'];
@@ -150,7 +151,17 @@ function loadModal(movie) {
     movieSourcesDiv.appendChild(freeSourcesDiv);
     movieSourcesDiv.appendChild(subscriptionSourcesDiv);
     movieSourcesDiv.appendChild(paidSourcesDiv);
-    //document.body.appendChild(sourcesDiv);
+}
+
+/***************************
+ * LOAD MODAL
+ **************************/
+function loadModal(movie) {
+    fillModalHeader(movie);
+
+    fillModalBody(movie);
+
+    fillModalSources(movie);
 
     $('#infoModal').modal();
 }
@@ -246,10 +257,10 @@ function displayMovies(movieList) {
         searchedText.appendChild(document.createTextNode("suggestions for movies like"));
         var searchedTitle = document.createElement('h2');
         searchedTitle.appendChild(document.createTextNode(allMovieObjects[0]['title']));
-        
+
         searchInfo.appendChild(searchedText);
         searchInfo.appendChild(searchedTitle);
-        
+
         searchedMovieDiv.appendChild(searchInfo);
 
 
@@ -322,7 +333,7 @@ function displayInitialMovies() {
         searchedText.appendChild(document.createTextNode("suggestions for movies like"));
         var searchedTitle = document.createElement('h2');
         searchedTitle.appendChild(document.createTextNode(allMovieObjects[0]['title']));
-        
+
         searchedMovieDiv.appendChild(searchedText);
         searchedMovieDiv.appendChild(searchedTitle);
 
