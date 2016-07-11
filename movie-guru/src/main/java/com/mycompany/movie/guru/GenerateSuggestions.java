@@ -53,16 +53,9 @@ public class GenerateSuggestions extends HttpServlet {
         for (Object item : list) {
             Map<String, Object> resultMap = (Map<String, Object>) item;
             Suggestion suggestion = new Suggestion();
-//            for (String key : resultMap.keySet()) {
-//                switch (key) {
-//                    case "Name":
             suggestion.setName(resultMap.get("Name").toString());
-                        //break;
-            //case "Type":
             suggestion.setType(resultMap.get("Type").toString());
-                        //break;
-            //}
-            //}
+
             System.out.println("The suggested title: " + suggestion.getName());
             suggestions.add(suggestion);
         }
