@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <title>Movie Guru Home</title>
+        <script src="js/movieLoader.js"></script>
+    </head>
+    <body>
+        <div id="heading-container">
+            <h1>Movie Guru</h1>
+            <h2>find your next favorite movie</h2>
+        </div>
+        <form onsubmit="collect();
+                return false">            
+            <input type="text" id="suggestion-search" name="suggestion-search" placeholder="Movie Title" />
+            <button type="submit">Search Suggestions</button>
+        </form>
+        <div id="paragraph-container">
+            <p>Enter a movie title and we will give you recommendations of other movies you might like as well as where you can find them</p>
+        </div>
+        <div id="messageModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <h2>Please wait</h2>
+                    <p>The guru is thinking...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="checkboxes" id="filterBox" style="visibility: hidden;">
+            <label for="r">R</label>
+            <input type="checkbox" name="r" id="r" onchange="filter()" checked />
+
+            <label for="pg13">PG-13</label>
+            <input type="checkbox" name="pg13" id="pg13" onchange="filter()" checked />
+
+            <label for="pg">PG</label>
+            <input type="checkbox" name="pg" id="pg" onchange="filter()" checked />
+
+            <label for="g">G</label>
+            <input type="checkbox" name="g" id="g" onchange="filter()" checked />
+
+            <label for="nr">NR</label>
+            <input type="checkbox" name="nr" id="nr" onchange="filter()" checked />
+
+            <label for="nr">NC-17</label>
+            <input type="checkbox" name="nc" id="nc" onchange="filter()" checked />
+        </div>
+
+        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modalMovieTitle"></h4>
+                        <h5 class="modal-title" id="modalMovieInfo"></h5>
+                    </div>
+                    <div class="modal-body">
+                        <div id="moviePoster" style="display: inline-block"></div>
+                        <p id="modalDirector"></p>
+                        <p id="modalWriter"></p>
+                        <p id="modalActors"></p>
+                        <div id="movieTrailer" style="display: inline-block"></div>
+                        <!--<iframe id="modalTrailer" width="640" height="360" src="" frameborder="0" allowfullscreen></iframe>-->
+                        <p id="modalMoviePlot"></p>
+                    </div>
+                    <div class="modal-footer" id="movieSources">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="errorModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <h2>Sorry!</h2>
+                    <p>The guru couldn't find that movie.</p>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

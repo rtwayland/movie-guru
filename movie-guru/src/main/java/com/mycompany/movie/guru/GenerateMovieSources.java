@@ -6,10 +6,10 @@
 package com.mycompany.movie.guru;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -46,7 +46,7 @@ public class GenerateMovieSources extends HttpServlet {
 
         GuideBoxMovie movie = new GuideBoxMovie();
 
-        movie.setRunTime(OMDBmap.get("Runtime").toString());
+        //movie.setRunTime(OMDBmap.get("Runtime").toString());
         movie.setDirector(OMDBmap.get("Director").toString());
         movie.setWriter(OMDBmap.get("Writer").toString());
         movie.setActors(OMDBmap.get("Actors").toString());
@@ -63,7 +63,8 @@ public class GenerateMovieSources extends HttpServlet {
         movie.setYear(map.get("release_year").toString());
         movie.setRating(map.get("rating").toString());
         movie.setRottentomatoes(map.get("rottentomatoes").toString());
-        movie.setPoster(map.get("poster_400x570").toString());
+        movie.setSmallPoster(map.get("poster_240x342").toString());
+        movie.setLargePoster(map.get("poster_400x570").toString());
 
         //Do a new search with the newly obtained GuideBox ID
         URL sourcesUrl = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/movie/" + movie.getId());
@@ -97,9 +98,14 @@ public class GenerateMovieSources extends HttpServlet {
         movie.setSubscriptionWebList(subscriptionWebList);
         movie.setPurchaseWebList(purchaseWebList);
 
+        String json = new Gson().toJson(movie);
+        PrintWriter out = response.getWriter();
+
+        out.print(json);
+
         //movie.displaySource();
-        request.getSession().setAttribute("movie", movie);
-        request.getRequestDispatcher("/ViewMovieSources.jsp").forward(request, response);
+//        request.getSession().setAttribute("movie", movie);
+//        request.getRequestDispatcher("/ViewMovieSources.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

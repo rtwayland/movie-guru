@@ -5,26 +5,23 @@
  */
 package com.mycompany.movie.guru;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author user
  */
-@WebServlet(name = "GenerateSuggestions", urlPatterns = {"/GenerateSuggestions"})
-public class GenerateSuggestions extends HttpServlet {
+@WebServlet(name = "FilterResults", urlPatterns = {"/FilterResults"})
+public class FilterResults extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,31 +34,41 @@ public class GenerateSuggestions extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String search = request.getParameter("suggestion-search");
-
-        URL url = new URL("https://www.tastekid.com/api/similar?k=228946-moviegur-14IA4LWB&q=" + URLEncoder.encode(search, "UTF-8") + "&type=movies&limit=20"); //&limit=50
-        System.out.println("The TasteKid URL: " + url);
-        ObjectMapper mapper = new ObjectMapper();
-
-        Map<String, Object> map = mapper.readValue(url, Map.class);
-        Map<String, Object> innerMap = (Map<String, Object>) map.get("Similar");
-
-        List list = (List) innerMap.get("Results");
-        List<Suggestion> suggestions = new ArrayList<>();
-        Suggestion originalMovie = new Suggestion(search, "movie");
-        suggestions.add(originalMovie);
-        for (Object item : list) {
-            Map<String, Object> resultMap = (Map<String, Object>) item;
-            Suggestion suggestion = new Suggestion();
-            suggestion.setName(resultMap.get("Name").toString());
-            suggestion.setType(resultMap.get("Type").toString());
-
-            System.out.println("The suggested title: " + suggestion.getName());
-            suggestions.add(suggestion);
+        String rRating = request.getParameter("r");
+        String pg13Rating = request.getParameter("pg13");
+        String pgRating = request.getParameter("pg");
+        
+        if (rRating == null) {
+            rRating = "off";
+        }
+        if (pg13Rating == null) {
+            pg13Rating = "off";
+        }
+        if (pgRating == null) {
+            pgRating = "off";
         }
 
-        request.getSession().setAttribute("suggestions", suggestions);
-        request.getRequestDispatcher("/GenerateMovie").forward(request, response);
+        //MovieHandler handler = new DatabaseHandler();
+        //List<GuideBoxMovie> movies = handler.getMovies();
+        
+        HttpSession session = request.getSession(true);
+        List<GuideBoxMovie> movies = (List) session.getAttribute("movies");
+        List<GuideBoxMovie> filteredMovies = new ArrayList();
+        for (GuideBoxMovie movie : movies) {
+            if (rRating.equals("on") && movie.getRating().equals("R")) {
+                filteredMovies.add(movie);
+            }
+            if (pg13Rating.equals("on") && movie.getRating().equals("PG-13")) {
+                filteredMovies.add(movie);
+            }
+            if (pgRating.equals("on") && movie.getRating().equals("PG")) {
+                filteredMovies.add(movie);
+            }
+        }
+        
+        request.getSession().setAttribute("movies", filteredMovies);
+        request.getRequestDispatcher("/ViewSuggestions.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
