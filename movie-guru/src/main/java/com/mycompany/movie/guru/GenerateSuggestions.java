@@ -39,7 +39,7 @@ public class GenerateSuggestions extends HttpServlet {
             throws ServletException, IOException {
         String search = request.getParameter("suggestion-search");
 
-        URL url = new URL("https://www.tastekid.com/api/similar?k=228946-moviegur-14IA4LWB&q=" + URLEncoder.encode(search, "UTF-8") + "&type=movies&limit=50"); //&limit=50
+        URL url = new URL("https://www.tastekid.com/api/similar?k=228946-moviegur-14IA4LWB&q=" + URLEncoder.encode(search, "UTF-8") + "&type=movies&limit=20"); //&limit=50
         System.out.println("The TasteKid URL: " + url);
         ObjectMapper mapper = new ObjectMapper();
 

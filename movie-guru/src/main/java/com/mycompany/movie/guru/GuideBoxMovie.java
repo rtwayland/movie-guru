@@ -103,8 +103,16 @@ public class GuideBoxMovie {
         return runTime;
     }
 
-    public void setRunTime(String runTime) {
-        this.runTime = runTime;
+    public void setRunTime(int runTime) {
+        int totalMinutes = runTime / 60;
+        int hours = totalMinutes / 60;
+        int minutes = totalMinutes - (hours * 60);
+
+        if (hours > 1) {
+            this.runTime = Integer.toString(hours) + " hours " + Integer.toString(minutes) + " min";
+        } else {
+            this.runTime = Integer.toString(hours) + " hour " + Integer.toString(minutes) + " min";
+        }
     }
 
     public String getShortPlot() {

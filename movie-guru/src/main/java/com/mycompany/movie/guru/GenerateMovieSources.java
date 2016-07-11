@@ -46,7 +46,7 @@ public class GenerateMovieSources extends HttpServlet {
 
         GuideBoxMovie movie = new GuideBoxMovie();
 
-        movie.setRunTime(OMDBmap.get("Runtime").toString());
+        //movie.setRunTime(OMDBmap.get("Runtime").toString());
         movie.setDirector(OMDBmap.get("Director").toString());
         movie.setWriter(OMDBmap.get("Writer").toString());
         movie.setActors(OMDBmap.get("Actors").toString());
