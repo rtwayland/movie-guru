@@ -233,7 +233,7 @@ function displayMovies(movieList) {
     if (typeof allMovieObjects !== 'undefined' && allMovieObjects.length > 0) {
         var movies = localStorage[movieList];
         var movieObject = JSON.parse(movies);
-        console.log(movieObject);
+        //console.log(movieObject);
 
 
         var movieListDiv = document.createElement('div');
@@ -241,6 +241,17 @@ function displayMovies(movieList) {
 
         //Create div to hold the movie the user searched
         var searchedMovieDiv = document.createElement('div');
+        var searchInfo = document.createElement('div');
+        var searchedText = document.createElement('p');
+        searchedText.appendChild(document.createTextNode("suggestions for movies like"));
+        var searchedTitle = document.createElement('h2');
+        searchedTitle.appendChild(document.createTextNode(allMovieObjects[0]['title']));
+        
+        searchInfo.appendChild(searchedText);
+        searchInfo.appendChild(searchedTitle);
+        
+        searchedMovieDiv.appendChild(searchInfo);
+
 
         //var firstMovieLink = document.createElement('a');
         var firstImageID = allMovieObjects[0]['imdbID'];
@@ -307,6 +318,13 @@ function displayInitialMovies() {
 
         //Create div to hold the movie the user searched
         var searchedMovieDiv = document.createElement('div');
+        var searchedText = document.createElement('p');
+        searchedText.appendChild(document.createTextNode("suggestions for movies like"));
+        var searchedTitle = document.createElement('h2');
+        searchedTitle.appendChild(document.createTextNode(allMovieObjects[0]['title']));
+        
+        searchedMovieDiv.appendChild(searchedText);
+        searchedMovieDiv.appendChild(searchedTitle);
 
         //var firstMovieLink = document.createElement('a');
         var firstImageID = allMovieObjects[0]['imdbID'];
