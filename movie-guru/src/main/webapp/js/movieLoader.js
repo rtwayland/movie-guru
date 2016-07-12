@@ -176,49 +176,63 @@ function filter() {
     var pgRating = document.getElementById('pg');
     var gRating = document.getElementById('g');
     var ncRating = document.getElementById('nc');
+
+    var netflix = document.getElementById('netflix');
+    var prime = document.getElementById('prime');
+    var hulu = document.getElementById('hulu');
+
     var allMovies = localStorage['movies'];
-    var allMovieObjects = JSON.parse(allMovies);
+    var filteredSources = localStorage['filteredSourceList'];
+    var movieObjects;
 
     var filteredList = [];
+    var i;
+    if ((netflix.checked || prime.checked || hulu.checked) && filteredSources != null) {
+        movieObjects = JSON.parse(filteredSources);
+        i = 0;
+    } else {
+        movieObjects = JSON.parse(allMovies);
+        i = 1;
+    }
 
-    for (var i = 1; i < allMovieObjects.length; i++) {
-
-        switch (allMovieObjects[i]['rating']) {
+    while (i < movieObjects.length) {
+        switch (movieObjects[i]['rating']) {
             case "NR":
             case "UNRATED":
                 if (nrRating.checked) {
-                    filteredList.push(allMovieObjects[i]);
+                    filteredList.push(movieObjects[i]);
                 }
                 break;
             case "R":
                 if (rRating.checked) {
-                    filteredList.push(allMovieObjects[i]);
+                    filteredList.push(movieObjects[i]);
                 }
                 break;
             case "PG-13":
                 if (pg13Rating.checked) {
-                    filteredList.push(allMovieObjects[i]);
+                    filteredList.push(movieObjects[i]);
                 }
                 break;
             case "PG":
                 if (pgRating.checked) {
-                    filteredList.push(allMovieObjects[i]);
+                    filteredList.push(movieObjects[i]);
                 }
                 break;
             case "G":
                 if (gRating.checked) {
-                    filteredList.push(allMovieObjects[i]);
+                    filteredList.push(movieObjects[i]);
                 }
                 break;
             case "NC-17":
                 if (ncRating.checked) {
-                    filteredList.push(allMovieObjects[i]);
+                    filteredList.push(movieObjects[i]);
                 }
                 break;
             default:
-                filteredList.push(allMovieObjects[i]);
+                filteredList.push(movieObjects[i]);
                 break;
         }
+        i++;
     }
 
     var jsonString = JSON.stringify(filteredList);
@@ -379,6 +393,7 @@ function displayInitialMovies() {
  * WRITE MOVIE LIST
  **************************/
 function writeMovieList(movieList) {
+    localStorage.clear();
     localStorage['movies'] = movieList;
 
     $('#messageModal').modal('hide');
@@ -388,12 +403,17 @@ function writeMovieList(movieList) {
 
     //generateFilterBox();
     document.getElementById('filterBox').style.visibility = "visible";
-    document.getElementById('nr').checked = "true";
-    document.getElementById('nc').checked = "true";
-    document.getElementById('r').checked = "true";
-    document.getElementById('pg13').checked = "true";
-    document.getElementById('pg').checked = "true";
-    document.getElementById('g').checked = "true";
+    document.getElementById('nr').checked = true;
+    document.getElementById('nc').checked = true;
+    document.getElementById('r').checked = true;
+    document.getElementById('pg13').checked = true;
+    document.getElementById('pg').checked = true;
+    document.getElementById('g').checked = true;
+
+    document.getElementById('sourceFilterBox').style.visibility = "visible";
+    document.getElementById('netflix').checked = false;
+    document.getElementById('prime').checked = false;
+    document.getElementById('hulu').checked = false;
 
     displayInitialMovies();
 }
@@ -428,6 +448,97 @@ function httpGET(url, callback) {
     xmlhttp.send();
 }
 
+/***************************
+ * FILTER SOURCES
+ **************************/
+function filterSources() {
+    var netflix = document.getElementById('netflix');
+    var prime = document.getElementById('prime');
+    var hulu = document.getElementById('hulu');
+
+    var allMovies = localStorage['movies'];
+    var filteredRatings = localStorage['filteredList'];
+
+    var movieObjects;
+
+    var filteredSourceList = [];
+    var i;
+    if (filteredRatings != null) {
+        movieObjects = JSON.parse(filteredRatings);
+        i = 0;
+    } else {
+        movieObjects = JSON.parse(allMovies);
+        i = 1;
+    }
+
+    while (i < movieObjects.length) {
+        var subscriptionList = movieObjects[i]['subscriptionWebList'];
+        console.log(subscriptionList);
+        var inserted = false;
+        if (typeof subscriptionList !== 'undefined' && subscriptionList.length > 0) {
+            for (var j = 0; j < subscriptionList.length && inserted === false; j++) {
+                if (subscriptionList[j] != null) {
+                    console.log(subscriptionList[0]['name']);
+                    switch (subscriptionList[j]['name']) {
+                        case "Netflix":
+                            if (netflix.checked) {
+                                filteredSourceList.push(movieObjects[i]);
+                                inserted = true;
+                            }
+                            break;
+                        case "Amazon Prime":
+                            if (prime.checked) {
+                                filteredSourceList.push(movieObjects[i]);
+                                inserted = true;
+                            }
+                            break;
+                        case "Hulu":
+                            if (hulu.checked) {
+                                filteredSourceList.push(movieObjects[i]);
+                                inserted = true;
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+        ++i;
+    }
+
+    var jsonString = JSON.stringify(filteredSourceList);
+    localStorage['filteredSourceList'] = jsonString;
+    var movieContainer = document.getElementById('movieList');
+
+    if (movieContainer != null) {
+        document.getElementById('movieList').remove();
+    }
+
+    displayMovies("filteredSourceList");
+
+}
+
+function reset() {
+    if (localStorage['filteredSourceList'] != null) {
+        localStorage.removeItem('filteredSourceList');
+    }
+
+    if (localStorage['filteredList'] != null) {
+        localStorage.removeItem('filteredList');
+    }
+
+    document.getElementById('nr').checked = true;
+    document.getElementById('nc').checked = true;
+    document.getElementById('r').checked = true;
+    document.getElementById('pg13').checked = true;
+    document.getElementById('pg').checked = true;
+    document.getElementById('g').checked = true;
+
+    document.getElementById('netflix').checked = false;
+    document.getElementById('prime').checked = false;
+    document.getElementById('hulu').checked = false;
+
+    displayInitialMovies();
+}
 /***************************
  * GENERATE FILTER BOX
  **************************/
