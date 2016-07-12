@@ -473,12 +473,12 @@ function filterSources() {
 
     while (i < movieObjects.length) {
         var subscriptionList = movieObjects[i]['subscriptionWebList'];
-        console.log(subscriptionList);
+        //console.log(subscriptionList);
         var inserted = false;
         if (typeof subscriptionList !== 'undefined' && subscriptionList.length > 0) {
             for (var j = 0; j < subscriptionList.length && inserted === false; j++) {
                 if (subscriptionList[j] != null) {
-                    console.log(subscriptionList[0]['name']);
+                    //console.log(subscriptionList[0]['name']);
                     switch (subscriptionList[j]['name']) {
                         case "Netflix":
                             if (netflix.checked) {
