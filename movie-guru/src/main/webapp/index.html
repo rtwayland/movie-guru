@@ -51,6 +51,17 @@
             <label for="nr">NC-17</label>
             <input type="checkbox" name="nc" id="nc" onchange="filter()" checked />
         </div>
+        <div class="checkboxes" id="sourceFilterBox" style="visibility: hidden;">
+            <label for="netflix">Netflix</label>
+            <input type="checkbox" name="netflix" id="netflix" onchange="filterSources()" />
+
+            <label for="prime">Amazon Prime</label>
+            <input type="checkbox" name="prime" id="prime" onchange="filterSources()" />
+            
+            <label for="hulu">Hulu</label>
+            <input type="checkbox" name="hulu" id="hulu" onchange="filterSources()" />
+        </div>
+        <button type="button" onclick="reset()">Reset</button>
 
         <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
