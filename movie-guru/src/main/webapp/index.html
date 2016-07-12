@@ -61,7 +61,7 @@
             <label for="hulu">Hulu</label>
             <input type="checkbox" name="hulu" id="hulu" onchange="filterSources()" />
         </div>
-        <button type="button" onclick="reset()">Reset</button>
+        <button id="resetButton" type="button" style="visibility: hidden;" onclick="reset()">Reset</button>
 
         <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
