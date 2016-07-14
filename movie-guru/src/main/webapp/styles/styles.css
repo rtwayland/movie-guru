@@ -1,0 +1,31 @@
+
+
+body {
+    background-image:url('https://2hfwis17geu512h4no4aal8e-wpengine.netdna-ssl.com/wp-content/uploads/2015/06/shutterstock_110741174.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+.movieGuru {
+    font-size: 60pt;
+    margin-top: 50px;
+    margin-left: 150px;
+}
+
+.find {
+    font-size: 18pt;
+    margin-top: -124px;
+    margin-left: 570px;
+    font-weight: 100;
+    opacity: 0.25;
+}
+/*#wrap {
+    position: absolute;
+    margin-left: 50px;
+    margin-top: 200px;
+}*/
+#paragraph-container {
+    font-size: 12pt;
+    width: 500px;
+    margin-left: 55px;
+    margin-top: 275px;
+}
+

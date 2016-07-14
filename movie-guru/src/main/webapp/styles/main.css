@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:200");
+* {
+    font-family: 'Raleway';
+}
+.checkboxes {
+    position: absolute;
+    top: 650;
+}
+@media (max-width: 1150px) {
+    .checkboxes {
+        top: 500;
+        left: -30;
+    }
+}
+.checkboxes ul {
+    list-style: none;
+}
+.checkboxes button {
+    margin-left: 40px;
+}
+#movieList {
+    width: 100%;
+}
+.suggestionsFor p {
+    font-size: 15pt;
+    line-height: 1px;
+    margin-left: 100px;
+    margin-top: 140px;
+}
+.moviesLike p {
+    font-size: 15pt;
+    margin-top: -15px;
+    margin-left: 140px;
+}
+.movieTitle {
+    margin-left: 240px;
+    font-size: 37pt;
+    font-weight: bold;
+    width: 400px;
+    margin-top: -100px;
+}
+.bannerText {
+    position: absolute;
+    top: 200;
+    right: 500;
+}
+@media (max-width: 1150px) {
+    .bannerText {
+        top: 100;
+        right: 350;
+    }
+}
+@media (max-width: 910px) {
+    .bannerText {
+        top: 100;
+        right: 250;
+    }
+}
+@media (max-width: 800px) {
+    .bannerText {
+        top: 100;
+        right: 200;
+    }
+}
+.titlePic {
+    margin-left: 55%;
+    margin-top: 1%;
+}
+@media (max-width: 1150px) {
+    .titlePic img {
+        width: 300px;
+    }
+}
+.divider {
+    padding: 20px 0;
+    width: 100%;
+}
+.movieImages {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+.movieImages div {
+    width: 17%;
+    padding: 0 1px 1px 0;
+}
+.movieImages img {
+    width: 100%;
+}
+#wrap {
+    height: 30px;
+    padding: 0;
+    position: relative;
+}
+input[type="text"] {
+    height: 30px;
+    font-size: 14px;
+    display: inline-block;
+    font-weight: 100;
+    border: none;
+    outline: none;
+    color: #555;
+    padding: 3px 60px 3px 50px;
+    width: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 5px;
+    margin-top: 5px;
+    background: none;
+    z-index: 3;
+    transition: width 0.4s cubic-bezier(0, 0.795, 0, 1);
+    cursor: pointer;
+}
+input[type="text"]:focus:hover {
+    border-bottom: 0.5px solid #BBB;
+}
+input[type="text"]:focus {
+    width: 300px;
+    z-index: 1;
+    border-bottom: 0.5px solid #BBB;
+    cursor: text;
+}
+input[type="submit"] {
+    height: 35px;
+    width: 35px;
+    display: inline-block;
+    outline: none;
+    color: red;
+    background: url("https://d30y9cdsu7xlg0.cloudfront.net/png/6983-200.png");
+    background-size: contain;
+    text-indent: -10000px;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 5px;
+    margin-top: 5px;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 1.0;
+    cursor: pointer;
+    transition: opacity 0.7s ease;
+}
+input[type="submit"]:hover {
+    opacity: 0.8;
+}
