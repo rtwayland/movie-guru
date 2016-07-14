@@ -4,12 +4,12 @@
 }
 .checkboxes {
     position: absolute;
-    top: 650;
+    top: 700px;
 }
 @media (max-width: 1150px) {
     .checkboxes {
-        top: 500;
-        left: -30;
+        top: 550px;
+        left: -30px;
     }
 }
 .checkboxes ul {
@@ -29,42 +29,42 @@
 }
 .moviesLike p {
     font-size: 15pt;
-    margin-top: -15px;
+    margin-top: -5px;
     margin-left: 140px;
 }
 .movieTitle {
-    margin-left: 240px;
+    margin-left: 245px;
     font-size: 37pt;
     font-weight: bold;
     width: 400px;
-    margin-top: -100px;
+    margin-top: -70px;
 }
 .bannerText {
     position: absolute;
-    top: 200;
-    right: 500;
+    top: 200px;
+    right: 650px;
 }
-@media (max-width: 1150px) {
+@media (max-width: 1190px) {
     .bannerText {
-        top: 100;
-        right: 350;
+        top: 200px;
+        right: 500px;
     }
 }
 @media (max-width: 910px) {
     .bannerText {
-        top: 100;
-        right: 250;
+        top: 200px;
+        right: 250px;
     }
 }
 @media (max-width: 800px) {
     .bannerText {
-        top: 100;
-        right: 200;
+        top: 200px;
+        right: 200px;
     }
 }
 .titlePic {
     margin-left: 55%;
-    margin-top: 1%;
+    margin-top: -250px;
 }
 @media (max-width: 1150px) {
     .titlePic img {
@@ -91,7 +91,7 @@
 }
 #wrap {
     height: 30px;
-    padding: 0;
+    padding: 0px;
     position: relative;
 }
 input[type="text"] {
@@ -105,8 +105,8 @@ input[type="text"] {
     padding: 3px 60px 3px 50px;
     width: 0;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0px;
+    left: 0px;
     margin-left: 5px;
     margin-top: 5px;
     background: none;
@@ -134,8 +134,8 @@ input[type="submit"] {
     text-indent: -10000px;
     border: none;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0px;
+    left: 0px;
     margin-left: 5px;
     margin-top: 5px;
     z-index: 2;
