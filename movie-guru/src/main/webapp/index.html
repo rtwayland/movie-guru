@@ -8,7 +8,7 @@
 
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <title>Movie Guru Home</title>
-        <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
+        <!--<link rel="stylesheet" type="text/css" href="styles/styles.css"/>-->
         <link rel="stylesheet" type="text/css" href="styles/main.css"/>
         <script src="js/movieLoader.js"></script>
     </head>
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div id="wrap">
+        <div id="wrap" style="position: absolute; left: 55px; top: 300px;">
             <form onsubmit="collect();
                     return false">
                 <input onfocus="this.select();" type="text" id="suggestion-search" name="search" placeholder="Movie Title">
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="checkboxes" id="filterBox" style="visibility: hidden;">
+        <div class="checkboxes" id="filterBox" style="position: absolute; visibility: hidden;">
             <ul>
                 <li>
                     <input type="checkbox" name="r" id="r" onchange="filter()" checked="">
@@ -66,7 +66,7 @@
                     <input type="checkbox" name="nc" id="nc" onchange="filter()" checked="">
                     <label for="nr">NC-17</label>
                 </li>
-
+                <li><hr/></li>
                 <li>
                     <input type="checkbox" name="netflix" id="netflix" onchange="filterSources()">
                     <label for="netflix">Netflix</label>

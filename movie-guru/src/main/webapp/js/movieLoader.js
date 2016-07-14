@@ -567,6 +567,10 @@ function writeMovieList(movieList) {
     $('#errorModal').modal('hide');
     document.getElementById('heading-container').innerHTML = '';
     document.getElementById('paragraph-container').innerHTML = '';
+    document.getElementById('wrap').style.position = 'relative';
+    document.getElementById('wrap').style.left = '';
+    document.getElementById('wrap').style.top = '';
+    document.body.style.backgroundImage='none';
 
     //generateFilterBox();
     document.getElementById('filterBox').style.visibility = "visible";
