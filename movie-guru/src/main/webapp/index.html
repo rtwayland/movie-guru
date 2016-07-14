@@ -25,7 +25,7 @@
         <div id="wrap">
             <form onsubmit="collect();
                     return false">
-                <input type="text" id="suggestion-search" name="search" placeholder="Movie Title">
+                <input onfocus="this.select();" type="text" id="suggestion-search" name="search" placeholder="Movie Title">
                 <input id="search_submit" type="submit">
             </form>
         </div>
