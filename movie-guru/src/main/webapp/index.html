@@ -8,18 +8,27 @@
 
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <title>Movie Guru Home</title>
+        <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
+        <link rel="stylesheet" type="text/css" href="styles/main.css"/>
         <script src="js/movieLoader.js"></script>
     </head>
     <body>
         <div id="heading-container">
-            <h1>Movie Guru</h1>
-            <h2>find your next favorite movie</h2>
+            <div class="movieGuru">
+                <p>Movie Guru</p>
+            </div>
+            <div class="find">
+                <p>find your next favorite movie</p>
+            </div>
         </div>
-        <form onsubmit="collect();
-                return false">            
-            <input type="text" id="suggestion-search" name="suggestion-search" placeholder="Movie Title" />
-            <button type="submit">Search Suggestions</button>
-        </form>
+
+        <div id="wrap">
+            <form onsubmit="collect();
+                    return false">
+                <input type="text" id="suggestion-search" name="search" placeholder="Movie Title">
+                <input id="search_submit" type="submit">
+            </form>
+        </div>
         <div id="paragraph-container">
             <p>Enter a movie title and we will give you recommendations of other movies you might like as well as where you can find them</p>
         </div>
@@ -31,38 +40,48 @@
                 </div>
             </div>
         </div>
-
         <div class="checkboxes" id="filterBox" style="visibility: hidden;">
-            <label for="r">R</label>
-            <input type="checkbox" name="r" id="r" onchange="filter()" checked />
+            <ul>
+                <li>
+                    <input type="checkbox" name="r" id="r" onchange="filter()" checked="">
+                    <label for="r">R</label>
+                </li>
+                <li>
+                    <input type="checkbox" name="pg13" id="pg13" onchange="filter()" checked="">
+                    <label for="pg13">PG-13</label>
+                </li>
+                <li>
+                    <input type="checkbox" name="pg" id="pg" onchange="filter()" checked="">
+                    <label for="pg">PG</label>
+                </li>
+                <li>
+                    <input type="checkbox" name="g" id="g" onchange="filter()" checked="">
+                    <label for="g">G</label>
+                </li>
+                <li>
+                    <input type="checkbox" name="nr" id="nr" onchange="filter()" checked="">
+                    <label for="nr">NR</label>
+                </li>
+                <li>
+                    <input type="checkbox" name="nc" id="nc" onchange="filter()" checked="">
+                    <label for="nr">NC-17</label>
+                </li>
 
-            <label for="pg13">PG-13</label>
-            <input type="checkbox" name="pg13" id="pg13" onchange="filter()" checked />
-
-            <label for="pg">PG</label>
-            <input type="checkbox" name="pg" id="pg" onchange="filter()" checked />
-
-            <label for="g">G</label>
-            <input type="checkbox" name="g" id="g" onchange="filter()" checked />
-
-            <label for="nr">NR</label>
-            <input type="checkbox" name="nr" id="nr" onchange="filter()" checked />
-
-            <label for="nr">NC-17</label>
-            <input type="checkbox" name="nc" id="nc" onchange="filter()" checked />
+                <li>
+                    <input type="checkbox" name="netflix" id="netflix" onchange="filterSources()">
+                    <label for="netflix">Netflix</label>
+                </li>
+                <li>
+                    <input type="checkbox" name="prime" id="prime" onchange="filterSources()">
+                    <label for="prime">Amazon Prime</label>
+                </li>
+                <li>
+                    <input type="checkbox" name="hulu" id="hulu" onchange="filterSources()">
+                    <label for="hulu">Hulu</label>
+                </li>
+            </ul>
+            <button id="resetButton" type="button" onclick="reset()">Reset</button>
         </div>
-        <div class="checkboxes" id="sourceFilterBox" style="visibility: hidden;">
-            <label for="netflix">Netflix</label>
-            <input type="checkbox" name="netflix" id="netflix" onchange="filterSources()" />
-
-            <label for="prime">Amazon Prime</label>
-            <input type="checkbox" name="prime" id="prime" onchange="filterSources()" />
-            
-            <label for="hulu">Hulu</label>
-            <input type="checkbox" name="hulu" id="hulu" onchange="filterSources()" />
-        </div>
-        <button id="resetButton" type="button" style="visibility: hidden;" onclick="reset()">Reset</button>
-
         <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
