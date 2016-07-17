@@ -12,8 +12,11 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,17 +45,28 @@ public class GenerateMovie extends HttpServlet {
         HttpSession session = request.getSession(true);
         List<Suggestion> suggestions = (List) session.getAttribute("suggestions");
         List<GuideBoxMovie> movies = new ArrayList<>();
+        int i = 1;
         for (Suggestion s : suggestions) {
             String search = s.getName();
             System.out.println("Suggestion name: " + search);
 
             URL url = new URL("https://api-public.guidebox.com/v1.43/US/rKtBmi58PzqcQnGhju9OvicmDeHVW6IE/search/movie/title/" + URLEncoder.encode(search, "UTF-8"));
-            System.out.println("1st GB Query: " + url);
+            System.out.println(i + " GB Query: " + url);
             ObjectMapper mapper = new ObjectMapper();
 
-            Map<String, Object> map = mapper.readValue(url, Map.class);
+            Map<String, Object> map;
+            try {
+                map = mapper.readValue(url, Map.class);
+            } catch (Exception ex) {
+                // something bad happend, skip to the next one
+                Logger logger = Logger.getAnonymousLogger();
+                logger.log(Level.SEVERE, "an exception was thrown", ex);
+                //Create the map and fill it with the error key
+                map = new HashMap<>();
+                map.put("error", "no movie");
+            }
 
-            if (!map.isEmpty() && !map.containsKey("Error")) {
+            if (!map.isEmpty() && !map.containsKey("error")) {
                 List list = (List) map.get("results");
                 GuideBoxMovie movie = new GuideBoxMovie();
 
@@ -171,6 +185,7 @@ public class GenerateMovie extends HttpServlet {
                 }
 
             }
+            i++;
         }
 
         String json = new Gson().toJson(movies);

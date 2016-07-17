@@ -27,8 +27,10 @@ function getSources(id) {
 }
 
 function fillModalHeader(movie) {
-    var heading = movie['title'] + " — Rated: " + movie['rating'] + " — " + movie['year'] + " — " + movie['runTime'];
-    document.getElementById('modalMovieTitle').innerHTML = heading;
+    document.getElementById('modalMovieTitle').innerHTML = movie['title'];
+    document.getElementById('modalMovieRating').innerHTML = movie['rating'];
+    document.getElementById('modalMovieYear').innerHTML = movie['year'];
+    document.getElementById('modalMovieTime').innerHTML = movie['runTime'];
     var photoDiv = document.getElementById('moviePoster');
 
     if (photoDiv !== null) {
@@ -56,6 +58,8 @@ function fillModalHeader(movie) {
 }
 
 function fillModalBody(movie) {
+    document.getElementById('modalMoviePlot').innerHTML = movie['longPlot'];
+
     var trailerDiv = document.getElementById('movieTrailer');
 
     if (trailerDiv !== null) {
@@ -69,8 +73,6 @@ function fillModalBody(movie) {
             trailerDiv.appendChild(ifrm);
         }
     }
-
-    document.getElementById('modalMoviePlot').innerHTML = movie['longPlot'];
 }
 
 function fillModalSources(movie) {
@@ -81,19 +83,21 @@ function fillModalSources(movie) {
     var movieSourcesDiv = document.getElementById('movieSources');
     movieSourcesDiv.innerHTML = '';
 
+    var freeSourcesListItem = document.createElement('li');
     var freeSourcesDiv = document.createElement('div');
     freeSourcesDiv.id = "freeSources";
     var freeSourcesHeading = document.createElement('h5');
     freeSourcesHeading.appendChild(document.createTextNode('Free Sources'));
     freeSourcesDiv.appendChild(freeSourcesHeading);
 
+    var paidSourcesListItem = document.createElement('li');
     var paidSourcesDiv = document.createElement('div');
     paidSourcesDiv.id = "paidSources";
     var paidSourcesHeading = document.createElement('h5');
     paidSourcesHeading.appendChild(document.createTextNode('Paid Sources'));
     paidSourcesDiv.appendChild(paidSourcesHeading);
 
-
+    var subscriptionSourcesListItem = document.createElement('li');
     var subscriptionSourcesDiv = document.createElement('div');
     subscriptionSourcesDiv.id = "subscriptionSources";
     var subscriptionSourcesHeading = document.createElement('h5');
@@ -114,6 +118,7 @@ function fillModalSources(movie) {
         linkDiv.appendChild(sourceLink);
         freeSourcesDiv.appendChild(linkDiv);
     }
+    freeSourcesListItem.appendChild(freeSourcesDiv);
 
     for (var i = 0; i < buyList.length; i++) {
         //console.log(buyList[i]);
@@ -130,6 +135,7 @@ function fillModalSources(movie) {
         linkDiv.appendChild(sourceLink);
         paidSourcesDiv.appendChild(linkDiv);
     }
+    paidSourcesListItem.appendChild(paidSourcesDiv);
 
     for (var i = 0; i < subscriptionList.length; i++) {
         var linkDiv = document.createElement('div');
@@ -145,12 +151,14 @@ function fillModalSources(movie) {
         linkDiv.appendChild(sourceLink);
         subscriptionSourcesDiv.appendChild(linkDiv);
     }
+    subscriptionSourcesListItem.appendChild(subscriptionSourcesDiv);
 
-
-    //} 
-    movieSourcesDiv.appendChild(freeSourcesDiv);
-    movieSourcesDiv.appendChild(subscriptionSourcesDiv);
-    movieSourcesDiv.appendChild(paidSourcesDiv);
+    movieSourcesUL = document.createElement('ul');
+    movieSourcesUL.appendChild(freeSourcesListItem);
+    movieSourcesUL.appendChild(paidSourcesListItem);
+    movieSourcesUL.appendChild(subscriptionSourcesListItem);
+    
+    movieSourcesDiv.appendChild(movieSourcesUL);
 }
 
 /***************************
@@ -503,7 +511,7 @@ function displayInitialMovies() {
             getSources(firstImageID);
         });
         titlePic.appendChild(firstMovieImage);
-        
+
         var bannerText = document.createElement('div');
         bannerText.className = "bannerText";
 
@@ -570,7 +578,7 @@ function writeMovieList(movieList) {
     document.getElementById('wrap').style.position = 'relative';
     document.getElementById('wrap').style.left = '';
     document.getElementById('wrap').style.top = '';
-    document.body.style.backgroundImage='none';
+    document.body.style.backgroundImage = 'none';
 
     //generateFilterBox();
     document.getElementById('filterBox').style.visibility = "visible";

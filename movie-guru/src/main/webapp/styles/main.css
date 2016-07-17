@@ -140,7 +140,7 @@ body {
   margin-top: 140px;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 920px) {
   .suggestionsFor p {
     font-size: 12pt;
     margin-left: 110px;
@@ -153,7 +153,7 @@ body {
   margin-left: 140px;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 920px) {
   .moviesLike p {
     font-size: 12pt;
   }
@@ -165,9 +165,10 @@ body {
   font-weight: bold;
   width: 400px;
   margin-top: -70px;
+  padding-right: 100px;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 920px) {
   .movieTitle {
     font-size: 30pt;
     margin-left: 220px;
@@ -177,35 +178,37 @@ body {
 
 .bannerText {
   position: absolute;
-  top: 100px;
-  right: 600px;
+  top: 70px;
+  right: 650px;
+}
+
+@media (max-width: 1260px) {
+  .bannerText {
+    right: 550px;
+  }
 }
 
 @media (max-width: 1190px) {
   .bannerText {
-    top: 100px;
     right: 480px;
   }
 }
 
 @media (max-width: 1050px) {
   .bannerText {
-    top: 100px;
     right: 360px;
   }
 }
 
 @media (max-width: 920px) {
   .bannerText {
-    top: 100px;
     right: 300px;
   }
 }
 
 @media (max-width: 840px) {
   .bannerText {
-    top: 100px;
-    right: 270px;
+    right: 300px;
   }
 }
 
@@ -372,4 +375,128 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   opacity: 0.8;
+}
+
+/**Modal Styles**/
+.modal-header {
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+.modal-header button {
+  color: white;
+  opacity: 1;
+  z-index: 10;
+}
+
+#moviePoster {
+  margin-left: 10%;
+  padding-bottom: 15px;
+  margin-top: 20px;
+}
+
+@media (max-width: 587px) {
+  #moviePoster {
+    display: block;
+    margin: 0 0 0 30%;
+  }
+}
+
+@media (max-width: 440px) {
+  #moviePoster {
+    margin: 0 0 0 20%;
+  }
+}
+
+.movieDetails {
+  margin-top: -350px;
+  margin-left: 50%;
+  width: 50%;
+  padding-bottom: 50px;
+}
+
+@media (max-width: 587px) {
+  .movieDetails {
+    display: block;
+    margin: auto;
+    width: 90%;
+  }
+}
+
+.movieDetails .modal-title {
+  font-family: 'Raleway';
+  font-size: 40pt;
+  line-height: 55px;
+  margin-top: 20px;
+  padding-bottom: 15px;
+}
+
+.movieDetails #modalMoviePlot {
+  width: 80%;
+  margin-left: 10%;
+  padding-bottom: 75px;
+}
+
+.movieDetails #movieTrailer {
+  margin-left: 12%;
+  margin-bottom: 75px;
+}
+
+.modal-footer {
+  background-color: black;
+}
+
+.modal-footer a {
+  color: #4ce9fc;
+}
+
+.modal-footer h5 {
+  color: gray;
+}
+
+.modal-footer hr {
+  color: gray;
+  opacity: 0.5;
+  padding-bottom: 8px;
+}
+
+.modal-footer ul {
+  display: flex;
+  flex-flow: row;
+  list-style: none;
+  margin-left: 10%;
+}
+
+.modal-footer li {
+  width: 28%;
+}
+
+.content {
+  padding-bottom: 30px;
+}
+
+.viewable {
+  font-family: 'Raleway';
+  font-size: 24pt;
+  color: white;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#freeSources {
+  position: relative;
+  text-align: left;
+}
+
+#paidSources {
+  position: relative;
+  text-align: center;
+}
+
+#subscriptionSources {
+  position: relative;
+  text-align: right;
+  margin-left: 5%;
 }
