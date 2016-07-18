@@ -16,14 +16,13 @@ function getSources(id) {
     var movie;
 
     for (var i = 0; i < allMovieObjects.length; i++) {
-        if (allMovieObjects[i]['imdbID'] == id) {
+        if (allMovieObjects[i]['imdbID'] === id) {
             movie = allMovieObjects[i];
             break;
         }
     }
 
     loadModal(movie);
-    //httpGET(url, loadModal);
 }
 
 function fillModalHeader(movie) {
@@ -38,7 +37,6 @@ function fillModalHeader(movie) {
 
         var image = document.createElement('img');
         image.src = movie['largePoster'];
-        image.width = 200;
 
         photoDiv.appendChild(image);
     }

@@ -163,7 +163,7 @@ body {
   margin-left: 245px;
   font-size: 37pt;
   font-weight: bold;
-  width: 400px;
+  width: 450px;
   margin-top: -70px;
   padding-right: 100px;
 }
@@ -409,6 +409,16 @@ input[type="submit"]:hover {
   }
 }
 
+#moviePoster img {
+  width: 300px;
+}
+
+@media (max-width: 991px) {
+  #moviePoster img {
+    width: 200px;
+  }
+}
+
 .movieDetails {
   margin-top: -350px;
   margin-left: 50%;
@@ -432,15 +442,22 @@ input[type="submit"]:hover {
   padding-bottom: 15px;
 }
 
-.movieDetails #modalMoviePlot {
+#modalMoviePlot {
   width: 80%;
   margin-left: 10%;
-  padding-bottom: 75px;
+  padding-top: 15px;
+  padding-bottom: 30px;
 }
 
-.movieDetails #movieTrailer {
+#movieTrailer {
   margin-left: 12%;
   margin-bottom: 75px;
+}
+
+@media (max-width: 991px) {
+  #movieTrailer {
+    margin-left: 0%;
+  }
 }
 
 .modal-footer {
