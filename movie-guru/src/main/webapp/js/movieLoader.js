@@ -16,19 +16,20 @@ function getSources(id) {
     var movie;
 
     for (var i = 0; i < allMovieObjects.length; i++) {
-        if (allMovieObjects[i]['imdbID'] == id) {
+        if (allMovieObjects[i]['imdbID'] === id) {
             movie = allMovieObjects[i];
             break;
         }
     }
 
     loadModal(movie);
-    //httpGET(url, loadModal);
 }
 
 function fillModalHeader(movie) {
-    var heading = movie['title'] + " — Rated: " + movie['rating'] + " — " + movie['year'] + " — " + movie['runTime'];
-    document.getElementById('modalMovieTitle').innerHTML = heading;
+    document.getElementById('modalMovieTitle').innerHTML = movie['title'];
+    document.getElementById('modalMovieRating').innerHTML = movie['rating'];
+    document.getElementById('modalMovieYear').innerHTML = movie['year'];
+    document.getElementById('modalMovieTime').innerHTML = movie['runTime'];
     var photoDiv = document.getElementById('moviePoster');
 
     if (photoDiv !== null) {
@@ -36,7 +37,6 @@ function fillModalHeader(movie) {
 
         var image = document.createElement('img');
         image.src = movie['largePoster'];
-        image.width = 200;
 
         photoDiv.appendChild(image);
     }
@@ -56,6 +56,8 @@ function fillModalHeader(movie) {
 }
 
 function fillModalBody(movie) {
+    document.getElementById('modalMoviePlot').innerHTML = movie['longPlot'];
+
     var trailerDiv = document.getElementById('movieTrailer');
 
     if (trailerDiv !== null) {
@@ -69,8 +71,6 @@ function fillModalBody(movie) {
             trailerDiv.appendChild(ifrm);
         }
     }
-
-    document.getElementById('modalMoviePlot').innerHTML = movie['longPlot'];
 }
 
 function fillModalSources(movie) {
@@ -81,19 +81,21 @@ function fillModalSources(movie) {
     var movieSourcesDiv = document.getElementById('movieSources');
     movieSourcesDiv.innerHTML = '';
 
+    var freeSourcesListItem = document.createElement('li');
     var freeSourcesDiv = document.createElement('div');
     freeSourcesDiv.id = "freeSources";
     var freeSourcesHeading = document.createElement('h5');
     freeSourcesHeading.appendChild(document.createTextNode('Free Sources'));
     freeSourcesDiv.appendChild(freeSourcesHeading);
 
+    var paidSourcesListItem = document.createElement('li');
     var paidSourcesDiv = document.createElement('div');
     paidSourcesDiv.id = "paidSources";
     var paidSourcesHeading = document.createElement('h5');
     paidSourcesHeading.appendChild(document.createTextNode('Paid Sources'));
     paidSourcesDiv.appendChild(paidSourcesHeading);
 
-
+    var subscriptionSourcesListItem = document.createElement('li');
     var subscriptionSourcesDiv = document.createElement('div');
     subscriptionSourcesDiv.id = "subscriptionSources";
     var subscriptionSourcesHeading = document.createElement('h5');
@@ -114,6 +116,7 @@ function fillModalSources(movie) {
         linkDiv.appendChild(sourceLink);
         freeSourcesDiv.appendChild(linkDiv);
     }
+    freeSourcesListItem.appendChild(freeSourcesDiv);
 
     for (var i = 0; i < buyList.length; i++) {
         //console.log(buyList[i]);
@@ -130,6 +133,7 @@ function fillModalSources(movie) {
         linkDiv.appendChild(sourceLink);
         paidSourcesDiv.appendChild(linkDiv);
     }
+    paidSourcesListItem.appendChild(paidSourcesDiv);
 
     for (var i = 0; i < subscriptionList.length; i++) {
         var linkDiv = document.createElement('div');
@@ -145,12 +149,14 @@ function fillModalSources(movie) {
         linkDiv.appendChild(sourceLink);
         subscriptionSourcesDiv.appendChild(linkDiv);
     }
+    subscriptionSourcesListItem.appendChild(subscriptionSourcesDiv);
 
-
-    //} 
-    movieSourcesDiv.appendChild(freeSourcesDiv);
-    movieSourcesDiv.appendChild(subscriptionSourcesDiv);
-    movieSourcesDiv.appendChild(paidSourcesDiv);
+    movieSourcesUL = document.createElement('ul');
+    movieSourcesUL.appendChild(freeSourcesListItem);
+    movieSourcesUL.appendChild(paidSourcesListItem);
+    movieSourcesUL.appendChild(subscriptionSourcesListItem);
+    
+    movieSourcesDiv.appendChild(movieSourcesUL);
 }
 
 /***************************
@@ -373,30 +379,57 @@ function displayMovies(movieList) {
         movieListDiv.id = "movieList";
 
         //Create div to hold the movie the user searched
-        var searchedMovieDiv = document.createElement('div');
-        var searchInfo = document.createElement('div');
-        var searchedText = document.createElement('p');
-        searchedText.appendChild(document.createTextNode("suggestions for movies like"));
-        var searchedTitle = document.createElement('h2');
+        var suggestionsFor = document.createElement('div');
+        suggestionsFor.className = "suggestionsFor";
+        var searchedForText = document.createElement('p');
+        searchedForText.appendChild(document.createTextNode("suggestions for"));
+        suggestionsFor.appendChild(searchedForText);
+
+        var moviesLike = document.createElement('div');
+        moviesLike.className = "moviesLike";
+        var moviesLikeText = document.createElement('p');
+        moviesLikeText.appendChild(document.createTextNode("movies like"));
+        moviesLike.appendChild(moviesLikeText);
+
+        var movieTitle = document.createElement('div');
+        movieTitle.className = "movieTitle";
+        var searchedTitle = document.createElement('p');
         searchedTitle.appendChild(document.createTextNode(allMovieObjects[0]['title']));
+        movieTitle.appendChild(searchedTitle);
 
-        searchInfo.appendChild(searchedText);
-        searchInfo.appendChild(searchedTitle);
-
-        searchedMovieDiv.appendChild(searchInfo);
-
-
-        //var firstMovieLink = document.createElement('a');
+        var titlePic = document.createElement('div');
+        titlePic.className = "titlePic";
         var firstImageID = allMovieObjects[0]['imdbID'];
         var firstMovieImage = document.createElement('img');
         firstMovieImage.src = allMovieObjects[0]['largePoster'];
-        firstMovieImage.width = 300;
+//        firstMovieImage.width = 300;
         firstMovieImage.addEventListener('click', function () {
             getSources(firstImageID);
         });
+        titlePic.appendChild(firstMovieImage);
 
-        searchedMovieDiv.appendChild(firstMovieImage);
-        movieListDiv.appendChild(searchedMovieDiv);
+        var bannerText = document.createElement('div');
+        bannerText.className = "bannerText";
+
+        var searchedMovieBanner = document.createElement('div');
+        searchedMovieBanner.className = "searchedMovieBanner";
+
+        bannerText.appendChild(suggestionsFor);
+        bannerText.appendChild(moviesLike);
+        bannerText.appendChild(movieTitle);
+        searchedMovieBanner.appendChild(bannerText);
+        searchedMovieBanner.appendChild(titlePic);
+
+        var horizontalRuleDiv = document.createElement('div');
+        horizontalRuleDiv.className = "divider";
+        var horizontalRule = document.createElement('hr');
+        horizontalRuleDiv.appendChild(horizontalRule);
+
+        movieListDiv.appendChild(searchedMovieBanner);
+        movieListDiv.appendChild(horizontalRuleDiv);
+
+        var movieImages = document.createElement('div');
+        movieImages.className = "movieImages";
 
         //Loop through movie list and output movies    
         for (var i = 0; i < movieObject.length; i++) {
@@ -404,22 +437,20 @@ function displayMovies(movieList) {
                 if (movieObject[i]['imdbID'] === allMovieObjects[0]['imdbID']) {
                     ++i;
                 }
-                //var a = document.createElement('a');
-                //console.log("Loop number: " + i);
+                var imageDiv = document.createElement('div');
                 var imageID = movieObject[i]['imdbID'];
-                //var onClickFunction = "getSources(" + imageID + ")";
                 var image = document.createElement('img');
                 image.src = movieObject[i]['smallPoster'];
-                image.width = 200;
+//                image.width = 200;
 
                 image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
 
-                //a.appendChild(image);
-                //a.title = "my title text";
-                //a.href = "GenerateMovieSources?id=" + movieObject[i]['imdbID'];
-                movieListDiv.appendChild(image);
+                imageDiv.appendChild(image);
+                movieImages.appendChild(imageDiv);
             }
         }
+
+        movieListDiv.appendChild(movieImages);
 
         document.body.appendChild(movieListDiv);
     } else {
@@ -450,26 +481,57 @@ function displayInitialMovies() {
         movieListDiv.id = "movieList";
 
         //Create div to hold the movie the user searched
-        var searchedMovieDiv = document.createElement('div');
-        var searchedText = document.createElement('p');
-        searchedText.appendChild(document.createTextNode("suggestions for movies like"));
-        var searchedTitle = document.createElement('h2');
+        var suggestionsFor = document.createElement('div');
+        suggestionsFor.className = "suggestionsFor";
+        var searchedForText = document.createElement('p');
+        searchedForText.appendChild(document.createTextNode("suggestions for"));
+        suggestionsFor.appendChild(searchedForText);
+
+        var moviesLike = document.createElement('div');
+        moviesLike.className = "moviesLike";
+        var moviesLikeText = document.createElement('p');
+        moviesLikeText.appendChild(document.createTextNode("movies like"));
+        moviesLike.appendChild(moviesLikeText);
+
+        var movieTitle = document.createElement('div');
+        movieTitle.className = "movieTitle";
+        var searchedTitle = document.createElement('p');
         searchedTitle.appendChild(document.createTextNode(allMovieObjects[0]['title']));
+        movieTitle.appendChild(searchedTitle);
 
-        searchedMovieDiv.appendChild(searchedText);
-        searchedMovieDiv.appendChild(searchedTitle);
-
-        //var firstMovieLink = document.createElement('a');
+        var titlePic = document.createElement('div');
+        titlePic.className = "titlePic";
         var firstImageID = allMovieObjects[0]['imdbID'];
         var firstMovieImage = document.createElement('img');
         firstMovieImage.src = allMovieObjects[0]['largePoster'];
-        firstMovieImage.width = 300;
+//        firstMovieImage.width = 300;
         firstMovieImage.addEventListener('click', function () {
             getSources(firstImageID);
         });
+        titlePic.appendChild(firstMovieImage);
 
-        searchedMovieDiv.appendChild(firstMovieImage);
-        movieListDiv.appendChild(searchedMovieDiv);
+        var bannerText = document.createElement('div');
+        bannerText.className = "bannerText";
+
+        var searchedMovieBanner = document.createElement('div');
+        searchedMovieBanner.className = "searchedMovieBanner";
+
+        bannerText.appendChild(suggestionsFor);
+        bannerText.appendChild(moviesLike);
+        bannerText.appendChild(movieTitle);
+        searchedMovieBanner.appendChild(bannerText);
+        searchedMovieBanner.appendChild(titlePic);
+
+        var horizontalRuleDiv = document.createElement('div');
+        horizontalRuleDiv.className = "divider";
+        var horizontalRule = document.createElement('hr');
+        horizontalRuleDiv.appendChild(horizontalRule);
+
+        movieListDiv.appendChild(searchedMovieBanner);
+        movieListDiv.appendChild(horizontalRuleDiv);
+
+        var movieImages = document.createElement('div');
+        movieImages.className = "movieImages";
 
         //Loop through movie list and output movies    
         for (var i = 1; i < allMovieObjects.length; i++) {
@@ -477,17 +539,20 @@ function displayInitialMovies() {
                 if (allMovieObjects[0]['imdbID'] === allMovieObjects[i]['imdbID']) {
                     ++i;
                 }
-                //console.log("Initial Display: " + i);
+                var imageDiv = document.createElement('div');
                 var imageID = allMovieObjects[i]['imdbID'];
                 var image = document.createElement('img');
                 image.src = allMovieObjects[i]['smallPoster'];
-                image.width = 200;
+//                image.width = 200;
 
                 image.setAttribute('onclick', 'getSources(\'' + imageID + '\')');
 
-                movieListDiv.appendChild(image);
+                imageDiv.appendChild(image);
+                movieImages.appendChild(imageDiv);
             }
         }
+
+        movieListDiv.appendChild(movieImages);
 
         document.body.appendChild(movieListDiv);
     } else {
@@ -508,6 +573,10 @@ function writeMovieList(movieList) {
     $('#errorModal').modal('hide');
     document.getElementById('heading-container').innerHTML = '';
     document.getElementById('paragraph-container').innerHTML = '';
+    document.getElementById('wrap').style.position = 'relative';
+    document.getElementById('wrap').style.left = '';
+    document.getElementById('wrap').style.top = '';
+    document.body.style.backgroundImage = 'none';
 
     //generateFilterBox();
     document.getElementById('filterBox').style.visibility = "visible";
@@ -518,12 +587,12 @@ function writeMovieList(movieList) {
     document.getElementById('pg').checked = true;
     document.getElementById('g').checked = true;
 
-    document.getElementById('sourceFilterBox').style.visibility = "visible";
+    //document.getElementById('sourceFilterBox').style.visibility = "visible";
     document.getElementById('netflix').checked = false;
     document.getElementById('prime').checked = false;
     document.getElementById('hulu').checked = false;
 
-    document.getElementById('resetButton').style.visibility = "visible";
+    //document.getElementById('resetButton').style.visibility = "visible";
 
     displayInitialMovies();
 }
