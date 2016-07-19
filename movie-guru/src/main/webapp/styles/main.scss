@@ -284,17 +284,17 @@ input[type="submit"]:hover {
     padding-bottom: 15px;
     margin-top: 20px;
     @media (max-width: 587px) {
-      display: block;
-      margin: 0 0 0 30%;
+        display: block;
+        margin: 0 0 0 30%;
     }
     @media (max-width: 440px) {
-      margin: 0 0 0 20%;
+        margin: 0 0 0 20%;
     }
     img {
-      width: 300px;
-      @media (max-width: 991px) {
-        width: 200px;
-      }
+        width: 300px;
+        @media (max-width: 991px) {
+            width: 200px;
+        }
     }
 }
 .movieDetails {
@@ -303,9 +303,9 @@ input[type="submit"]:hover {
     width: 50%;
     padding-bottom: 50px;
     @media (max-width: 587px) {
-      display: block;
-      margin: auto;
-      width: 90%;
+        display: block;
+        margin: auto;
+        width: 90%;
     }
     .modal-title {
         font-family: 'Raleway';
@@ -313,8 +313,10 @@ input[type="submit"]:hover {
         line-height: 55px;
         margin-top: 20px;
         padding-bottom: 15px;
+        @media (max-width: 991px) {
+            font-size: 35pt;
+        }
     }
-
 }
 #modalMoviePlot {
     width: 80%;
@@ -323,10 +325,22 @@ input[type="submit"]:hover {
     padding-bottom: 30px;
 }
 #movieTrailer {
+    position: relative;
+    padding-bottom: 60%;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
     margin-left: 12%;
-    margin-bottom: 75px;
+    //margin-bottom: 75px;
     @media (max-width: 991px) {
-      margin-left: 0%;
+        margin-left: 0;
+    }
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 }
 .modal-footer {
@@ -377,8 +391,8 @@ input[type="submit"]:hover {
     margin-left: 5%;
 }
 .message-content {
-  text-align: center;
-  padding: 20px 10px 40px 10px;
+    text-align: center;
+    padding: 20px 10px 40px;
 }
 .spinner {
     font-size: 50px;
@@ -386,12 +400,12 @@ input[type="submit"]:hover {
     display: block;
     width: 1em;
     height: 1em;
-    margin: 30px auto 0px auto;
+    margin: 30px auto 0;
 }
 .spinner .spinner-blade {
     position: absolute;
     left: 0.4629em;
-    bottom: 0px;
+    bottom: 0;
     width: 0.074em;
     height: 0.2777em;
     border-radius: 0.5em;
