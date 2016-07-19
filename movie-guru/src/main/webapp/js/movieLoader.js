@@ -65,9 +65,8 @@ function fillModalBody(movie) {
         if (movie['trailerEmbed'] !== "") {
             var ifrm = document.createElement("iframe");
             ifrm.src = movie['trailerEmbed'];
-            ifrm.style.width = "645px";
-            ifrm.style.height = "365px";
-
+            ifrm.setAttribute('allowFullScreen', '');
+            ifrm.frameBorder = 0;
             trailerDiv.appendChild(ifrm);
         }
     }
@@ -155,7 +154,7 @@ function fillModalSources(movie) {
     movieSourcesUL.appendChild(freeSourcesListItem);
     movieSourcesUL.appendChild(paidSourcesListItem);
     movieSourcesUL.appendChild(subscriptionSourcesListItem);
-    
+
     movieSourcesDiv.appendChild(movieSourcesUL);
 }
 
