@@ -10,7 +10,7 @@ angular.module('app')
                         }
                         return movieTitleArray;
                     } else {
-                        return [];
+                        return;
                     }
                 }, function(err) {
                     console.log(err);
