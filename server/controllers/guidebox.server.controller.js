@@ -1,0 +1,81 @@
+const config = require('./../../config'),
+    client = require('guidebox'),
+    Guidebox = new client(config.guidebox_key);
+
+module.exports = {
+    getMovieByTitle(req, res) {
+        Guidebox.search.movies({
+                field: 'title',
+                query: req.params.title
+            },
+            (err, results) => {
+                if (err) {
+                    return res.status(404).send('Could not find movie');
+                }
+                return res.status(200).json(results.results[0]);
+
+            });
+    },
+    getMovieById(req, res) {
+        Guidebox.movies.retrieve(req.params.id,
+            (err, results) => {
+                if (err) {
+                    return res.status(404).send('Could not find movie');
+                }
+                return res.status(200).json(results);
+
+            });
+    },
+    getMovie(req, res) {
+        Guidebox.search.movies({
+                field: 'title',
+                query: req.params.title
+            },
+            (err, result) => {
+                if (err) {
+                    return res.status(404).send('Could not find movie');
+                }
+                Guidebox.movies.retrieve(result.results[0].id,
+                    (err, result) => {
+                        if (err) {
+                            return res.status(404).send('Could not find movie');
+                        }
+                        let movie = {
+                            id: result.id,
+                            title: result.title,
+                            year: result.release_year,
+                            imdb_id: result.imdb,
+                            rating: result.rating,
+                            rottentomatoes_id: result.rottentomatoes,
+                            description: result.overview,
+                            poster: result.poster_400x570,
+                            genres: result.genres,
+                            duration: result.duration,
+                            trailer: result.trailers.web[0].embed,
+                            writers: result.writers,
+                            directors: result.directors,
+                            cast: [],
+                            free_web_sources: result.free_web_sources,
+                            subscription_web_sources: result.subscription_web_sources,
+                            purchase_web_sources: result.purchase_web_sources
+                        }
+
+                        for (var i = 0; i < 6 && i < result.cast.length; i++) {
+                            movie.cast.push(result.cast[i].name);
+                        }
+
+                        if (result.poster_400x570) {
+                            movie.poster = result.poster_400x570;
+                        } else if (result.poster_240x342) {
+                            movie.poster = result.poster_400x570;
+                        } else if (result.poster_120x171) {
+                            movie.poster = result.poster_400x570;
+                        } else {
+                            return res.status(500).send('Insuficient movie data');
+                        }
+
+                        return res.status(200).json(movie);
+                    });
+            });
+    }
+}
