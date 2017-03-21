@@ -9,8 +9,13 @@ angular.module('app', ['ui.router'])
         $stateProvider
             .state('home', {
                 url: '/',
-                templateUrl: './views/home.html'
-                // controller: ''
+                templateUrl: './views/home.html',
+                controller: 'SearchController'
+            })
+            .state('results', {
+                url: '/results/:search',
+                templateUrl: './views/results.html',
+                controller: 'ResultsController'
             })
 
     });
