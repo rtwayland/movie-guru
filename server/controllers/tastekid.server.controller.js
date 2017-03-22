@@ -1,7 +1,9 @@
 const http = require('http');
 module.exports = {
     getSuggestions(req, res) {
-        let apiPath = '/api/similar?k=228946-moviegur-14IA4LWB&q=' + req.params.search + '&type=movies&limit=100';
+        let limit = 5;
+        let search = encodeURI(req.params.search);
+        let apiPath = '/api/similar?k=228946-moviegur-14IA4LWB&q=' + search + '&type=movies&limit=' + limit;
         var options = {
             host: 'www.tastekid.com',
             port: 80,

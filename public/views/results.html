@@ -1,0 +1,33 @@
+<div id="wrap">
+    <form name="searchForm" ng-submit="submitSearch()">
+        <input onfocus="this.select();" type="text" id="suggestion-search" name="search" ng-model="searchTitle" placeholder="Movie Title">
+        <input id="search_submit" type="submit">
+    </form>
+</div>
+<div class="movieList">
+    <div class="searchedMovieBanner">
+        <div class="bannerText">
+            <div class="suggestionsFor">
+                <p>suggestions for</p>
+            </div>
+            <div class="moviesLike">
+                <p>movies like</p>
+            </div>
+            <div class="movieTitle">
+                <p>{{masterMovie.title}}</p>
+            </div>
+        </div>
+        <div class="titlePic">
+            <img ng-src="{{masterMovie.poster}}" alt="">
+        </div>
+    </div>
+    <div class="divider">
+        <hr>
+    </div>
+    <div class="movieImages" ng-if="masterMovieList">
+        <div ng-repeat="movie in displayList track by $index">
+            <!-- <p>{{movie.title}}</p> -->
+            <img ng-src="{{movie.small_poster}}" alt="">
+        </div>
+    </div>
+</div>
