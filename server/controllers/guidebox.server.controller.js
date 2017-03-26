@@ -63,7 +63,7 @@ module.exports = {
     },
     getMovieById(req, res) {
         Guidebox.movies.retrieve(req.params.id,
-            (err, results) => {
+            (err, result) => {
                 if (err) {
                     return res.status(404).send('Could not find movie');
                 }
