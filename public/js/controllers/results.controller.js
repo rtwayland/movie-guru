@@ -2,32 +2,44 @@ angular.module('app')
     .controller('ResultsController', function($scope, $state, TastekidService, GuideboxService) {
         function init() {
             let searchTitle = encodeURI($state.params.search);
-            GuideboxService.getMovie(searchTitle)
-                .then(function(res) {
-                    $scope.masterMovie = res;
-                    getSuggestionsAndMovies(searchTitle);
-                }, function(err) {
-                    console.log(err);
-                });
-
+            if (sessionStorage.masterMovie) {
+                $scope.masterMovie = angular.fromJson(sessionStorage.masterMovie);
+                getSuggestionsAndMovies(searchTitle);
+            } else {
+                GuideboxService.getMovie(searchTitle)
+                    .then(function(res) {
+                        $scope.masterMovie = res;
+                        sessionStorage.masterMovie = angular.toJson(res);
+                        getSuggestionsAndMovies(searchTitle);
+                    }, function(err) {
+                        console.log(err);
+                    });
+            }
         }
 
         function getSuggestionsAndMovies(searchTitle) {
-            TastekidService.getSuggestions(searchTitle)
-                .then(function(res) {
-                        $scope.suggestions = res;
-                        $scope.masterMovieList = [];
+            if (sessionStorage.suggestions && sessionStorage.masterMovieList) {
+                $scope.suggestions = angular.fromJson(sessionStorage.suggestions);
+                $scope.masterMovieList = angular.fromJson(sessionStorage.masterMovieList);
+                $scope.displayList = $scope.masterMovieList;
+            } else {
+                TastekidService.getSuggestions(searchTitle)
+                    .then(function(res) {
+                            $scope.suggestions = res;
+                            sessionStorage.suggestions = angular.toJson(res);
+                            $scope.masterMovieList = [];
 
-                        for (var i = 0; i < $scope.suggestions.length; i++) {
-                            (function(num) {
-                                fillMovieList($scope.suggestions[num]);
-                            })(i);
-                        }
-                        // console.log('Master List\n', $scope.masterMovieList);
-                    },
-                    function(err) {
-                        console.log(err);
-                    });
+                            for (var i = 0; i < $scope.suggestions.length; i++) {
+                                (function(num) {
+                                    fillMovieList($scope.suggestions[num]);
+                                })(i);
+                            }
+                        },
+                        function(err) {
+                            console.log(err);
+                        });
+
+            }
         }
 
         function fillMovieList(title) {
@@ -35,6 +47,7 @@ angular.module('app')
             GuideboxService.getMovie(searchTitle)
                 .then(function(res) {
                     $scope.masterMovieList.push(res);
+                    sessionStorage.masterMovieList = angular.toJson($scope.masterMovieList);
                 }, function(err) {
                     console.log(err);
                 });
