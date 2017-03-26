@@ -1,0 +1,44 @@
+.home-container {
+    .movieGuru {
+        font-size: 60pt;
+        margin-top: 50px;
+        margin-left: 150px;
+        @media (max-width: 880px) {
+            margin-left: 20px;
+        }
+        @media (max-width: 452px) {
+            margin-top: 0;
+        }
+    }
+
+    .find {
+        font-size: 18pt;
+        margin-top: -65px;
+        margin-left: 570px;
+        font-weight: 100;
+        opacity: 0.4;
+        @media (max-width: 1273px) {
+            margin-left: 155px;
+            margin-top: 0;
+        }
+        @media (max-width: 880px) {
+            margin-left: 20px;
+        }
+    }
+
+    #paragraph-container {
+        font-size: 12pt;
+        width: 500px;
+        margin-left: 55px;
+        margin-top: 275px;
+        @media (max-width: 1137px) {
+            width: 40%;
+        }
+        @media (max-width: 535px) {
+            margin-left: 20px;
+        }
+        @media (max-width: 401px) {
+            width: 80%;
+        }
+    }
+}
