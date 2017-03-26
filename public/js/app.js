@@ -17,6 +17,11 @@ angular.module('app', ['ui.router'])
                 templateUrl: './views/results.html',
                 controller: 'ResultsController'
             })
+            .state('movie-details', {
+                url: '/movie-details/:id',
+                templateUrl: './views/movie-details.html',
+                controller: 'MovieDetailsController'
+            })
 
     });
 
