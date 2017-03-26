@@ -18,16 +18,13 @@
             </div>
         </div>
         <div class="titlePic">
-            <img ng-src="{{masterMovie.poster}}" alt="">
+            <movie movie="masterMovie"></movie>
         </div>
     </div>
     <div class="divider">
         <hr>
     </div>
     <div class="movieImages" ng-if="masterMovieList">
-        <div ng-repeat="movie in displayList track by $index">
-            <!-- <p>{{movie.title}}</p> -->
-            <img ng-src="{{movie.small_poster}}" alt="">
-        </div>
+        <movie ng-repeat="movie in displayList track by $index" movie="movie" class="movie"></movie>
     </div>
 </div>
