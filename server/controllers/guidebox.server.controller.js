@@ -55,7 +55,7 @@ module.exports = {
             },
             (err, results) => {
                 if (err) {
-                    return res.status(404).send('Could not find movie');
+                    return res.status(404).send(`Could not find ${req.params.title}`);
                 }
                 return res.status(200).json(results.results[0]);
 
@@ -81,7 +81,7 @@ module.exports = {
             },
             (err, result) => {
                 if (err) {
-                    return res.status(404).send('Could not find movie');
+                    return res.status(404).send(`Could not find ${req.params.title}`);
                 }
                 if (result.results[0]) {
                     Guidebox.movies.retrieve(result.results[0].id,
@@ -95,7 +95,7 @@ module.exports = {
                             return res.status(200).json(movie);
                         });
                 } else {
-                    return res.status(404).send('Could not find movie');
+                    return res.status(404).send(`Could not find ${req.params.title}`);
                 }
             });
     }
