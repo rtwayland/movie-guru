@@ -3,6 +3,9 @@ angular.module('app')
         this.getMovie = function(title) {
                 return $http.get('/api/get-movie/' + title)
                     .then(function(res) {
+                        if (!res.data) {
+                            return res;
+                        }
                         return res.data;
                     }, function(err) {
                         console.log(err);
