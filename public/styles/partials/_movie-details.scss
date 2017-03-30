@@ -1,0 +1,140 @@
+.modal-header {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+.modal-header button {
+    color: white;
+    opacity: 1;
+    z-index: 10;
+}
+
+#moviePoster {
+    margin-left: 10%;
+    padding-bottom: 15px;
+    margin-top: 20px;
+    @media (max-width: 587px) {
+        display: block;
+        margin: 0 0 0 30%;
+    }
+    @media (max-width: 440px) {
+        margin: 0 0 0 20%;
+    }
+
+    img {
+        width: 300px;
+        @media (max-width: 991px) {
+            width: 200px;
+        }
+    }
+}
+
+.movieDetails {
+    margin-top: -350px;
+    margin-left: 50%;
+    width: 50%;
+    padding-bottom: 50px;
+    @media (max-width: 587px) {
+        display: block;
+        margin: auto;
+        width: 90%;
+    }
+
+    .modal-title {
+        font-family: 'Raleway';
+        font-size: 40pt;
+        line-height: 55px;
+        margin-top: 20px;
+        padding-bottom: 15px;
+        @media (max-width: 991px) {
+            font-size: 35pt;
+        }
+    }
+}
+
+#modalMoviePlot {
+    width: 80%;
+    margin-left: 10%;
+    padding-top: 15px;
+    padding-bottom: 30px;
+}
+
+#movieTrailer {
+    position: relative;
+    padding-bottom: 60%;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
+    margin-left: 12%;
+    //margin-bottom: 75px;
+    @media (max-width: 991px) {
+        margin-left: 0;
+    }
+
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.modal-footer {
+    background-color: black;
+
+    a {
+        color: #4ce9fc;
+    }
+
+    h5 {
+        color: gray;
+    }
+
+    hr {
+        color: gray;
+        opacity: 0.5;
+        padding-bottom: 8px;
+    }
+
+    ul {
+        display: flex;
+        flex-flow: row;
+        list-style: none;
+        margin-left: 10%;
+    }
+
+    li {
+        width: 28%;
+    }
+}
+
+.content {
+    padding-bottom: 30px;
+}
+
+.viewable {
+    font-family: 'Raleway';
+    font-size: 24pt;
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#freeSources {
+    position: relative;
+    text-align: left;
+}
+
+#paidSources {
+    position: relative;
+    text-align: center;
+}
+
+#subscriptionSources {
+    position: relative;
+    text-align: right;
+    margin-left: 5%;
+}
