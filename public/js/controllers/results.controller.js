@@ -117,7 +117,7 @@ angular.module('app')
             }
 
 
-            if (subscriptionFiltered.length) {
+            if (subscriptionFiltered.length || (netflix || prime || hulu)) {
                 masterList = subscriptionFiltered;
             }
 
