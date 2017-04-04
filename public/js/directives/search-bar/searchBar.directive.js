@@ -11,23 +11,25 @@ angular.module('app')
             },
             controller: function($scope, $state, TastekidService, GuideboxService) {
                 $scope.submitSearch = function() {
-                    sessionStorage.clear();
+                    if ($scope.searchTitle) {
+                        sessionStorage.clear();
 
-                    if ($state.current.name == 'results') {
-                        let searchTitle = encodeURI($scope.searchTitle);
-                        GuideboxService.getMovie(searchTitle)
-                            .then(function(res) {
-                                $scope.masterMovie = res;
-                                $scope.$parent.masterMovie = res;
-                                sessionStorage.masterMovie = angular.toJson(res);
-                                getSuggestionsAndMovies(searchTitle);
-                            }, function(err) {
-                                console.log(err);
-                            });
-                    } else {
-                        $state.go('results', {
-                            search: $scope.searchTitle
-                        })
+                        if ($state.current.name == 'results') {
+                            let searchTitle = encodeURI($scope.searchTitle);
+                            GuideboxService.getMovie(searchTitle)
+                                .then(function(res) {
+                                    $scope.masterMovie = res;
+                                    $scope.$parent.masterMovie = res;
+                                    sessionStorage.masterMovie = angular.toJson(res);
+                                    getSuggestionsAndMovies(searchTitle);
+                                }, function(err) {
+                                    console.log(err);
+                                });
+                        } else {
+                            $state.go('results', {
+                                search: $scope.searchTitle
+                            })
+                        }
                     }
                 }
 
