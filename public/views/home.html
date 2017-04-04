@@ -1,27 +1,21 @@
 <div class="home-container">
+    <div id="heading-container">
+        <div class="movieGuru">
+            <p>Movie Guru</p>
+        </div>
+        <div class="find">
+            <p>find your next favorite movie</p>
+        </div>
+    </div>
+
     <search-bar></search-bar>
-</div>
 
-<!-- <div id="heading-container">
-    <div class="movieGuru">
-        <p>Movie Guru</p>
-    </div>
-    <div class="find">
-        <p>find your next favorite movie</p>
+    <div id="paragraph-container">
+        <p>Enter a movie title and we will give you recommendations of other movies you might like as well as where you can find them</p>
     </div>
 </div>
 
-<div id="wrap" style="position: absolute; left: 55px; top: 300px;">
-    <form onsubmit="collect();
-            return false">
-        <input onfocus="this.select();" type="text" id="suggestion-search" name="search" placeholder="Movie Title">
-        <input id="search_submit" type="submit">
-    </form>
-</div>
-<div id="paragraph-container">
-    <p>Enter a movie title and we will give you recommendations of other movies you might like as well as where you can find them</p>
-</div>
-<div id="messageModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<!-- <div id="messageModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content message-content">
             <h2>Please wait</h2>
@@ -42,53 +36,9 @@
             </div>
         </div>
     </div>
-</div>
-<div class="checkboxes" id="filterBox" style="position: absolute; visibility: hidden;">
-    <ul>
-        <li>
-            <input type="checkbox" name="r" id="r" onchange="filter()" checked="">
-            <label for="r">R</label>
-        </li>
-        <li>
-            <input type="checkbox" name="pg13" id="pg13" onchange="filter()" checked="">
-            <label for="pg13">PG-13</label>
-        </li>
-        <li>
-            <input type="checkbox" name="pg" id="pg" onchange="filter()" checked="">
-            <label for="pg">PG</label>
-        </li>
-        <li>
-            <input type="checkbox" name="g" id="g" onchange="filter()" checked="">
-            <label for="g">G</label>
-        </li>
-        <li>
-            <input type="checkbox" name="nr" id="nr" onchange="filter()" checked="">
-            <label for="nr">NR</label>
-        </li>
-        <li>
-            <input type="checkbox" name="nc" id="nc" onchange="filter()" checked="">
-            <label for="nr">NC-17</label>
-        </li>
-        <li><hr/></li>
-        <li>
-            <input type="checkbox" name="netflix" id="netflix" onchange="filterSources()">
-            <label for="netflix">Netflix</label>
-        </li>
-        <li>
-            <input type="checkbox" name="prime" id="prime" onchange="filterSources()">
-            <label for="prime">Amazon Prime</label>
-        </li>
-        <li>
-            <input type="checkbox" name="hulu" id="hulu" onchange="filterSources()">
-            <label for="hulu">Hulu</label>
-        </li>
-    </ul>
-    <button id="resetButton" type="button" onclick="reset()">Reset</button>
-</div>
+</div> -->
 
-
-
-<div id="errorModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<!-- <div id="errorModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content message-content">
             <h2>Sorry!</h2>
