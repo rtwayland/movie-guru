@@ -13,11 +13,7 @@ angular.module('app')
                 $scope.submitSearch = function() {
                     if ($scope.searchTitle) {
                         if ($state.current.name == 'results') {
-                            if (sessionStorage.searchedTitle) {
-                                if (sessionStorage.searchedTitle != $scope.searchTitle) {
-                                    searchForNewMovie();
-                                }
-                            } else {
+                            if (!sessionStorage.searchedTitle || sessionStorage.searchedTitle != $scope.searchTitle) {
                                 searchForNewMovie();
                             }
                         } else {
