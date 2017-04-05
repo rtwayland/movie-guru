@@ -90,10 +90,7 @@
     margin: auto;
 
     .filter-divider {
-        @media screen and (min-width: 760px) {
-            display: none;
-        }
-        @media screen and (max-width: 360px) {
+        @media screen and (min-width: 760px) and (max-width: 360px) {
             display: none;
         }
     }
