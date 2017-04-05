@@ -1,7 +1,7 @@
 const http = require('http');
 module.exports = {
     getSuggestions(req, res) {
-        let limit = 5;
+        let limit = 20;
         let search = encodeURI(req.params.search);
         let apiPath = '/api/similar?k=228946-moviegur-14IA4LWB&q=' + search + '&type=movies&limit=' + limit;
         var options = {
