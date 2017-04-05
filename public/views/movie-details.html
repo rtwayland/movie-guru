@@ -15,9 +15,7 @@
         </div>
         <p id="modalMoviePlot">{{movie.description}}</p>
         <div id="movieTrailer">
-            <video controls>
-                      <source src="{{movie.trailer}}" type="video/">
-                    </video>
+            <iframe ng-src="{{trustSrc(movie.trailer)}}" allowFullScreen frameBorder="0"></iframe>
         </div>
     </div>
     <div class="modal-footer">

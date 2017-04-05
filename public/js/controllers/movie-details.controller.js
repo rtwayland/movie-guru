@@ -1,5 +1,5 @@
 angular.module('app')
-    .controller('MovieDetailsController', function($scope, $state, GuideboxService) {
+    .controller('MovieDetailsController', function($scope, $state, GuideboxService, $sce) {
         if (sessionStorage.masterMovie && sessionStorage.masterMovieList) {
 
             $scope.masterMovie = angular.fromJson(sessionStorage.masterMovie);
@@ -42,5 +42,9 @@ angular.module('app')
 
             return `${hours} hrs ${minutes} min`;
         }
+
+        $scope.trustSrc = function(src) {
+            return $sce.trustAsResourceUrl(src);
+        };
 
     });
