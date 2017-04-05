@@ -1,53 +1,50 @@
 <search-bar></search-bar>
 <div class="movie-details-container">
-    <div class="modal-body">
-        <div id="moviePoster">
-            <img ng-src="{{movie.poster}}" alt="{{movie.title}}">
+    <main class="details-body">
+        <section class="details-banner">
+            <div class="movie-poster">
+                <img ng-src="{{movie.poster}}" alt="{{movie.title}}">
+            </div>
+            <div class="movie-details">
+                <p class="movie-title">{{movie.title}}</p>
+                <p class="movie-rating">{{movie.rating}}</p>
+                <p class="movie-year">{{movie.year}}</p>
+                <p class="movie-duration">{{movie.duration}}</p>
+                <p class="movie-director">Director(s): <span ng-repeat="director in movie.directors">{{director.name}}</span> </p>
+                <p class="movie-writer">Writer(s): <span ng-repeat="writer in movie.writers">{{writer.name}}</span> </p>
+                <p class="movie-actors">Cast: {{movie.cast}} </p>
+            </div>
+        </section>
+        <section class="movie-content">
+            <p class="movie-description">{{movie.description}}</p>
+            <div class="movie-trailer" ng-if="movie.trailer">
+                <iframe ng-src="{{trustSrc(movie.trailer)}}" allowFullScreen></iframe>
+            </div>
+        </section>
+    </main>
+    <footer class="sources-footer">
+        <div class="footer-heading">
+            <p>Viewable On</p>
         </div>
-        <div class="movieDetails">
-            <p class="modal-title" id="modalMovieTitle">{{movie.title}}</p>
-            <p class="modal-rating" id="modalMovieRating">{{movie.rating}}</p>
-            <p class="modal-year" id="modalMovieYear">{{movie.year}}</p>
-            <p class="modal-time" id="modalMovieTime">{{movie.duration}}</p>
-            <p id="modalDirector">Director(s): <span ng-repeat="director in movie.directors">{{director.name}}</span> </p>
-            <p id="modalWriter">Writer(s): <span ng-repeat="writer in movie.writers">{{writer.name}}</span> </p>
-            <p id="modalActors">Cast: {{movie.cast}} </p>
-        </div>
-        <p id="modalMoviePlot">{{movie.description}}</p>
-        <div id="movieTrailer">
-            <iframe ng-src="{{trustSrc(movie.trailer)}}" allowFullScreen frameBorder="0"></iframe>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <p class="viewable">Viewable On</p>
-        <hr>
-        <div class="content" id="movieSources">
-            <ul>
-                <li>
-                    <div id="freeSources">
-                        <h5>Free Sources</h5>
-                        <div ng-repeat="source in movie.free_web_sources">
-                            <a href="{{source.link}}" target="_blank">{{source.display_name}}</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div id="paidSources">
-                        <h5>Paid Sources</h5>
-                        <div ng-repeat="source in movie.purchase_web_sources">
-                            <a href="{{source.link}}" target="_blank">{{source.display_name}}</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div id="subscriptionSources">
-                        <h5>Subscription Sources</h5>
-                        <div ng-repeat="source in movie.subscription_web_sources">
-                            <a href="{{source.link}}" target="_blank">{{source.display_name}}</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
+        <section class="movie-sources">
+            <section class="free-sources">
+                <h5>Free Sources</h5>
+                <div ng-repeat="source in movie.free_web_sources">
+                    <a href="{{source.link}}" target="_blank">{{source.display_name}}</a>
+                </div>
+            </section>
+            <section class="paid-sources">
+                <h5>Paid Sources</h5>
+                <div ng-repeat="source in movie.purchase_web_sources">
+                    <a href="{{source.link}}" target="_blank">{{source.display_name}}</a>
+                </div>
+            </section>
+            <section class="subscription-sources">
+                <h5>Subscription Sources</h5>
+                <div ng-repeat="source in movie.subscription_web_sources">
+                    <a href="{{source.link}}" target="_blank">{{source.display_name}}</a>
+                </div>
+            </section>
+        </section>
+    </footer>
 </div>
