@@ -15,21 +15,7 @@ angular.module('app')
                         console.log(err);
                     });
             }
-
-            $scope.ratings = {
-                r: true,
-                pg13: true,
-                pg: true,
-                g: true,
-                nr: true,
-                nc: true
-            }
-
-            $scope.subscriptions = {
-                netflix: false,
-                hulu: false,
-                prime: false
-            }
+            $scope.clearFilters();
         }
 
         function getSuggestionsAndMovies(searchTitle) {
@@ -138,6 +124,23 @@ angular.module('app')
             }
 
             $scope.displayList = filtered;
+        }
+
+        $scope.clearFilters = function() {
+            $scope.ratings = {
+                r: true,
+                pg13: true,
+                pg: true,
+                g: true,
+                nr: true,
+                nc: true
+            }
+
+            $scope.subscriptions = {
+                netflix: false,
+                hulu: false,
+                prime: false
+            }
         }
 
         init();
