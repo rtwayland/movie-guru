@@ -54,26 +54,15 @@ $footer-heading-height: 80px;
         }
 
         .movie-trailer {
-            // position: relative;
-            // padding-bottom: 60%;
-            // padding-top: 35px;
-            // height: 0;
-            // overflow: hidden;
-            // margin-left: 12%;
-            //margin-bottom: 75px;
-            // @media screen and (max-width: 991px) {
-            //     margin-left: 0;
-            // }
+            overflow: scroll;
+            margin-bottom: 50px;
 
             iframe {
-                // position: absolute;
-                // top: 0;
-                // left: 0;
+                width: 640px;
+                height: 360px;
+                border: 0;
                 display: block;
                 margin: auto;
-                width: 100%;
-                height: 100%;
-                border: none;
             }
         }
     }
