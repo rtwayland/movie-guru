@@ -11,13 +11,13 @@
     .movieGuru {
         font-size: 60pt;
         margin-left: 50px;
-        @media (max-width: 880px) {
+        @media screen and (max-width: 880px) {
             margin-left: 20px;
         }
-        @media (max-width: 452px) {
+        @media screen and (max-width: 452px) {
             margin-top: 0;
         }
-        @media (max-width: 437px) {
+        @media screen and (max-width: 437px) {
             line-height: 75px;
         }
     }
@@ -28,11 +28,11 @@
         margin-left: 500px;
         font-weight: 100;
         opacity: 0.4;
-        @media (max-width: 1273px) {
+        @media screen and (max-width: 1273px) {
             margin-left: 55px;
             margin-top: 0;
         }
-        @media (max-width: 880px) {
+        @media screen and (max-width: 880px) {
             margin-left: 20px;
         }
     }
@@ -42,13 +42,13 @@
         width: 500px;
         margin-left: 55px;
         margin-top: 200px;
-        @media (max-width: 1137px) {
+        @media screen and (max-width: 1137px) {
             width: 40%;
         }
-        @media (max-width: 880px) {
+        @media screen and (max-width: 880px) {
             margin-left: 20px;
         }
-        @media (max-width: 401px) {
+        @media screen and (max-width: 401px) {
             width: 80%;
         }
     }
@@ -57,7 +57,7 @@
         position: absolute;
         left: 55px;
         top: 200px;
-        @media (max-width: 880px) {
+        @media screen and (max-width: 880px) {
             left: 20px;
             top: 240px;
         }
