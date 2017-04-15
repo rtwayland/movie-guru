@@ -1,7 +1,7 @@
 angular.module('app')
     .service('SuggestionService', function($http) {
         this.getSuggestions = function(searchTitle) {
-            return $http.get('/api/tastekid-suggestions/' + searchTitle)
+            return $http.get('/api/movie-suggestions/' + searchTitle)
                 .then(function(res) {
                     if (res.status === 200) {
                         let movieTitleArray = [];

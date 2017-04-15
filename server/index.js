@@ -27,7 +27,7 @@ app.use(express.static(__dirname + './../dist'));
 // CONTROLLERS
 // ============================================================
 const guideboxCtrl = require('./controllers/guidebox.server.controller'),
-    tastekidCtrl = require('./controllers/tastekid.server.controller');
+    suggestionCtrl = require('./controllers/suggestion.server.controller');
 
 // ENDPOINTS
 // ============================================================
@@ -36,7 +36,7 @@ app.get('/api/get-movie-by-title/:title', guideboxCtrl.getMovieByTitle);
 app.get('/api/get-movie-by-id/:id', guideboxCtrl.getMovieById);
 app.get('/api/get-movie/:title', guideboxCtrl.getMovie);
 
-app.get('/api/tastekid-suggestions/:search', tastekidCtrl.getSuggestions);
+app.get('/api/movie-suggestions/:search', suggestionCtrl.getSuggestions);
 
 // VARIABLES
 // ============================================================
