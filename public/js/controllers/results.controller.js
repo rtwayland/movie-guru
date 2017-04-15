@@ -1,5 +1,5 @@
 angular.module('app')
-    .controller('ResultsController', function($scope, $state, TastekidService, GuideboxService) {
+    .controller('ResultsController', function($scope, $state, SuggestionService, GuideboxService) {
         function init() {
             let searchTitle = encodeURI($state.params.search);
             if (sessionStorage.masterMovie) {
@@ -24,7 +24,7 @@ angular.module('app')
                 $scope.masterMovieList = angular.fromJson(sessionStorage.masterMovieList);
                 $scope.displayList = $scope.masterMovieList;
             } else {
-                TastekidService.getSuggestions(searchTitle)
+                SuggestionService.getSuggestions(searchTitle)
                     .then(function(res) {
                             $scope.suggestions = res;
                             sessionStorage.suggestions = angular.toJson(res);

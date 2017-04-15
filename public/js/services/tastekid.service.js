@@ -1,5 +1,5 @@
 angular.module('app')
-    .service('TastekidService', function($http) {
+    .service('SuggestionService', function($http) {
         this.getSuggestions = function(searchTitle) {
             return $http.get('/api/tastekid-suggestions/' + searchTitle)
                 .then(function(res) {

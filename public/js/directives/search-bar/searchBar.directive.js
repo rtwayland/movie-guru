@@ -9,7 +9,7 @@ angular.module('app')
             link: function(scope, elem, attrs) {
 
             },
-            controller: function($scope, $state, TastekidService, GuideboxService) {
+            controller: function($scope, $state, SuggestionService, GuideboxService) {
                 $scope.submitSearch = function() {
                     if ($scope.searchTitle) {
                         if ($state.current.name == 'results') {
@@ -48,7 +48,7 @@ angular.module('app')
                 }
 
                 function getSuggestionsAndMovies(searchTitle) {
-                    TastekidService.getSuggestions(searchTitle)
+                    SuggestionService.getSuggestions(searchTitle)
                         .then(function(res) {
                                 $scope.suggestions = res;
                                 $scope.$parent.suggestions = res;
