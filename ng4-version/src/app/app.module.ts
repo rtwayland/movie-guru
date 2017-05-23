@@ -7,6 +7,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './Components/home/home.component';
 import { SearchBarComponent } from './Components/search-bar/search-bar.component';
 
+import { GuideboxService } from './Services/guidebox.service';
+import { SuggestionGeneratorService } from './Services/suggestion-generator.service';
+import { MovieService } from './Services/movie.service';
+import { SuggestionService } from './Services/suggestion.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +23,12 @@ import { SearchBarComponent } from './Components/search-bar/search-bar.component
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [
+      GuideboxService,
+      SuggestionGeneratorService,
+      MovieService,
+      SuggestionService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

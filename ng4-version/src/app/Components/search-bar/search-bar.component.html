@@ -1,6 +1,14 @@
 <div class="search-bar">
-    <form name="searchForm" (ngSubmit)="submitSearch()">
-        <input onfocus="this.select()" type="text" id="suggestion-search" name="search" #searchTitle placeholder="Movie Title">
-        <input id="search_submit" type="submit">
-    </form>
+  <form name="searchForm" (ngSubmit)="submitSearch()">
+    <input onfocus="this.select()" type="text" id="suggestion-search" name="search" #searchTitle placeholder="Movie Title">
+    <input id="search_submit" type="submit">
+  </form>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <button type="button" (click)="getMasterMovie()">Get Movie</button>
+  <br>
+  <button type="button" (click)="getSuggestions()">Get Suggestions</button>
 </div>
