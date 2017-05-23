@@ -1,0 +1,64 @@
+.search-bar {
+    height: 30px;
+    padding: 0;
+    position: relative;
+}
+
+input[type="text"] {
+    height: 30px;
+    font-size: 14px;
+    display: inline-block;
+    font-weight: 100;
+    border: none;
+    outline: none;
+    color: #555;
+    padding: 3px 60px 3px 50px;
+    width: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 5px;
+    margin-top: 5px;
+    background: none;
+    z-index: 3;
+    transition: width 0.4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
+    cursor: pointer;
+}
+
+input[type="text"]:focus:hover {
+    border-bottom: 0.5px solid #BBB;
+}
+
+input[type="text"]:focus {
+    width: 300px;
+    z-index: 1;
+    border-bottom: 0.5px solid #BBB;
+    cursor: text;
+}
+
+input[type="submit"] {
+    height: 35px;
+    width: 35px;
+    display: inline-block;
+    outline: none;
+    color: red;
+    //float: right;
+    background: url('https://d30y9cdsu7xlg0.cloudfront.net/png/6983-200.png');
+    background-size: contain;
+    text-indent: -10000px;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 5px;
+    margin-top: 5px;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 1.0;
+    cursor: pointer;
+    transition: opacity 0.7s ease;
+}
+
+input[type="submit"]:hover {
+    opacity: 0.8;
+}
