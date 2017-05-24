@@ -15,6 +15,7 @@ import { SuggestionService } from './Services/suggestion.service';
 import { MovieComponent } from './Components/movie/movie.component';
 import { ResultsComponent } from './Components/results/results.component';
 import { MovieDetailsComponent } from './Components/movie-details/movie-details.component';
+import { MovieFiltersComponent } from './Components/movie-filters/movie-filters.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
     SearchBarComponent,
     MovieComponent,
     ResultsComponent,
-    MovieDetailsComponent
+    MovieDetailsComponent,
+    MovieFiltersComponent
   ],
   imports: [
     BrowserModule,

@@ -16,3 +16,24 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.bannerImage {
+  img {
+    width: 300px;
+    cursor: pointer;
+    @media screen and (max-width: 759px) {
+      display: block;
+      margin: auto;
+    }
+  }
+}
+
+.movie {
+  .movie-img-container {
+    img {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+    }
+  }
+}
