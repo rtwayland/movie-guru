@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
 import { GuideboxService } from '../../Services/guidebox.service';
 
@@ -14,7 +15,7 @@ export class MovieDetailsComponent implements OnInit {
 	masterMovieList: any[];
     movie: any;
 
-	constructor(private guideboxService: GuideboxService, private route: ActivatedRoute) { }
+	constructor(private guideboxService: GuideboxService, private route: ActivatedRoute, private sanitizer: DomSanitizer) { }
 
 	ngOnInit() {
 		this.movieId = this.route.snapshot.params['id'];
@@ -65,8 +66,8 @@ export class MovieDetailsComponent implements OnInit {
 		return `${hours} hrs ${minutes} min`;
 	}
 
-	// trustSrc(src) {
-	// 	return $sce.trustAsResourceUrl(src);
-	// };
+	trustSrc(src) {
+		return this.sanitizer.bypassSecurityTrustResourceUrl(src);
+	};
 
 }

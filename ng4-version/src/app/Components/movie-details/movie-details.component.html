@@ -17,9 +17,9 @@
         </section>
         <section class="movie-content">
             <p class="movie-description">{{movie.description}}</p>
-            <!-- <div class="movie-trailer" ng-if="movie.trailer">
-                <iframe ng-src="{{trustSrc(movie.trailer)}}" allowFullScreen></iframe>
-            </div> -->
+            <div class="movie-trailer" *ngIf="movie.trailer">
+                <iframe [src]="trustSrc(movie.trailer)" allowFullScreen></iframe>
+            </div>
         </section>
     </main>
     <footer class="sources-footer">
