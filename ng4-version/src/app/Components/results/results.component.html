@@ -23,6 +23,6 @@
   <app-movie-filters></app-movie-filters>
 
   <section class="movieImages" *ngIf="masterMovieList">
-    <app-movie *ngFor="let movie of masterMovieList" [movie]="movie" class="movie"></app-movie>
+    <app-movie *ngFor="let movie of displayList" [movie]="movie" class="movie"></app-movie>
   </section>
 </div>

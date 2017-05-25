@@ -78,6 +78,7 @@ export class ResultsComponent implements OnInit {
 			(movie) => {
 				if (movie) {
 					this.masterMovieList.push(movie);
+					this.displayList = this.masterMovieList;
 					sessionStorage.masterMovieList = JSON.stringify(this.masterMovieList);
 				}
 			},
