@@ -16,6 +16,7 @@ import { MovieComponent } from './Components/movie/movie.component';
 import { ResultsComponent } from './Components/results/results.component';
 import { MovieDetailsComponent } from './Components/movie-details/movie-details.component';
 import { MovieFiltersComponent } from './Components/movie-filters/movie-filters.component';
+import { RatingsSubscriptionsPipe } from './ratings-subscriptions.pipe';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -31,7 +32,8 @@ const appRoutes: Routes = [
     MovieComponent,
     ResultsComponent,
     MovieDetailsComponent,
-    MovieFiltersComponent
+    MovieFiltersComponent,
+    RatingsSubscriptionsPipe
   ],
   imports: [
     BrowserModule,

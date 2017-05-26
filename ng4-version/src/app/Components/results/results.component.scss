@@ -85,6 +85,75 @@
   width: 100%;
 }
 
+/************* Filter Checkboxes *************/
+.filter-checkboxes {
+  width: 80%;
+  margin: auto;
+
+  .filter-divider {
+    @media screen and (min-width: 760px) and (max-width: 360px) {
+      display: none;
+    }
+  }
+
+  .list-container {
+    width: 100%;
+
+    .item {
+      padding: 0 5px;
+    }
+
+    .ratings-wrapper,
+    .subscriptions-wrapper {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+    }
+    @media screen and (min-width: 760px) {
+      display: table;
+
+      .ratings,
+      .subscriptions {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      .ratings {
+        width: 60%;
+      }
+
+      .subscriptions {
+        width: 40%;
+      }
+    }
+    @media screen and (max-width: 360px) {
+      display: table;
+
+      .ratings,
+      .subscriptions {
+        display: table-cell;
+        vertical-align: top;
+        width: 50%;
+      }
+
+      .ratings-wrapper,
+      .subscriptions-wrapper {
+        display: flex;
+        flex-flow: column nowrap;
+      }
+    }
+  }
+
+  button {
+    margin: 5px auto 20px;
+    display: block;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #999;
+  }
+}
+
+
 /************* Movie Results *************/
 .movieImages {
   display: flex;

@@ -13,8 +13,9 @@ export class ResultsComponent implements OnInit {
 	searchTitle: string;
 	masterMovie: Object;
 	masterMovieList: Object[];
-	displayList: Object[];
 	suggestions: string[];
+	ratings: { r: boolean, pg13: boolean, pg: boolean, g: boolean, nr: boolean, nc: boolean };
+	subscriptions: { netflix: boolean, prime: boolean, hulu: boolean };
 
 	constructor(private guideboxService: GuideboxService, private suggestionGeneratorService: SuggestionGeneratorService, private route: ActivatedRoute) { }
 
@@ -40,7 +41,30 @@ export class ResultsComponent implements OnInit {
 				(err) => console.log(err)
 				);
 		}
-		//   $scope.clearFilters();
+		this.resetFilters();
+	}
+
+	setRatings() {
+		this.ratings = {
+			r: this.ratings.r,
+			pg13: this.ratings.pg13,
+			pg: this.ratings.pg,
+			g: this.ratings.g,
+			nr: this.ratings.nr,
+			nc: this.ratings.nc
+		}
+	}
+	setSubscriptions() {
+		this.subscriptions = {
+			netflix: this.subscriptions.netflix,
+			prime: this.subscriptions.prime,
+			hulu: this.subscriptions.hulu
+		}
+	}
+
+	resetFilters() {
+		this.ratings = { r: true, pg13: true, pg: true, g: true, nr: true, nc: false }
+		this.subscriptions = { netflix: false, prime: false, hulu: false }
 	}
 
 
@@ -48,7 +72,6 @@ export class ResultsComponent implements OnInit {
 		if (sessionStorage.suggestions && sessionStorage.masterMovieList) {
 			this.suggestions = JSON.parse(sessionStorage.suggestions);
 			this.masterMovieList = JSON.parse(sessionStorage.masterMovieList);
-			this.displayList = this.masterMovieList;
 		} else {
 			this.suggestionGeneratorService.getSuggestions(searchTitle)
 				.subscribe(
@@ -78,7 +101,6 @@ export class ResultsComponent implements OnInit {
 			(movie) => {
 				if (movie) {
 					this.masterMovieList.push(movie);
-					this.displayList = this.masterMovieList;
 					sessionStorage.masterMovieList = JSON.stringify(this.masterMovieList);
 				}
 			},
