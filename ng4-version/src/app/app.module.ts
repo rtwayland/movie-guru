@@ -12,6 +12,7 @@ import { GuideboxService } from './Services/guidebox.service';
 import { SuggestionGeneratorService } from './Services/suggestion-generator.service';
 import { MovieService } from './Services/movie.service';
 import { SuggestionService } from './Services/suggestion.service';
+import { MovieDataControlService } from './Services/movie-data-control.service';
 import { MovieComponent } from './Components/movie/movie.component';
 import { ResultsComponent } from './Components/results/results.component';
 import { MovieDetailsComponent } from './Components/movie-details/movie-details.component';
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
   providers: [
       GuideboxService,
       SuggestionGeneratorService,
+      MovieDataControlService,
       MovieService,
       SuggestionService
   ],
