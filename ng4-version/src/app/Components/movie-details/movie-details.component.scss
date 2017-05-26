@@ -1,99 +1,105 @@
 $footer-heading-height: 80px;
 
 .movie-details-container {
-    margin-top: 20px;
+  margin-top: 20px;
 
-    .details-banner {
-        margin-bottom: 50px;
-        @media screen and (min-width: 760px) {
-            display: table;
+  .details-banner {
+    margin-bottom: 50px;
+    @media screen and (min-width: 760px) {
+      display: table;
 
-            .movie-details,
-            .movie-poster {
-                display: table-cell;
-                width: 50%;
-                vertical-align: middle;
-            }
-        }
-
-        .movie-poster {
-            img {
-                display: block;
-                margin: auto;
-                width: 70%;
-                min-width: 300px;
-                @media screen and (max-width: 759px) {
-                    width: 300px;
-                }
-            }
-        }
-
-        .movie-details {
-            @media screen and (max-width: 759px) {
-                text-align: center;
-            }
-
-            .movie-title {
-                font-size: 40pt;
-                line-height: 55px;
-                margin-top: 20px;
-                padding-bottom: 15px;
-                @media screen and (max-width: 991px) {
-                    font-size: 35pt;
-                }
-            }
-        }
+      .movie-details,
+      .movie-poster {
+        display: table-cell;
+        width: 50%;
+        vertical-align: middle;
+      }
     }
 
-    .movie-content {
-        .movie-description {
-            display: block;
-            margin: auto;
-            width: 80%;
-            margin-bottom: 30px;
+    .movie-poster {
+      img {
+        display: block;
+        margin: auto;
+        width: 70%;
+        min-width: 300px;
+        @media screen and (max-width: 759px) {
+          width: 300px;
         }
-
-        .movie-trailer {
-            overflow: scroll;
-            margin-bottom: 50px;
-
-            iframe {
-                width: 640px;
-                height: 360px;
-                border: 0;
-                display: block;
-                margin: auto;
-            }
-        }
+      }
     }
 
-    .sources-footer {
-        background-color: black;
+    .movie-details {
+      @media screen and (max-width: 759px) {
+        text-align: center;
+      }
 
-        .footer-heading {
-            font-size: 24pt;
-            color: white;
-            text-align: center;
-            height: $footer-heading-height;
-            line-height: $footer-heading-height;
-            border-bottom: 1px solid gray;
-            margin-bottom: 10px;
+      .movie-title {
+        font-size: 40pt;
+        line-height: 55px;
+        margin-top: 20px;
+        padding-bottom: 15px;
+        @media screen and (max-width: 991px) {
+          font-size: 35pt;
         }
-
-        .movie-sources {
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: space-around;
-            padding-bottom: 30px;
-            text-align: center;
-
-            a {
-                color: #4ce9fc;
-            }
-
-            h5 {
-                color: gray;
-            }
-        }
+      }
     }
+  }
+
+  .movie-content {
+    .movie-description {
+      display: block;
+      margin: auto;
+      width: 80%;
+      margin-bottom: 30px;
+    }
+
+    .movie-trailer {
+      overflow: scroll;
+      margin-bottom: 50px;
+
+      iframe {
+        width: 640px;
+        height: 360px;
+        border: 0;
+        display: block;
+        margin: auto;
+      }
+    }
+  }
+
+  .sources-footer {
+    background-color: black;
+
+    .footer-heading {
+      font-size: 24pt;
+      color: white;
+      text-align: center;
+      height: $footer-heading-height;
+      line-height: $footer-heading-height;
+      border-bottom: 1px solid gray;
+      margin-bottom: 10px;
+    }
+
+    .movie-sources {
+      padding-bottom: 30px;
+      text-align: center;
+@media screen and (min-width: 500px) {
+
+      display: table;
+      width: 100%;
+      section {
+        display: table-cell;
+        width: calc(100% / 3);
+      }
+  }
+
+      a {
+        color: #4ce9fc;
+      }
+
+      h5 {
+        color: gray;
+      }
+    }
+  }
 }
