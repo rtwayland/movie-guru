@@ -1,4 +1,4 @@
-const config = require('./../../config'),
+const config = require('./../config'),
     client = require('guidebox'),
     Guidebox = new client(config.guidebox_key);
 
