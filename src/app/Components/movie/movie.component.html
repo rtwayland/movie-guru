@@ -1,3 +1,3 @@
 <div class="movie-img-container">
-    <img [routerLink]="['/details', movie.id]" [src]="movie.poster" alt="{{movie.title}}">
+    <img [routerLink]="['/details', movie.id]" [src]="movie.poster" alt="{{movie.title}}" *ngIf="movie.poster">
 </div>
