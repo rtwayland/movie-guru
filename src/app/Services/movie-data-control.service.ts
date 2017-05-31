@@ -27,6 +27,8 @@ export class MovieDataControlService {
 			this.searchTitle = title;
 			this.masterMovie = {};
 			this.masterMovieList = [];
+			this.masterMovieSource.next(this.masterMovie);
+			this.masterMovieListSource.next(this.masterMovieList);
 			sessionStorage.searchTitle = this.searchTitle;
 			console.log('Setting new Title')
 			this.prepareData();
