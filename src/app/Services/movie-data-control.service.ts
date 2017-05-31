@@ -63,10 +63,14 @@ export class MovieDataControlService {
 					this.suggestions = res;
 					sessionStorage.suggestions = JSON.stringify(res);
 					this.masterMovieList = [];
-					for (let i = 0; i < this.suggestions.length; i++) {
-						((num) => {
-							this.fillMovieList(this.suggestions[num]);
-						})(i);
+					if (this.suggestions.length > 0) {
+						for (let i = 0; i < this.suggestions.length; i++) {
+							((num) => {
+								this.fillMovieList(this.suggestions[num]);
+							})(i);
+						}
+					} else {
+						this.masterMovieListSource.next(this.masterMovieList);
 					}
 				},
 				(err) => console.log(err)
