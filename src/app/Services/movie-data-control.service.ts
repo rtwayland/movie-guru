@@ -19,15 +19,14 @@ export class MovieDataControlService {
 	masterMovieList$ = this.masterMovieListSource.asObservable().share();
 
 	constructor(private guideboxService: GuideboxService, private suggestionGeneratorService: SuggestionGeneratorService) {
-		if (sessionStorage.searchTitle) {
-			this.searchTitle = sessionStorage.searchTitle;
-			this.prepareData();
-		}
+		this.searchTitle = '';
 	}
 
 	setSearchTitle(title: string) {
-		if (this.searchTitle !== title) {
+		if (this.searchTitle.toLowerCase() !== title.toLowerCase()) {
 			this.searchTitle = title;
+			this.masterMovie = {};
+			this.masterMovieList = [];
 			sessionStorage.searchTitle = this.searchTitle;
 			console.log('Setting new Title')
 			this.prepareData();
@@ -37,7 +36,7 @@ export class MovieDataControlService {
 	}
 
 	private prepareData() {
-		if (this.masterMovie && sessionStorage.masterMovie) {
+		if ((this.masterMovie && Object.keys(this.masterMovie).length !== 0) && sessionStorage.masterMovie) {
 			this.masterMovie = JSON.parse(sessionStorage.masterMovie);
 			this.getSuggestionsAndMovies(this.searchTitle);
 		} else {
@@ -55,8 +54,7 @@ export class MovieDataControlService {
 	}
 
 	private getSuggestionsAndMovies(searchTitle: string) {
-		if ((this.suggestions && sessionStorage.suggestions) && (this.masterMovieList && sessionStorage.masterMovieList)) {
-			this.suggestions = JSON.parse(sessionStorage.suggestions);
+		if ((this.masterMovieList && this.masterMovieList.length > 0) && sessionStorage.masterMovieList) {
 			this.masterMovieList = JSON.parse(sessionStorage.masterMovieList);
 		} else {
 			this.suggestionGeneratorService.getSuggestions(searchTitle)
