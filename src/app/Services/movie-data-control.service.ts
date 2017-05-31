@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 
+import { uniqBy } from 'lodash';
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
@@ -10,8 +11,8 @@ import { SuggestionGeneratorService } from './suggestion-generator.service';
 @Injectable()
 export class MovieDataControlService {
 	searchTitle: string;
-	masterMovie: Object;
-	masterMovieList: Object[];
+	masterMovie: {};
+	masterMovieList: {}[];
 	suggestions: string[];
 	masterMovieSource = new BehaviorSubject<any>({});
 	masterMovieListSource = new BehaviorSubject<any[]>([]);
@@ -30,10 +31,7 @@ export class MovieDataControlService {
 			this.masterMovieSource.next(this.masterMovie);
 			this.masterMovieListSource.next(this.masterMovieList);
 			sessionStorage.searchTitle = this.searchTitle;
-			console.log('Setting new Title')
 			this.prepareData();
-		} else {
-			console.log('No title change')
 		}
 	}
 
@@ -86,7 +84,7 @@ export class MovieDataControlService {
 			.subscribe(
 			(movie) => {
 				if (movie) {
-					this.masterMovieList = [...this.masterMovieList, movie];
+					this.masterMovieList = [...uniqBy(this.masterMovieList, 'id'), movie];
 					sessionStorage.masterMovieList = JSON.stringify(this.masterMovieList);
 					this.masterMovieListSource.next(this.masterMovieList);
 				}
