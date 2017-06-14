@@ -1,9 +1,7 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { uniqBy } from 'lodash';
-import {Observable} from "rxjs/Observable";
-import {Subject} from "rxjs/Subject";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import { GuideboxService } from './guidebox.service';
 import { SuggestionGeneratorService } from './suggestion-generator.service';
@@ -90,7 +88,7 @@ export class MovieDataControlService {
 				}
 			},
 			(err) => console.log(err)
-			)
+			);
 	}
 
 }
