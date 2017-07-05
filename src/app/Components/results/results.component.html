@@ -1,0 +1,75 @@
+<app-search-bar></app-search-bar>
+<div class="results-page-container" *ngIf="masterMovie">
+  <header class="searchedMovieBanner">
+    <div class="bannerText">
+      <div class="text-container">
+        <div class="banner-sub-text">
+          <p>suggestions for<br>movies like</p>
+        </div>
+        <div class="banner-movie-title">
+          <p>{{masterMovie.title}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="bannerImage">
+      <app-movie [movie]="masterMovie"></app-movie>
+    </div>
+  </header>
+
+  <div class="divider">
+    <hr>
+  </div>
+
+  <aside class="filter-checkboxes">
+      <div class="list-container">
+          <div class="ratings">
+              <div class="ratings-wrapper">
+                  <div class="item">
+                      <input type="checkbox" name="r" id="r" [(ngModel)]="ratings.r" (change)="setRatings()" [checked]="ratings.r">
+                      <label for="r">R</label>
+                  </div>
+                  <div class="item">
+                      <input type="checkbox" name="pg13" id="pg13" [(ngModel)]="ratings.pg13" (change)="setRatings()" [checked]="ratings.pg13">
+                      <label for="pg13">PG-13</label>
+                  </div>
+                  <div class="item">
+                      <input type="checkbox" name="pg" id="pg" [(ngModel)]="ratings.pg" (change)="setRatings()" [checked]="ratings.pg">
+                      <label for="pg">PG</label>
+                  </div>
+                  <div class="item">
+                      <input type="checkbox" name="g" id="g" [(ngModel)]="ratings.g" (change)="setRatings()" [checked]="ratings.g">
+                      <label for="g">G</label>
+                  </div>
+                  <div class="item">
+                      <input type="checkbox" name="nr" id="nr" [(ngModel)]="ratings.nr" (change)="setRatings()" [checked]="ratings.nr">
+                      <label for="nr">NR</label>
+                  </div>
+              </div>
+          </div>
+          <div class="filter-divider">
+              <hr/>
+          </div>
+          <div class="subscriptions">
+              <div class="subscriptions-wrapper">
+                  <div class="item">
+                      <input type="checkbox" name="netflix" id="netflix" [(ngModel)]="subscriptions.netflix" (change)="setSubscriptions()">
+                      <label for="netflix">Netflix</label>
+                  </div>
+                  <div class="item">
+                      <input type="checkbox" name="prime" id="prime" [(ngModel)]="subscriptions.prime" (change)="setSubscriptions()">
+                      <label for="prime">Amazon Prime</label>
+                  </div>
+                  <div class="item">
+                      <input type="checkbox" name="hulu" id="hulu" [(ngModel)]="subscriptions.hulu" (change)="setSubscriptions()">
+                      <label for="hulu">Hulu</label>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <button id="resetButton" type="button" (click)="resetFilters()">Clear Filters</button>
+  </aside>
+
+  <section class="movieImages" *ngIf="masterMovieList">
+    <app-movie *ngFor="let movie of (masterMovieList | ratingsSubscriptions: ratings:subscriptions)" [movie]="movie" class="movie"></app-movie>
+  </section>
+</div>

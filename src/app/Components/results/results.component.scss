@@ -1,0 +1,185 @@
+.results-page-container {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/************* Main Banner *************/
+.searchedMovieBanner {
+  width: 100%;
+  @media screen and (min-width: 760px) {
+    display: table;
+
+    .bannerImage,
+    .bannerText {
+      display: table-cell;
+      width: 50%;
+      height: 100%;
+      vertical-align: middle;
+    }
+  }
+
+  .bannerText {
+    .text-container {
+      .banner-sub-text {
+        min-width: 139px;
+      }
+
+      .banner-movie-title {
+        line-height: 55px;
+      }
+      @media screen and (min-width: 760px) {
+        float: right;
+
+        .banner-movie-title,
+        .banner-sub-text {
+          display: table-cell;
+          vertical-align: middle;
+        }
+
+        .banner-sub-text {
+          font-size: 15pt;
+          text-align: right;
+          width: 30%;
+        }
+
+        .banner-movie-title {
+          width: 70%;
+          font-size: 37pt;
+          padding-left: 5px;
+        }
+      }
+      @media screen and (max-width: 759px) {
+        .banner-sub-text {
+          font-size: 15pt;
+          text-align: center;
+          // width: 30%;
+        }
+
+        .banner-movie-title {
+          text-align: center;
+          // width: 70%;
+          // margin: auto;
+          font-size: 37pt;
+        }
+      }
+    }
+  }
+
+  .bannerImage {
+    @media screen and (min-width: 760px) {
+      padding-left: 10px;
+    }
+
+    img {
+      width: 300px;
+      cursor: pointer;
+      @media screen and (max-width: 759px) {
+        display: block;
+        margin: auto;
+      }
+    }
+  }
+}
+/************* Divider *************/
+.divider {
+  padding: 20px 0 0;
+  width: 100%;
+}
+
+/************* Filter Checkboxes *************/
+.filter-checkboxes {
+  width: 80%;
+  margin: auto;
+
+  .filter-divider {
+    @media screen and (min-width: 760px) and (max-width: 360px) {
+      display: none;
+    }
+  }
+
+  .list-container {
+    width: 100%;
+
+    .item {
+      padding: 0 5px;
+    }
+
+    .ratings-wrapper,
+    .subscriptions-wrapper {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+    }
+    @media screen and (min-width: 760px) {
+      display: table;
+
+      .ratings,
+      .subscriptions {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      .ratings {
+        width: 60%;
+      }
+
+      .subscriptions {
+        width: 40%;
+      }
+    }
+    @media screen and (max-width: 360px) {
+      display: table;
+
+      .ratings,
+      .subscriptions {
+        display: table-cell;
+        vertical-align: top;
+        width: 50%;
+      }
+
+      .ratings-wrapper,
+      .subscriptions-wrapper {
+        display: flex;
+        flex-flow: column nowrap;
+      }
+    }
+  }
+
+  button {
+    margin: 5px auto 20px;
+    display: block;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #999;
+  }
+}
+
+
+/************* Movie Results *************/
+.movieImages {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  .movie {
+    width: 20%;
+    padding: 0 1px 1px 0;
+    @media screen and (max-width: 1050px) {
+      width: 25%;
+    }
+    @media screen and (max-width: 865px) {
+      width: 33%;
+    }
+    @media screen and (max-width: 670px) {
+      width: 50%;
+    }
+    @media screen and (max-width: 460px) {
+      width: 90%;
+    }
+    @media screen and (max-width: 360px) {
+      min-width: 300px;
+    }
+  }
+
+}

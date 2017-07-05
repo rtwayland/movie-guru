@@ -1,0 +1,50 @@
+<app-search-bar></app-search-bar>
+<div class="movie-details-container">
+    <main class="details-body">
+        <section class="details-banner">
+            <div class="movie-poster">
+                <img [src]="movie.poster" alt="{{movie.title}}">
+            </div>
+            <div class="movie-details">
+                <p class="movie-title">{{movie.title}}</p>
+                <p class="movie-rating">{{movie.rating}}</p>
+                <p class="movie-year">{{movie.year}}</p>
+                <p class="movie-duration">{{movie.duration}}</p>
+                <p class="movie-director">Director(s): <span *ngFor="let director of movie.directors">{{director.name}}</span> </p>
+                <p class="movie-writer">Writer(s): <span *ngFor="let writer of movie.writers">{{writer.name}}</span> </p>
+                <p class="movie-actors">Cast: {{movie.cast}} </p>
+            </div>
+        </section>
+        <section class="movie-content">
+            <p class="movie-description">{{movie.description}}</p>
+            <div class="movie-trailer" *ngIf="movie.trailer">
+                <iframe [src]="trustSrc(movie.trailer)" allowFullScreen></iframe>
+            </div>
+        </section>
+    </main>
+    <footer class="sources-footer">
+        <div class="footer-heading">
+            <p>Viewable On</p>
+        </div>
+        <section class="movie-sources">
+            <section class="free-sources">
+                <h5>Free Sources</h5>
+                <div *ngFor="let source of movie.free_web_sources">
+                    <a href="{{source.link}}" target="_blank">{{source.display_name}}</a>
+                </div>
+            </section>
+            <section class="paid-sources">
+                <h5>Paid Sources</h5>
+                <div *ngFor="let source of movie.purchase_web_sources">
+                    <a href="{{source.link}}" target="_blank">{{source.display_name}}</a>
+                </div>
+            </section>
+            <section class="subscription-sources">
+                <h5>Subscription Sources</h5>
+                <div *ngFor="let source of movie.subscription_web_sources">
+                    <a href="{{source.link}}" target="_blank">{{source.display_name}}</a>
+                </div>
+            </section>
+        </section>
+    </footer>
+</div>
